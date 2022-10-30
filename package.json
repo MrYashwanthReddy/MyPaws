@@ -1,0 +1,25 @@
+{
+  "name": "mypaws",
+  "version": "1.0.0",
+  "description": "This is MyPaws",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrYashwanthReddy/MyPaws.git"
+  },
+  "author": "Group 30",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrYashwanthReddy/MyPaws/issues"
+  },
+  "homepage": "https://github.com/MrYashwanthReddy/MyPaws#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "mongodb": "^4.11.0"
+  }
+}
