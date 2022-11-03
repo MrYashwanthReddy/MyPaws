@@ -4,7 +4,7 @@ const getCollectionFn = (collection) => {
   let _col = undefined;
 
   return async () => {
-    if (_col) {
+    if (!_col) {
       const db = await dbConnection.dbConnection();
       _col = await db.collection(collection);
     }
@@ -13,5 +13,5 @@ const getCollectionFn = (collection) => {
 };
 
 module.exports = {
-    users: getCollectionFn("users"),
-}
+  users: getCollectionFn("users"),
+};

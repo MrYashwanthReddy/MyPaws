@@ -1,3 +1,5 @@
+const { ObjectId } = require("mongodb");
+
 module.exports = {
   validValue(input, fieldName) {
     if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
@@ -20,5 +22,20 @@ module.exports = {
         msg: `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`,
       };
     return strVal;
+  },
+  checkId(id) {
+    if (!id)
+      throw { status: 400, msg: "Error: You must provide an id to search for" };
+    if (typeof id !== "string")
+      throw { status: 400, msg: "Error: id must be a string" };
+    id = id.trim();
+    if (id.length === 0)
+      throw {
+        status: 400,
+        msg: "Error: id cannot be an empty string or just spaces",
+      };
+    if (!ObjectId.isValid(id))
+      throw { status: 400, msg: "Error: invalid object ID" };
+    return id;
   },
 };

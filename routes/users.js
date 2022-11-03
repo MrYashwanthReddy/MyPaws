@@ -3,22 +3,33 @@ const express = require("express");
 const router = express.Router();
 
 const path = require("path");
+const { users } = require("../data");
 const { validValue, checkString } = require("../validation");
 
-router.route("/").get((req, res) => {
+const bcrypt = require("bcrypt");
+
+router.route("/").get(async (req, res) => {
   res.render("home/home", { page: { title: "MyPaws" } });
 });
 
 router
   .route("/login")
   .get((req, res) => {
+    const data = users.getAllUsers();
     res.render("users/login", { page: { title: "Login" } });
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     let body = req.body;
     try {
       let email = validValue(body.email, "EMAIL");
       let pass = validValue(body.password, "PASSWORD");
+
+      email = checkString(body.email, "EMAIL");
+      pass = checkString(body.password, "PASSWORD");
+
+      const result = await users.userLogin(email, pass);
+
+      res.json(result);
     } catch (error) {
       res.status(error.status).render("users/login", {
         ...body,
@@ -33,7 +44,7 @@ router
   .get((req, res) => {
     res.render("users/register", { page: { title: "Registration" } });
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     let body = req.body;
     try {
       let firstName = validValue(body.firstName, "FIRST NAME");
@@ -51,6 +62,23 @@ router
       petBreed = checkString(body.petBreed, "PET BREED");
       password = checkString(body.password, "PASSWORD");
       cpassword = checkString(body.cpassword, "RETYPE PASSWORD");
+
+      if (password !== cpassword)
+        throw { status: 400, msg: "Error: PASSWORD does not match" };
+
+      const salt = await bcrypt.genSalt(10);
+
+      let hashpass = await bcrypt.hash(password, salt);
+
+      const result = await users.createUser(
+        firstName,
+        lastName,
+        email,
+        petName,
+        petBreed,
+        hashpass
+      );
+      res.json(result);
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,
