@@ -41,8 +41,6 @@ router
       let email = validValue(body.email, "EMAIL");
       let petName = validValue(body.petName, "PET NAME");
       let petBreed = validValue(body.petBreed, "PET BREED");
-      let password = validValue(body.password, "PASSWORD");
-      let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,
