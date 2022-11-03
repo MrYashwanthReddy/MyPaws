@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const path = require("path");
-const { validValue } = require("../validation");
+const { validValue, checkString } = require("../validation");
 
 router.route("/").get((req, res) => {
   res.render("home/home", { page: { title: "MyPaws" } });
@@ -41,6 +41,16 @@ router
       let email = validValue(body.email, "EMAIL");
       let petName = validValue(body.petName, "PET NAME");
       let petBreed = validValue(body.petBreed, "PET BREED");
+      let password = validValue(body.password, "PASSWORD");
+      let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
+
+      firstName = checkString(body.firstName, "FIRST NAME");
+      lastName = checkString(body.lastName, "LAST NAME");
+      email = checkString(body.email, "EMAIL");
+      petName = checkString(body.petName, "PET NAME");
+      petBreed = checkString(body.petBreed, "PET BREED");
+      password = checkString(body.password, "PASSWORD");
+      cpassword = checkString(body.cpassword, "RETYPE PASSWORD");
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,
