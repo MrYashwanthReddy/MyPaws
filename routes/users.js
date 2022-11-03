@@ -6,7 +6,7 @@ const path = require("path");
 const { validValue } = require("../validation");
 
 router.route("/").get((req, res) => {
-  res.sendFile(path.resolve("static/homepage.html"));
+  res.render("home/home", { page: { title: "MyPaws" } });
 });
 
 router
@@ -39,6 +39,10 @@ router
       let firstName = validValue(body.firstName, "FIRST NAME");
       let lastName = validValue(body.lastName, "LAST NAME");
       let email = validValue(body.email, "EMAIL");
+      let petName = validValue(body.petName, "PET NAME");
+      let petBreed = validValue(body.petBreed, "PET BREED");
+      let password = validValue(body.password, "PASSWORD");
+      let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,

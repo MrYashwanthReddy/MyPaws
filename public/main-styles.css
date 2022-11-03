@@ -9,13 +9,16 @@ header {
 }
 
 footer {
-  min-height: 40px;
+  min-height: 60px;
   background-color: black;
+  color: white;
+}
+footer a {
   color: white;
 }
 
 main {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 100px);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -46,4 +49,14 @@ h2 {
 
 .error {
   color: red;
+}
+
+li {
+  list-style: none;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: xx-large;
 }

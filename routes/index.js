@@ -1,6 +1,6 @@
 const userApiRoutes = require("./usersAPI");
 
-const mainRoutes = require("./main");
+const mainRoutes = require("./users");
 
 const path = require("path");
 

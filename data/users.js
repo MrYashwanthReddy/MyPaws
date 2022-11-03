@@ -8,6 +8,10 @@ const getAllUsers = async () => {
   return data;
 };
 
+const createUser = async () => {
+  
+}
+
 module.exports = {
   getAllUsers,
 };
