@@ -1,13 +1,12 @@
-const userApiRoutes = require("./usersAPI");
-
 const mainRoutes = require("./users");
+
+const petRoutes = require("./pets");
 
 const path = require("path");
 
 const constructorMethod = (app) => {
-  app.use("/api/users", userApiRoutes);
-
   app.use("/", mainRoutes);
+  app.use("/pets", petRoutes);
 
   app.use("*", (req, res) => {
     res.status(404).json({ error: "Route not found" });

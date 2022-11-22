@@ -17,12 +17,17 @@ footer a {
   color: white;
 }
 
+html {
+  background-color: black;
+}
+
 main {
   min-height: calc(100vh - 100px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 form {
@@ -36,7 +41,13 @@ form label {
   flex-direction: column;
 }
 
+form label .radio {
+  display: flex;
+  flex-direction: row;
+}
+
 form input,
+select,
 button {
   padding: 10px;
   margin: 5px;
