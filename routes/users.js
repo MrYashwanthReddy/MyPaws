@@ -9,7 +9,14 @@ const { validValue, checkString } = require("../validation");
 const bcrypt = require("bcrypt");
 
 router.route("/").get(async (req, res) => {
-  res.render("home/home", { page: { title: "MyPaws" } });
+  res.redirect("/live");
+});
+
+router.route("/live").get(async (req, res) => {
+  res.render("home/home", {
+    page: { title: "MyPaws" },
+    cookie: req.session.user,
+  });
 });
 
 router
@@ -29,7 +36,16 @@ router
 
       const result = await users.userLogin(email, pass);
 
-      res.json(result);
+      console.log(result);
+
+      if ((result.status = 200)) {
+        req.session.user = {
+          auth: true,
+          ...result,
+        };
+      }
+
+      res.redirect("/live");
     } catch (error) {
       res.status(error.status).render("users/login", {
         ...body,
@@ -78,7 +94,7 @@ router
         petBreed,
         hashpass
       );
-      res.json(result);
+      res.redirect("/login");
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,
@@ -87,5 +103,16 @@ router
       });
     }
   });
+
+router.route("/logout").get(async (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
+
+router.route("/profile").get(async (req, res) => {
+  let data = req.session.user;
+  console.log(data);
+  res.render("users/profile", { page: { title: "Profile" }, data: data });
+});
 
 module.exports = router;

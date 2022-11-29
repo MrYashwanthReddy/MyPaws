@@ -2,6 +2,7 @@ const express = require("express");
 
 const app = express();
 const exphbs = require("express-handlebars");
+const session = require("express-session");
 const static = express.static(__dirname + "/public");
 
 const configRoutes = require("./routes");
@@ -13,6 +14,34 @@ app.use(express.urlencoded({ extended: true }));
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+app.use(
+  session({
+    name: "AuthCookie",
+    secret: "MyPaws",
+    saveUninitialized: false,
+    resave: false,
+    cookie: { maxAge: 600000 },
+  })
+);
+
+app.use("/live", (req, res, next) => {
+  if (!req.session.user) {
+    res.redirect("/login");
+  } else next();
+});
+
+app.use("/login", (req, res, next) => {
+  if (req.session.user) {
+    res.redirect("/live");
+  } else next();
+});
+
+app.use("/profile", (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else res.redirect("/");
+});
 
 configRoutes(app);
 

@@ -10,7 +10,6 @@ const getAllUsers = async () => {
   try {
     const usersCollection = await users();
     const data = await usersCollection.find({}).toArray();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -27,7 +26,13 @@ const createUser = async (
 ) => {
   const usersCollection = await users();
 
-  const newUser = {
+  const user = await usersCollection.findOne({ email: email });
+
+  if (user) {
+    throw { status: 403, msg: "User already exists" };
+  }
+
+  const userData = {
     firstName,
     lastName,
     email,
@@ -36,14 +41,14 @@ const createUser = async (
     password,
   };
 
-  const insertInfo = await usersCollection.insertOne(newUser);
+  const insertInfo = await usersCollection.insertOne(userData);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
     throw { status: 400, msg: "Could not add user" };
 
   const newId = insertInfo.insertedId.toString();
-  const user = await getUserById(newId);
+  const newUser = await getUserById(newId);
 
-  return user;
+  return { status: 200, insertedUser: true, data: newUser };
 };
 
 const getUserById = async (id) => {
@@ -62,12 +67,15 @@ const getUserById = async (id) => {
 const userLogin = async (email, pass) => {
   const usersCollection = await users();
   const user = await usersCollection.findOne({ email: email });
+  if (user == null) {
+    throw { status: 401, msg: "Invalid Username or Password" };
+  }
   let dbPass = validValue(user.password);
 
   const validPassword = await bcrypt.compare(pass, dbPass);
 
-  if (validPassword) return true;
-  else return false;
+  if (validPassword) return { status: 200, ...user };
+  else throw { status: 401, msg: "Invalid Username or Password" };
 };
 
 module.exports = {

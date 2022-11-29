@@ -5,20 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyPaws | {{page.title}}</title>
     <link rel="stylesheet" href="/public/main-styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <header>
       <div class="logo"><a href="/">MyPaws</a> </div>
+      <div class="profile">
+        {{#if cookie}}
+          <i
+            onclick="window.location.href = '/profile'"
+            class="material-icons"
+          >person</i>
+        {{/if}}
+
+      </div>
+
     </header>
     <main>
       {{{body}}}
     </main>
     <footer>
       <ul>
-        <li><a href="/login">Login</a></li>
+        {{#unless cookie}}
+          <li><a href="/login">Login</a></li>
+        {{else if cookie.auth}}
+          <li><a href="/logout">Logout</a></li>
+        {{else}}
+
+        {{/unless}}
+
         <li><a href="/register">Register</a></li>
+      </ul>
+      <ul>
+        <li><a href="/pets/lost">Lost</a></li>
+        <li><a href="/pets/found">Found</a></li>
+
       </ul>
     </footer>
 
+    <script src="/public/js/main.js"></script>
   </body>
 </html>
