@@ -1,8 +1,10 @@
 <h1>Found Pet Form</h1>
 <form id="foundpet-form" method="post" action="/found">
-
+  {{#if error}}
+    <div class="error">{{error}}</div>
+  {{/if}}
   <label for="nameInput"> Your Name</label>
-  <input type="text" id="nameInput" name="nameInput" />
+  <input type="text" id="nameInput" name="nameInput" value={{nameInput}} />
   <label for="emailInput">Your Email</label>
   <input type="text" id="emailInput" name="emailInput" />
   <label for="animalInput">Animal Found</label>

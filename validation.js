@@ -6,8 +6,7 @@ module.exports = {
     return input;
   },
   checkString(strVal, varName) {
-    if (!strVal)
-      throw { status: 400, msg: `Error: You must supply a ${varName}!` };
+    if (!strVal) throw { status: 400, msg: `Error: Missing ${varName} input` };
     if (typeof strVal !== "string")
       throw { status: 400, msg: `Error: ${varName} must be a string!` };
     strVal = strVal.trim();

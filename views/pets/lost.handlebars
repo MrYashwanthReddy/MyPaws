@@ -1,5 +1,8 @@
 <h1>Lost Pet Form</h1>
-<form id="lostpet-form" method="post" action="/lost">
+<form id="lostpet-form" method="post" action="/pets/lost">
+  {{#if error}}
+    <div class="error">{{error}}</div>
+  {{/if}}
 
   <label for="animalInput">Animal Lost</label>
   <input type="text" id="animalInput" name="animalInput" />
@@ -29,7 +32,7 @@
     <label for="colarInput2">No</label>
   </div>
   <label for="heightInput">Height</label>
-  <input type="number" id="heightInput" name="heightnput" />
+  <input type="number" id="heightInput" name="heightInput" />
   <label for="genderInput">Gender</label>
   <select id="genderInput" name="genderInput">
     <option value="M">Male</option>
