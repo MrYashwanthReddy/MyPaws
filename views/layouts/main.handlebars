@@ -13,14 +13,16 @@
   <body>
     <header>
       <div class="logo"><a href="/">MyPaws</a> </div>
-      <div class="profile">
-        {{#if cookie}}
-          <i
-            onclick="window.location.href = '/profile'"
-            class="material-icons"
-          >person</i>
-        {{/if}}
-
+      <div class="d-flex"></div>
+        <a href="/new-feed" style="color: #fff;">new post</a>
+        <div class="profile">
+          {{#if cookie}}
+            <i
+              onclick="window.location.href = '/profile'"
+              class="material-icons"
+            >person</i>
+          {{/if}}
+        </div>
       </div>
 
     </header>
@@ -46,6 +48,7 @@
       </ul>
     </footer>
 
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/public/js/main.js"></script>
   </body>
 </html>
