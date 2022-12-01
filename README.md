@@ -1,5 +1,5 @@
 # CS 546 Web Programming I Final Project: MyPaws
-
+###### A dog finder website designed specifically for finding lost pets in Hoboken, NJ.
 
 ## Core Feature of Projet
 1. Landing Page: explains the purpose and functionality of the website.  
