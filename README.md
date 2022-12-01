@@ -27,5 +27,5 @@
 
 ## GitHub Link
 
-[MyPaws] (https://github.com/MrYashwanthReddy/MyPaws.git)
+ MyPaws (https://github.com/MrYashwanthReddy/MyPaws.git).
 
