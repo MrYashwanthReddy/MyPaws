@@ -7,13 +7,14 @@ const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
 
 const getAllUsers = async () => {
+  let usersCollection;
   try {
-    const usersCollection = await users();
-    const data = await usersCollection.find({}).toArray();
-    return data;
+    usersCollection = await users();
   } catch (error) {
-    console.log(error);
+    throw { status: 500, msg: "Server error" };
   }
+  const data = await usersCollection.find({}).toArray();
+  return data;
 };
 
 const createUser = async (
@@ -24,7 +25,12 @@ const createUser = async (
   petBreed,
   password
 ) => {
-  const usersCollection = await users();
+  let usersCollection;
+  try {
+    usersCollection = await users();
+  } catch (error) {
+    throw { status: 500, msg: "Server error" };
+  }
 
   const user = await usersCollection.findOne({ email: email });
 
