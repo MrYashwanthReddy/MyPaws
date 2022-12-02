@@ -112,7 +112,11 @@ router.route("/logout").get(async (req, res) => {
 router.route("/profile").get(async (req, res) => {
   let data = req.session.user;
   console.log(data);
-  res.render("users/profile", { page: { title: "Profile" }, data: data });
+  res.render("users/profile", {
+    page: { title: "Profile" },
+    data: data,
+    cookie: req.session.user ? req.session.user : false,
+  });
 });
 
 module.exports = router;

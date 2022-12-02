@@ -31,11 +31,12 @@
       <ul>
         {{#unless cookie}}
           <li><a href="/login">Login</a></li>
-        {{else if cookie.auth}}
-          <li><a href="/logout">Logout</a></li>
-        {{else}}
 
         {{/unless}}
+
+        {{#if cookie.auth}}
+          <li><a href="/logout">Logout</a></li>
+        {{/if}}
 
         <li><a href="/register">Register</a></li>
       </ul>
