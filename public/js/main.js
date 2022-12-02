@@ -1,17 +1,36 @@
-async function loadFeed(){
-    let {data} = await axios.get('/get-feed');
+async function loadFeed() {
+    let { data } = await axios.get('/get-feed');
     console.log(data);
 
     let res = "";
     data.forEach(f => {
+
+        let imgs = ``;
+        JSON.parse(f.images).forEach((i, idx) => {
+            imgs += `<div class="carousel-item ${idx == 0 ? 'active' : ''}">
+                <img class="d-block w-100" src="${i}">
+            </div>`
+        })
+
         res += `<div class="feed-main" data-id="${f._id}">
             <div class="feed-user">
-                <span>${f.userId}</span>
-                <span>username</span>
+                <span>${f.users[0].firstName} ${f.users[0].lastName}</span>
             </div>
             <div class="feed-img">
-                <img
-                    src="https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2FtcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60" />
+                <div id="images-list-${f._id}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        ${imgs}
+                    </div>
+                    <a class="carousel-control-prev" href="#images-list-${f._id}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#images-list-${f._id}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                
             </div>
             <div class="feed-data"><span>${f.data}</span></div>
             <div class="feed-footer"><button>Comment</button></div>
@@ -19,8 +38,9 @@ async function loadFeed(){
     });
 
     document.getElementById('live-feed').innerHTML = res;
+    $('.carousel').carousel()
 }
-if(document.getElementById('live-feed') != undefined){
+if (document.getElementById('live-feed') != undefined) {
     loadFeed();
 }
 
