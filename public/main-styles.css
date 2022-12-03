@@ -11,10 +11,15 @@ header {
   align-items: center;
 }
 
+<<<<<<< HEAD
 .d-flex{
   display: flex;
   align-items: center;
 }
+=======
+
+
+>>>>>>> 4ee3359a97a63ade895317d1bdd5f7d062953e56
 
 footer {
   min-height: 60px;
@@ -105,6 +110,10 @@ li {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4ee3359a97a63ade895317d1bdd5f7d062953e56
 .feed-main{
   margin: 12px 10px;
   max-width: 350px;
@@ -112,14 +121,34 @@ li {
   border-radius: 6px;
   padding: 12px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4ee3359a97a63ade895317d1bdd5f7d062953e56
 .feed-user{
   font-weight: 600;
   background-color: lightgray;
   margin-bottom: 6px;
   padding: 6px;
   border-radius: 6px;
+<<<<<<< HEAD
   
 }
 .feed-img img{
   width: 100%;
 }
+=======
+}
+.feed-img img {
+  width: 100%;
+}
+
+.header-right {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.profile {
+  padding: 0 10px;
+}
+>>>>>>> 4ee3359a97a63ade895317d1bdd5f7d062953e56
