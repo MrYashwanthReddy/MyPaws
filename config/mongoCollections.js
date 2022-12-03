@@ -16,5 +16,6 @@ module.exports = {
   users: getCollectionFn("users"),
   lostpets: getCollectionFn("lostpets"),
   foundpets: getCollectionFn("foundpets"),
-  liveFeed: getCollectionFn("liveFeed")
+  posts: getCollectionFn("posts"),
+
 };

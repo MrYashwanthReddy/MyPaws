@@ -2,9 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const path = require("path");
-const multer = require('multer');
-const { users, liveFeed } = require("../data");
+const { users } = require("../data");
+
 const { validValue, checkString } = require("../validation");
 
 const bcrypt = require("bcrypt");
@@ -25,39 +24,6 @@ router.route("/").get(async (req, res) => {
   res.redirect("/live");
 });
 
-router.route("/new-feed").get(async (req, res) => {
-  res.render("home/post-feed", {
-    page: { title: "MyPaws" },
-    cookie: req.session.user,
-  });
-});
-router.route("/get-feed").get(async (req, res) => {
-  try {
-    const result = await liveFeed.getAllFeed();
-    res.send(result)
-  } catch (c) {
-    res.send([]);
-  }
-});
-router.post("/new-feed", upload.array('multi-files'), async (req, res) => {
-  try {
-    const result = await liveFeed.createFeed(
-      req.session.user._id,
-      req.body.data,
-      req.files
-    );
-    res.send("Feed Added Successfully")
-  } catch (c) {
-    res.send("Could not add feed");
-  }
-});
-
-router.route("/live").get(async (req, res) => {
-  res.render("home/home", {
-    page: { title: "MyPaws" },
-    cookie: req.session.user,
-  });
-});
 
 router
   .route("/login")

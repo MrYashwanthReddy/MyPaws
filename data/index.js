@@ -1,9 +1,11 @@
 const usersData = require("./users");
 const petsData = require("./pets");
-const liveFeed = require("./liveFeed");
+const postsData = require("./posts");
+
 
 module.exports = {
   users: usersData,
   pets: petsData,
-  liveFeed: liveFeed
+  posts: postsData,
+
 };
