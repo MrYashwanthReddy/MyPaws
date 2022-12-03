@@ -11,7 +11,6 @@ router.route("/new-feed").get(async (req, res) => {
 });
 router.route("/get-feed").get(async (req, res) => {
   try {
-    const result = await posts.getAllPosts();
     res.send(result);
   } catch (c) {
     res.send([]);
@@ -19,10 +18,17 @@ router.route("/get-feed").get(async (req, res) => {
 });
 
 router.route("/live").get(async (req, res) => {
-  res.render("home/home", {
-    page: { title: "MyPaws" },
-    cookie: req.session.user,
-  });
+  try {
+    const result = await posts.getAllPosts();
+
+    res.render("home/home", {
+      page: { title: "MyPaws" },
+      cookie: req.session.user,
+      data: result ? result : false,
+    });
+  } catch (error) {
+    res.status(error.status).json({ error: error.msg });
+  }
 });
 
 module.exports = router;
