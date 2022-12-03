@@ -11,17 +11,9 @@ router.route("/").get(async (req, res) => {
   res.redirect("/live");
 });
 
-router.route("/live").get(async (req, res) => {
-  res.render("home/home", {
-    page: { title: "MyPaws" },
-    cookie: req.session.user,
-  });
-});
-
 router
   .route("/login")
   .get((req, res) => {
-    const data = users.getAllUsers();
     res.render("users/login", { page: { title: "Login" } });
   })
   .post(async (req, res) => {
