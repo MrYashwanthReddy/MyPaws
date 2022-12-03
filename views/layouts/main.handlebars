@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyPaws | {{page.title}}</title>
+
     <link rel="stylesheet" href="/public/main-styles.css" />
     <link
       rel="stylesheet"
@@ -13,14 +14,20 @@
   <body>
     <header>
       <div class="logo"><a href="/">MyPaws</a> </div>
-      <div class="profile">
+      <div class="header-right">
+
         {{#if cookie}}
-          <i
-            onclick="window.location.href = '/profile'"
-            class="material-icons"
-          >person</i>
+          <a href="/new-feed" style="color: #fff;">new post</a>
         {{/if}}
 
+        <div class="profile">
+          {{#if cookie}}
+            <i
+              onclick="window.location.href = '/profile'"
+              class="material-icons"
+            >person</i>
+          {{/if}}
+        </div>
       </div>
 
     </header>

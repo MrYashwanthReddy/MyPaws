@@ -2,7 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-const path = require("path");
 const { users } = require("../data");
 const { validValue, checkString } = require("../validation");
 
@@ -10,13 +9,6 @@ const bcrypt = require("bcrypt");
 
 router.route("/").get(async (req, res) => {
   res.redirect("/live");
-});
-
-router.route("/live").get(async (req, res) => {
-  res.render("home/home", {
-    page: { title: "MyPaws" },
-    cookie: req.session.user,
-  });
 });
 
 router
