@@ -11,10 +11,8 @@ header {
   align-items: center;
 }
 
-.d-flex {
-  display: flex;
-  align-items: center;
-}
+
+
 
 footer {
   min-height: 60px;
@@ -105,14 +103,16 @@ li {
   cursor: pointer;
 }
 
-.feed-main {
+
+.feed-main{
   margin: 12px 10px;
   max-width: 350px;
   background: rgb(232, 232, 232);
   border-radius: 6px;
   padding: 12px;
 }
-.feed-user {
+
+.feed-user{
   font-weight: 600;
   background-color: lightgray;
   margin-bottom: 6px;

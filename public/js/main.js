@@ -1,4 +1,4 @@
-//Data comes from server and rendered in views
+
 
 //Not in main.js
 

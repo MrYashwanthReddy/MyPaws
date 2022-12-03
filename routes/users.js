@@ -3,13 +3,27 @@ const express = require("express");
 const router = express.Router();
 
 const { users } = require("../data");
+
 const { validValue, checkString } = require("../validation");
 
 const bcrypt = require("bcrypt");
 
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+var upload = multer({ storage: storage });
+
+
 router.route("/").get(async (req, res) => {
   res.redirect("/live");
 });
+
 
 router
   .route("/login")
