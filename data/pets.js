@@ -23,7 +23,35 @@ const getFoundpets = async () => {
   } catch (error) {}
 };
 
+const createLostPet = async (data) => {
+  const lostPetsCollection = await lostpets();
+
+  const newPet = { ...data };
+
+  const insertInfo = await lostPetsCollection.insertOne(newPet);
+
+  if (!insertInfo.acknowledged || !insertInfo.insertedId)
+    throw { status: 400, msg: "Could not submit lost pet" };
+
+  return { insertedPet: true };
+};
+
+const createFoundPet = async (data) => {
+  const foundPetsCollection = await foundpets();
+
+  const newPet = { ...data };
+
+  const insertInfo = await foundPetsCollection.insertOne(newPet);
+
+  if (!insertInfo.acknowledged || !insertInfo.insertedId)
+    throw { status: 400, msg: "Could not submit lost pet" };
+
+  return { insertedPet: true };
+};
+
 module.exports = {
   getLostpets,
   getFoundpets,
+  createLostPet,
+  createFoundPet,
 };

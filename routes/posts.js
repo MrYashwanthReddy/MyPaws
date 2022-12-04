@@ -20,7 +20,7 @@ router.route("/get-feed").get(async (req, res) => {
 router.route("/live").get(async (req, res) => {
   try {
     const result = await posts.getAllPosts();
-
+    
     res.render("home/home", {
       page: { title: "MyPaws" },
       cookie: req.session.user,

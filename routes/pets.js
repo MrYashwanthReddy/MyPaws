@@ -1,4 +1,5 @@
 const express = require("express");
+const { pets } = require("../data");
 const { checkString, validValue } = require("../validation");
 
 const router = express.Router();
@@ -31,6 +32,12 @@ router
       gender = checkString(body.genderInput, "gender");
       hairType = checkString(body.hairTypeInput, "hair type");
       height = checkString(body.heightInput, "height");
+
+      const result = await pets.createLostPet(...body);
+
+      if (result.insertedPet) {
+        res.redirect("/live");
+      }
     } catch (error) {
       res.status(error.status).render("pets/lost", {
         ...body,
@@ -72,6 +79,12 @@ router
       gender = checkString(body.genderInput, "gender");
       hairType = checkString(body.hairTypeInput, "hair type");
       height = checkString(body.heightInput, "height");
+
+      const result = await pets.createFoundPet(...body);
+
+      if (result.insertedPet) {
+        res.redirect("/live");
+      }
     } catch (error) {
       res.status(error.status).render("pets/found", {
         ...body,
