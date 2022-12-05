@@ -20,7 +20,7 @@ router.route("/get-feed").get(async (req, res) => {
 router.route("/live").get(async (req, res) => {
   try {
     const result = await posts.getAllPosts();
-    
+
     res.render("home/home", {
       page: { title: "MyPaws" },
       cookie: req.session.user,
@@ -29,6 +29,13 @@ router.route("/live").get(async (req, res) => {
   } catch (error) {
     res.status(error.status).json({ error: error.msg });
   }
+});
+
+router.route("/post").post(async (req, res) => {
+  try {
+    let body = req.body;
+    const result = await posts.createPost(body);
+  } catch (error) {}
 });
 
 module.exports = router;
