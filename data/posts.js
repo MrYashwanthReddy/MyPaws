@@ -41,27 +41,27 @@ const getAllPosts = async () => {
   }
 };
 
-const createPost = async (userId, data, files) => {
+const createPost = async (data) => {
   const postsCollection = await posts();
 
-  let imgs = [];
-  try {
-    files.forEach((i) => {
-      imgs.push(i.path);
-    });
-  } catch (c) {}
+  // let imgs = [];
+  // try {
+  //   files.forEach((i) => {
+  //     imgs.push(i.path);
+  //   });
+  // } catch (c) {}
 
-  const feedData = {
-    userId: ObjectId(userId),
-    data,
-    images: JSON.stringify(imgs),
-    date: new Date().toJSON(),
-    isActive: true,
-    reports: "[]",
-    noOfReport: 0,
-  };
+  // const feedData = {
+  //   userId: ObjectId(userId),
+  //   data,
+  //   images: JSON.stringify(imgs),
+  //   date: new Date().toJSON(),
+  //   isActive: true,
+  //   reports: "[]",
+  //   noOfReport: 0,
+  // };
 
-  const insertInfo = await postsCollection.insertOne(feedData);
+  const insertInfo = await postsCollection.insertOne(data);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
     throw { status: 400, msg: "Could not add feed" };
 

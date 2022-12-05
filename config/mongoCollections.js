@@ -17,5 +17,4 @@ module.exports = {
   lostpets: getCollectionFn("lostpets"),
   foundpets: getCollectionFn("foundpets"),
   posts: getCollectionFn("posts"),
-
 };
