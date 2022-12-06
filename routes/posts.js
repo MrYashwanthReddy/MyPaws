@@ -21,6 +21,8 @@ router.route("/live").get(async (req, res) => {
   try {
     const result = await posts.getAllPosts();
 
+    console.log(result);
+
     res.render("home/home", {
       page: { title: "MyPaws" },
       cookie: req.session.user,
@@ -34,6 +36,7 @@ router.route("/live").get(async (req, res) => {
 router.route("/post").post(async (req, res) => {
   try {
     let body = req.body;
+    console.log(body);
     const result = await posts.createPost(body);
   } catch (error) {}
 });
