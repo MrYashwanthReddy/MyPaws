@@ -6,34 +6,7 @@ const getAllPosts = async () => {
   try {
     const postsCollection = await posts();
     //const data = await liveFeedCollection.find({}).toArray();
-    const data = await postsCollection
-      .aggregate([
-        {
-          $lookup: {
-            from: "users",
-            localField: "userId",
-            foreignField: "_id",
-            as: "users",
-          },
-        },
-        {
-          $project: {
-            _id: 1,
-            data: 1,
-            images: 1,
-            date: 1,
-            isActive: 1,
-            users: {
-              _id: 1,
-              firstName: 1,
-              lastName: 1,
-              petName: 1,
-              petBreed: 1,
-            },
-          },
-        },
-      ])
-      .toArray();
+    const data = await postsCollection.find({}).toArray();
 
     return data;
   } catch (error) {
@@ -60,6 +33,8 @@ const createPost = async (data) => {
   //   reports: "[]",
   //   noOfReport: 0,
   // };
+
+  console.log(data);
 
   const insertInfo = await postsCollection.insertOne(data);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
