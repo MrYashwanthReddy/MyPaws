@@ -4,28 +4,41 @@ const lostpets = mongoCollections.lostpets;
 const foundpets = mongoCollections.foundpets;
 
 const getLostpets = async () => {
+  let lostPetsCollection;
+
   try {
-    const lostPetsCollection = await lostpets();
+    lostPetsCollection = await lostpets();
+  } catch (error) {
+    throw { status: 500, status: "Error: Server Error" };
+  }
 
-    const lostpetData = await lostPetsCollection.find({}).toArray();
+  const lostpetData = await lostPetsCollection.find({}).toArray();
 
-    return lostpetData;
-  } catch (error) {}
+  return lostpetData;
 };
 
 const getFoundpets = async () => {
+  let foundPetsCollection;
+
   try {
-    const foundPetsCollection = await foundpets();
+    foundPetsCollection = await foundpets();
+  } catch (error) {
+    throw { status: 500, status: "Error: Server Error" };
+  }
 
-    const foundpetData = await foundPetsCollection.find({}).toArray();
+  const foundpetData = await foundPetsCollection.find({}).toArray();
 
-    return foundpetData;
-  } catch (error) {}
+  return foundpetData;
 };
 
 const createLostPet = async (data) => {
-  const lostPetsCollection = await lostpets();
+  let lostPetsCollection;
 
+  try {
+    lostPetsCollection = await lostpets();
+  } catch (error) {
+    throw { status: 500, status: "Error: Server Error" };
+  }
   const newPet = { ...data };
 
   const insertInfo = await lostPetsCollection.insertOne(newPet);
@@ -37,8 +50,11 @@ const createLostPet = async (data) => {
 };
 
 const createFoundPet = async (data) => {
-  const foundPetsCollection = await foundpets();
-
+  try {
+    foundPetsCollection = await foundpets();
+  } catch (error) {
+    throw { status: 500, status: "Error: Server Error" };
+  }
   const newPet = { ...data };
 
   const insertInfo = await foundPetsCollection.insertOne(newPet);

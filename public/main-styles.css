@@ -125,3 +125,21 @@ li {
 .profile {
   padding: 0 10px;
 }
+
+.post-card {
+  height: 500px;
+  margin-bottom: 30px;
+}
+
+.post-card .text-part {
+  height: 20%;
+}
+
+.post-card .img-container {
+  height: 80%;
+}
+
+.post-card .img-container img {
+  height: 100%;
+  object-fit: cover;
+}

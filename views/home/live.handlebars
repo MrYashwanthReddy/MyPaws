@@ -1,0 +1,29 @@
+<div id="live-feed">
+
+  Live
+
+  {{#if data}}
+
+    {{#each data}}
+      <div class="post-card">
+
+        <div class="text-part">
+
+          <h1>{{{title}}}</h1>
+          <p>{{{content}}}</p>
+        </div>
+        {{#if image}}
+          <div class="img-container">
+
+            <img src={{{image}}} />
+          </div>
+        {{/if}}
+      </div>
+
+    {{/each}}
+
+  {{else}}
+    <p>No data</p>
+  {{/if}}
+
+</div>

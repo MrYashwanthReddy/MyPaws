@@ -11,9 +11,11 @@ const getAllUsers = async () => {
   try {
     usersCollection = await users();
   } catch (error) {
-    throw { status: 500, msg: "Server error" };
+    throw { status: 500, msg: "Error: Server error" };
   }
+
   const data = await usersCollection.find({}).toArray();
+
   return data;
 };
 
@@ -30,7 +32,7 @@ const createUser = async (
   try {
     usersCollection = await users();
   } catch (error) {
-    throw { status: 500, msg: "Server error" };
+    throw { status: 500, msg: "Error: Server error" };
   }
 
   const user = await usersCollection.findOne({ email: email });
@@ -63,8 +65,13 @@ const getUserById = async (id) => {
   id = validValue(id);
   id = checkString(id, "id");
   id = checkId(id);
+  let usersCollection;
+  try {
+    usersCollection = await users();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server error" };
+  }
 
-  const usersCollection = await users();
   const user = await usersCollection.findOne({ _id: ObjectId(id) });
 
   if (user === null) throw { status: 404, msg: "Error: No User with that id" };
@@ -73,7 +80,13 @@ const getUserById = async (id) => {
 };
 
 const userLogin = async (email, pass) => {
-  const usersCollection = await users();
+  let usersCollection;
+  try {
+    usersCollection = await users();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server error" };
+  }
+
   const user = await usersCollection.findOne({ email: email });
   if (user == null) {
     throw { status: 401, msg: "Invalid Username or Password" };
