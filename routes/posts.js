@@ -21,7 +21,12 @@ router.route("/live").get(async (req, res) => {
   try {
     const result = await posts.getAllPosts();
 
-    console.log(result);
+    let data = [];
+
+    result.forEach((element) => {
+      let binString = JSON.stringify(element.image);
+      element.image = "data:image/webp;base64," + JSON.parse(binString);
+    });
 
     res.render("home/home", {
       page: { title: "MyPaws" },

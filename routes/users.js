@@ -3,7 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const { users } = require("../data");
-const { validValue, checkString } = require("../validation");
+const { validValue, checkString, checkImage } = require("../validation");
+
+const fs = require("fs");
 
 const bcrypt = require("bcrypt");
 
@@ -53,6 +55,7 @@ router
   })
   .post(async (req, res) => {
     let body = req.body;
+    console.log(body);
     try {
       let firstName = validValue(body.firstName, "FIRST NAME");
       let lastName = validValue(body.lastName, "LAST NAME");
@@ -61,6 +64,7 @@ router
       let petBreed = validValue(body.petBreed, "PET BREED");
       let password = validValue(body.password, "PASSWORD");
       let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
+      let profileImage = checkImage(req.files.profileImage);
 
       firstName = checkString(body.firstName, "FIRST NAME");
       lastName = checkString(body.lastName, "LAST NAME");
@@ -69,6 +73,8 @@ router
       petBreed = checkString(body.petBreed, "PET BREED");
       password = checkString(body.password, "PASSWORD");
       cpassword = checkString(body.cpassword, "RETYPE PASSWORD");
+
+      profileImage = profileImage.data;
 
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
@@ -83,7 +89,8 @@ router
         email,
         petName,
         petBreed,
-        hashpass
+        hashpass,
+        profileImage
       );
       res.redirect("/login");
     } catch (error) {
@@ -102,7 +109,13 @@ router.route("/logout").get(async (req, res) => {
 
 router.route("/profile").get(async (req, res) => {
   let data = req.session.user;
-  console.log(data);
+
+  if (!data.image) {
+    let img = "data:image/webp;base64," + data.profileImage;
+    data.image = img;
+  }
+
+  // data.profileImage = path;
   res.render("users/profile", {
     page: { title: "Profile" },
     data: data,
