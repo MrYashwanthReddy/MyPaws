@@ -61,6 +61,12 @@ app.use("/profile", (req, res, next) => {
   } else res.redirect("/");
 });
 
+app.use("/post", (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else res.redirect("/");
+});
+
 configRoutes(app);
 
 app.listen(3000, () => {

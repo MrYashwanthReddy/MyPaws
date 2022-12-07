@@ -7,7 +7,10 @@ const router = express.Router();
 router
   .route("/lost")
   .get(async (req, res) => {
-    res.render("pets/lost", { page: { title: "PET LOST" } });
+    res.render("pets/lost", {
+      page: { title: "PET LOST" },
+      cookie: req.session.user ? req.session.user : false,
+    });
   })
   .post(async (req, res) => {
     let body = req.body;
@@ -43,6 +46,7 @@ router
         ...body,
         error: error.msg,
         page: { title: "PET LOST" },
+        cookie: req.session.user ? req.session.user : false,
       });
     }
   });
@@ -50,7 +54,10 @@ router
 router
   .route("/found")
   .get(async (req, res) => {
-    res.render("pets/found", { page: { title: "PET FOUND" } });
+    res.render("pets/found", {
+      page: { title: "PET FOUND" },
+      cookie: req.session.user ? req.session.user : false,
+    });
   })
   .post(async (req, res) => {
     let body = req.body;
@@ -90,6 +97,7 @@ router
         ...body,
         error: error.msg,
         page: { title: "PET FOUND" },
+        cookie: req.session.user ? req.session.user : false,
       });
     }
   });

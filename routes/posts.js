@@ -3,8 +3,8 @@ const { posts } = require("../data");
 
 const router = express.Router();
 
-router.route("/new-feed").get(async (req, res) => {
-  res.render("home/post-feed", {
+router.route("/post").get(async (req, res) => {
+  res.render("home/post", {
     page: { title: "MyPaws" },
     cookie: req.session.user,
   });
@@ -28,9 +28,9 @@ router.route("/live").get(async (req, res) => {
       element.image = "data:image/webp;base64," + JSON.parse(binString);
     });
 
-    res.render("home/home", {
+    res.render("home/live", {
       page: { title: "MyPaws" },
-      cookie: req.session.user,
+      cookie: req.session.user ? req.session.user : false,
       data: result ? result : false,
     });
   } catch (error) {
@@ -43,6 +43,7 @@ router.route("/post").post(async (req, res) => {
     let body = req.body;
     console.log(body);
     const result = await posts.createPost(body);
+    res.redirect("/live");
   } catch (error) {}
 });
 
