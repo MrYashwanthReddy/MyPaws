@@ -1,5 +1,3 @@
-const { isAxiosError } = require("axios");
-const { Binary } = require("mongodb");
 const {
   dbConnection,
   closeConnection,
@@ -11,39 +9,67 @@ const users = data.users;
 const pets = data.pets;
 const posts = data.posts;
 
+const fs = require("fs");
+
 const main = async () => {
   const db = await dbConnection();
   await db.dropDatabase();
 
-  const user = await users.createUser(
-    "Yashwanth",
-    "Reddy",
-    "yash@gmail.com",
-    "jack",
-    "lab",
-    "$2b$10$dg9Yk46F6V7hMrXv8bboG.jSo7cB6L4RlkovGr77Esj.3wdaSasD."
-  );
-  const uid = user.data._id.toString();
+  async function bindata() {
+    await fs.readFile("assets/img.jpeg", "base64", async (e, data) => {
+      const buffer = new Buffer(data, "base64");
+      call(buffer);
+    });
+  }
 
-  const post1 = await posts.createPost({
-    title: "title",
-    content: "description",
-    userId: uid,
-    postDate: "12/05/2022",
-    likes: 0,
-  });
+  bindata();
 
-  const post2 = await posts.createPost({
-    title: "title",
-    content: "description",
-    userId: uid,
-    postDate: "12/05/2022",
-    likes: 0,
-  });
+  async function call(binImg) {
+    const user1 = await users.createUser(
+      "Yashwanth",
+      "Reddy",
+      "yash@gmail.com",
+      "jack",
+      "lab",
+      "$2b$10$dg9Yk46F6V7hMrXv8bboG.jSo7cB6L4RlkovGr77Esj.3wdaSasD.",
+      binImg
+    );
 
-  console.log("Done seeding database");
+    const user2 = await users.createUser(
+      "Yash",
+      "Reddy",
+      "yashwanth@gmail.com",
+      "jack",
+      "lab",
+      "$2b$10$dg9Yk46F6V7hMrXv8bboG.jSo7cB6L4RlkovGr77Esj.3wdaSasD.",
+      binImg
+    );
 
-  await closeConnection();
+    const uid1 = await user1.data._id.toString();
+    const uid2 = await user2.data._id.toString();
+
+    const post1 = await posts.createPost({
+      title: "POST 1",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post2 = await posts.createPost({
+      title: "POST 2",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    console.log("Done seeding database");
+
+    await closeConnection();
+  }
 };
 
 main().catch(console.log);

@@ -8,6 +8,9 @@ const getAllPosts = async () => {
     //const data = await liveFeedCollection.find({}).toArray();
     const data = await postsCollection.find({}).toArray();
 
+    
+
+
     return data;
   } catch (error) {
     console.log(error);

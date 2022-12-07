@@ -23,7 +23,8 @@ const createUser = async (
   email,
   petName,
   petBreed,
-  password
+  password,
+  profileImage
 ) => {
   let usersCollection;
   try {
@@ -45,6 +46,7 @@ const createUser = async (
     petName,
     petBreed,
     password,
+    profileImage,
   };
 
   const insertInfo = await usersCollection.insertOne(userData);

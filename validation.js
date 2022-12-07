@@ -37,4 +37,11 @@ module.exports = {
       throw { status: 400, msg: "Error: invalid object ID" };
     return id;
   },
+
+  checkImage(image) {
+    if (image.size > 5000000)
+      throw { status: 413, msg: "Error: File size limit exceeded" };
+
+    return image;
+  },
 };

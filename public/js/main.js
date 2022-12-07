@@ -1,18 +1,16 @@
 async function loadFeed() {
-    let { data } = await axios.get('/get-feed');
-    console.log(data);
+  let { data } = await axios.get("/get-feed");
 
-    let res = "";
-    data.forEach(f => {
-
-        let imgs = ``;
-        JSON.parse(f.images).forEach((i, idx) => {
-            imgs += `<div class="carousel-item ${idx == 0 ? 'active' : ''}">
+  let res = "";
+  data.forEach((f) => {
+    let imgs = ``;
+    JSON.parse(f.images).forEach((i, idx) => {
+      imgs += `<div class="carousel-item ${idx == 0 ? "active" : ""}">
                 <img class="d-block w-100" src="${i}">
-            </div>`
-        })
+            </div>`;
+    });
 
-        res += `<div class="feed-main" data-id="${f._id}">
+    res += `<div class="feed-main" data-id="${f._id}">
             <div class="feed-user">
                 <span>${f.users[0].firstName} ${f.users[0].lastName}</span>
             </div>
@@ -35,16 +33,14 @@ async function loadFeed() {
             <div class="feed-data"><span>${f.data}</span></div>
             <div class="feed-footer"><button>Comment</button></div>
         </div>`;
-    });
+  });
 
-    document.getElementById('live-feed').innerHTML = res;
-    $('.carousel').carousel()
+  document.getElementById("live-feed").innerHTML = res;
+  $(".carousel").carousel();
 }
-if (document.getElementById('live-feed') != undefined) {
-    loadFeed();
+if (document.getElementById("live-feed") != undefined) {
+  loadFeed();
 }
-
-
 
 //Not in main.js
 

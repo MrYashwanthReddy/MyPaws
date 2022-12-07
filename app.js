@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars");
 const session = require("express-session");
+
+const fileUpload = require("express-fileupload");
+
 const static = express.static(__dirname + "/public");
 
 const configRoutes = require("./routes");
@@ -11,6 +14,16 @@ app.use("/public", static);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  fileUpload({
+    createParentPath: true,
+    limits: {
+      fileSize: 5000000,
+    },
+    abortOnLimit: true,
+  })
+);
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -37,6 +50,11 @@ app.use("/login", (req, res, next) => {
   } else next();
 });
 
+app.use("/register", (req, res, next) => {
+  if (req.session.user) {
+    res.redirect("/live");
+  } else next();
+});
 app.use("/profile", (req, res, next) => {
   if (req.session.user) {
     next();
