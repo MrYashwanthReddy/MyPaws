@@ -17,31 +17,49 @@ router.route("/get-feed").get(async (req, res) => {
   }
 });
 
-router.route("/live").get(async (req, res) => {
-  try {
-    const result = await posts.getAllPosts();
-
-    let data = [];
-
-    result.forEach((element) => {
-      let binString = JSON.stringify(element.image);
-      element.image = "data:image/webp;base64," + JSON.parse(binString);
-    });
-
-    res.render("home/live", {
-      page: { title: "MyPaws" },
-      cookie: req.session.user ? req.session.user : false,
-      data: result ? result : false,
-    });
-  } catch (error) {
-    res.status(error.status).json({ error: error.msg });
-  }
+router.route("/").get(async (req, res) => {
+  res.redirect("/live");
 });
+
+router
+  .route("/live")
+  .get(async (req, res) => {
+    try {
+      const count = await posts.getPostsCount();
+
+      let queryDoc = req.session.queryDoc ? parseInt(req.session.queryDoc) : 0;
+
+      if (queryDoc == 1) {
+        queryDoc = 0;
+      }
+
+      const result = await posts.getAllPosts(queryDoc);
+
+      result.posts.forEach((element) => {
+        let binString = JSON.stringify(element.image);
+        element.image = "data:image/webp;base64," + JSON.parse(binString);
+      });
+
+      res.status(200).render("home/live", {
+        page: { title: "MyPaws" },
+        cookie: req.session.user ? req.session.user : false,
+        data: result ? result.posts : false,
+        prev: result.queryDoc >= 20 ? result.queryDoc - 19 : false,
+        next: result.queryDoc < count ? result.queryDoc : false,
+        queryDoc: result.queryDoc,
+      });
+    } catch (error) {
+      res.status(error.status).json({ error: error.msg });
+    }
+  })
+  .post(async (req, res) => {
+    req.session.queryDoc = req.body.queryDoc;
+    res.redirect("/live");
+  });
 
 router.route("/post").post(async (req, res) => {
   try {
     let body = req.body;
-    console.log(body);
     const result = await posts.createPost(body);
     res.redirect("/live");
   } catch (error) {}

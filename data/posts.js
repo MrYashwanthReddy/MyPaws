@@ -2,7 +2,7 @@ const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
 
-const getAllPosts = async () => {
+const getAllPosts = async (queryDoc) => {
   let postsCollection;
   try {
     postsCollection = await posts();
@@ -10,7 +10,26 @@ const getAllPosts = async () => {
     throw { status: 500, msg: "Error: Server Error" };
   }
   //const data = await liveFeedCollection.find({}).toArray();
-  const data = await postsCollection.find({}).toArray();
+  const data = await postsCollection
+    .find({})
+    .skip(queryDoc)
+    .limit(10)
+    .toArray();
+
+  queryDoc = queryDoc + 10;
+
+  return { posts: data, queryDoc: queryDoc };
+};
+
+const getPostsCount = async () => {
+  let postsCollection;
+  try {
+    postsCollection = await posts();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+
+  const data = await postsCollection.count();
 
   return data;
 };
@@ -36,4 +55,5 @@ const createPost = async (data) => {
 module.exports = {
   getAllPosts,
   createPost,
+  getPostsCount,
 };

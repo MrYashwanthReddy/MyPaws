@@ -17,7 +17,7 @@ const main = async () => {
 
   async function bindata() {
     await fs.readFile("assets/img.jpeg", "base64", async (e, data) => {
-      const buffer = new Buffer(data, "base64");
+      const buffer = new Buffer.from(data, "base64");
       call(buffer);
     });
   }
@@ -59,6 +59,132 @@ const main = async () => {
 
     const post2 = await posts.createPost({
       title: "POST 2",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post3 = await posts.createPost({
+      title: "POST 3",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post4 = await posts.createPost({
+      title: "POST 4",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post5 = await posts.createPost({
+      title: "POST 5",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post6 = await posts.createPost({
+      title: "POST 6",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post7 = await posts.createPost({
+      title: "POST 7",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post8 = await posts.createPost({
+      title: "POST 8",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post9 = await posts.createPost({
+      title: "POST 9",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post10 = await posts.createPost({
+      title: "POST 10",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post11 = await posts.createPost({
+      title: "POST 11",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post12 = await posts.createPost({
+      title: "POST 12",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post13 = await posts.createPost({
+      title: "POST 13",
+      content: "This is the description for post 1",
+      userId: uid1,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post14 = await posts.createPost({
+      title: "POST 14",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post15 = await posts.createPost({
+      title: "POST 15",
+      content: "This is the description for post 2",
+      userId: uid2,
+      postDate: "12/05/2022",
+      likes: 0,
+      image: binImg,
+    });
+
+    const post16 = await posts.createPost({
+      title: "POST 16",
       content: "This is the description for post 2",
       userId: uid2,
       postDate: "12/05/2022",

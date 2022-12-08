@@ -18,9 +18,40 @@
             <img src={{{image}}} />
           </div>
         {{/if}}
+        <div class="bottom-part">
+          <i onclick="comment()" class="material-icons">comment</i>
+          <i onclick='like("{{_id}}")' class="material-icons">favorite</i>
+
+        </div>
       </div>
 
     {{/each}}
+
+    <div class="pagination">
+
+      {{#if next}}
+        <form action="/live" method="post">
+          <input hidden value="{{{next}}}" name="queryDoc" />
+          <button type="submit">Load More</button>
+        </form>
+      {{/if}}
+
+      {{#if prev}}
+        <form action="/live" method="post">
+          <input hidden value="{{{prev}}}" name="queryDoc" />
+          <button type="submit">Prev</button>
+        </form>
+      {{/if}}
+
+      {{#if prev}}
+        <form method="post">
+          <input hidden value="0" name="queryDoc" />
+          <button type="submit">Top</button>
+        </form>
+
+      {{/if}}
+
+    </div>
 
   {{else}}
     <p>No data</p>

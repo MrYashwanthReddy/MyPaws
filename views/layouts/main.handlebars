@@ -18,13 +18,16 @@
       <div class="header-right">
 
         {{#if cookie}}
-          <a href="/post" style="color: #fff;">new post</a>
+          <i
+            onclick="window.location.href= '/post'"
+            class="material-icons"
+          >create</i>
         {{/if}}
 
         <div class="profile">
           {{#if cookie}}
             <i
-              onclick="window.location.href = '/profile'"
+              onclick="window.location.href = '/auth/profile'"
               class="material-icons"
             >person</i>
           {{/if}}
@@ -41,8 +44,8 @@
           <li><a href="/logout">Logout</a></li>
 
         {{else}}
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
 
         {{/if}}
 
@@ -56,5 +59,6 @@
     </footer>
 
     <script src="/public/js/main.js"></script>
+
   </body>
 </html>

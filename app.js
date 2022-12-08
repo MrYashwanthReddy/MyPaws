@@ -34,37 +34,40 @@ app.use(
     secret: "MyPaws",
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 600000 },
+    cookie: { maxAge: 6000000 },
   })
 );
 
 app.use("/live", (req, res, next) => {
   if (!req.session.user) {
-    res.redirect("/login");
-  } else next();
-});
-
-app.use("/login", (req, res, next) => {
-  if (req.session.user) {
-    res.redirect("/live");
-  } else next();
-});
-
-app.use("/register", (req, res, next) => {
-  if (req.session.user) {
-    res.redirect("/live");
-  } else next();
-});
-app.use("/profile", (req, res, next) => {
-  if (req.session.user) {
+    res.redirect("/auth/login");
+  } else {
     next();
-  } else res.redirect("/");
+  }
 });
 
 app.use("/post", (req, res, next) => {
-  if (req.session.user) {
+  if (!req.session.user) {
+    res.redirect("/auth/login");
+  } else {
     next();
-  } else res.redirect("/");
+  }
+});
+
+app.use("/auth/login", (req, res, next) => {
+  if (req.session.user) {
+    res.redirect("/live");
+  } else {
+    next();
+  }
+});
+
+app.use("/auth/register", (req, res, next) => {
+  if (req.session.user) {
+    res.redirect("/live");
+  } else {
+    next();
+  }
 });
 
 configRoutes(app);
