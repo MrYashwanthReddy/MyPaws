@@ -126,20 +126,55 @@ li {
   padding: 0 10px;
 }
 
+.profile-image-container {
+  height: auto;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.profile-image-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .post-card {
   height: 500px;
   margin-bottom: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px 0px 0px 0px;
+  background-color: #ee6c4d;
+  color: white;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .post-card .text-part {
-  height: 20%;
+  height: 15%;
+  padding: 0px 4px 0px 4px;
 }
 
 .post-card .img-container {
-  height: 80%;
+  height: 75%;
+}
+
+.post-card .bottom-part {
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
 }
 
 .post-card .img-container img {
   height: 100%;
   object-fit: cover;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-evenly;
 }

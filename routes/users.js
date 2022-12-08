@@ -5,8 +5,6 @@ const router = express.Router();
 const { users } = require("../data");
 const { validValue, checkString, checkImage } = require("../validation");
 
-const fs = require("fs");
-
 const bcrypt = require("bcrypt");
 
 router.route("/").get(async (req, res) => {
@@ -28,8 +26,6 @@ router
       pass = checkString(body.password, "PASSWORD");
 
       const result = await users.userLogin(email, pass);
-
-      console.log(result);
 
       if ((result.status = 200)) {
         req.session.user = {
@@ -55,7 +51,6 @@ router
   })
   .post(async (req, res) => {
     let body = req.body;
-    console.log(body);
     try {
       let firstName = validValue(body.firstName, "FIRST NAME");
       let lastName = validValue(body.lastName, "LAST NAME");
@@ -92,7 +87,7 @@ router
         hashpass,
         profileImage
       );
-      res.redirect("/login");
+      res.redirect("/auth/login");
     } catch (error) {
       res.status(error.status).render("users/register", {
         ...body,
@@ -104,7 +99,7 @@ router
 
 router.route("/logout").get(async (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.redirect("/live");
 });
 
 router.route("/profile").get(async (req, res) => {

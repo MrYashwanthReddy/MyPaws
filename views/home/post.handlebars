@@ -1,12 +1,12 @@
 {{#if cookie}}
-  <form action="/new-feed" method="post" enctype="multipart/form-data">
+  <form action="/post" method="post" enctype="multipart/form-data">
     <input type="file" name="multi-files" accept="image/*" multiple />
     <input
       type="text"
       name="data"
       placeholder="What's on you mind, {{cookie.firstName}} ?"
     />
-    <input type="submit" />
+    <button type="submit">Post</button>
 
   </form>
 {{else}}
