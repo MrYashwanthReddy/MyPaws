@@ -15,8 +15,8 @@ const main = async () => {
   const db = await dbConnection();
   await db.dropDatabase();
 
-  async function bindata() {
-    await fs.readFile("assets/img.jpeg", "base64", async (e, data) => {
+  function bindata() {
+    fs.readFile("assets/img.jpeg", "base64", async (e, data) => {
       const buffer = new Buffer.from(data, "base64");
       call(buffer);
     });
@@ -52,8 +52,7 @@ const main = async () => {
       title: "POST 1",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -61,8 +60,6 @@ const main = async () => {
       title: "POST 2",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
       image: binImg,
     });
 
@@ -70,8 +67,6 @@ const main = async () => {
       title: "POST 3",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
       image: binImg,
     });
 
@@ -79,8 +74,7 @@ const main = async () => {
       title: "POST 4",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -88,8 +82,7 @@ const main = async () => {
       title: "POST 5",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -97,8 +90,7 @@ const main = async () => {
       title: "POST 6",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -106,8 +98,7 @@ const main = async () => {
       title: "POST 7",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -115,8 +106,7 @@ const main = async () => {
       title: "POST 8",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -124,8 +114,7 @@ const main = async () => {
       title: "POST 9",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -133,8 +122,7 @@ const main = async () => {
       title: "POST 10",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -142,8 +130,7 @@ const main = async () => {
       title: "POST 11",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -151,8 +138,7 @@ const main = async () => {
       title: "POST 12",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -160,8 +146,7 @@ const main = async () => {
       title: "POST 13",
       content: "This is the description for post 1",
       userId: uid1,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -169,8 +154,7 @@ const main = async () => {
       title: "POST 14",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -178,8 +162,7 @@ const main = async () => {
       title: "POST 15",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
@@ -187,8 +170,7 @@ const main = async () => {
       title: "POST 16",
       content: "This is the description for post 2",
       userId: uid2,
-      postDate: "12/05/2022",
-      likes: 0,
+
       image: binImg,
     });
 
