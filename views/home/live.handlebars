@@ -8,9 +8,13 @@
       <div class="post-card">
 
         <div class="text-part">
-
-          <h1>{{{title}}}</h1>
-          <p>{{{content}}}</p>
+          <div class="main-text">
+            <h1>{{{title}}}</h1>
+            <p>{{{content}}}</p>
+          </div>
+          <div class="repo">
+            <i onclick="report()" class="material-icons">report</i>
+          </div>
         </div>
         {{#if image}}
           <div class="img-container">
@@ -21,7 +25,6 @@
         <div class="bottom-part">
           <i onclick="comment()" class="material-icons">comment</i>
           <i onclick='like("{{_id}}")' class="material-icons">favorite</i>
-
         </div>
       </div>
 
