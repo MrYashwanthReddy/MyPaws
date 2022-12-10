@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
+const { validValue, checkString, checkId } = require("../validation");
 const posts = mongoCollections.posts;
 
 const getAllPosts = async (queryDoc) => {
@@ -12,6 +13,7 @@ const getAllPosts = async (queryDoc) => {
   //const data = await liveFeedCollection.find({}).toArray();
   const data = await postsCollection
     .find({})
+    .sort({ postDate: -1 })
     .skip(queryDoc)
     .limit(10)
     .toArray();
@@ -34,7 +36,7 @@ const getPostsCount = async () => {
   return data;
 };
 
-const createPost = async (data) => {
+const createPost = async ({ content, image, userId, title }) => {
   let postsCollection;
   try {
     postsCollection = await posts();
@@ -42,7 +44,27 @@ const createPost = async (data) => {
     throw { status: 500, msg: "Error: Server Error" };
   }
 
-  const insertInfo = await postsCollection.insertOne(data);
+  content = validValue(content);
+  userId = validValue(userId);
+  title = validValue(title);
+
+  content = checkString(content);
+  userId = checkString(userId);
+  title = checkString(title);
+
+  userId = checkId(userId);
+
+  const newPost = {
+    content,
+    userId,
+    image,
+    title,
+    postDate: new Date(),
+    likes: 0,
+    comments: [],
+  };
+
+  const insertInfo = await postsCollection.insertOne(newPost);
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
     throw { status: 400, msg: "Could not add feed" };
 

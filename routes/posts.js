@@ -1,5 +1,6 @@
 const express = require("express");
 const { posts } = require("../data");
+const { validValue, checkImage } = require("../validation");
 
 const router = express.Router();
 
@@ -60,7 +61,18 @@ router
 router.route("/post").post(async (req, res) => {
   try {
     let body = req.body;
-    const result = await posts.createPost(body);
+
+    let title = validValue(body.title);
+    let content = validValue(body.content);
+
+    let image = checkImage(req.files.images);
+
+    image = image.data;
+
+    let userId = validValue(body.userId);
+
+    const result = await posts.createPost({ content, image, userId, title });
+
     res.redirect("/live");
   } catch (error) {}
 });
