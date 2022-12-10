@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
-const { checkImage, validValue } = require("../validation");
+const { validValue, checkString, checkId } = require("../validation");
 const posts = mongoCollections.posts;
 
 const getAllPosts = async (queryDoc) => {
@@ -47,6 +47,12 @@ const createPost = async ({ content, image, userId, title }) => {
   content = validValue(content);
   userId = validValue(userId);
   title = validValue(title);
+
+  content = checkString(content);
+  userId = checkString(userId);
+  title = checkString(title);
+
+  userId = checkId(userId);
 
   const newPost = {
     content,
