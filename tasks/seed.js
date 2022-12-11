@@ -31,7 +31,7 @@ const main = async () => {
       "yash@gmail.com",
       "jack",
       "lab",
-      "$2b$10$dg9Yk46F6V7hMrXv8bboG.jSo7cB6L4RlkovGr77Esj.3wdaSasD.",
+      "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
       binImg
     );
 
@@ -41,7 +41,7 @@ const main = async () => {
       "yashwanth@gmail.com",
       "jack",
       "lab",
-      "$2b$10$dg9Yk46F6V7hMrXv8bboG.jSo7cB6L4RlkovGr77Esj.3wdaSasD.",
+      "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
       binImg
     );
 

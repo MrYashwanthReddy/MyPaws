@@ -103,4 +103,5 @@ module.exports = {
   getAllUsers,
   userLogin,
   createUser,
+  getUserById,
 };

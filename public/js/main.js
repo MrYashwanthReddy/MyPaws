@@ -1,95 +1,117 @@
-// async function loadFeed() {
-//   let { data } = await axios.get("/get-feed");
-
-//   let res = "";
-//   data.forEach((f) => {
-//     let imgs = ``;
-//     JSON.parse(f.images).forEach((i, idx) => {
-//       imgs += `<div class="carousel-item ${idx == 0 ? "active" : ""}">
-//                 <img class="d-block w-100" src="${i}">
-//             </div>`;
-//     });
-
-//     res += `<div class="feed-main" data-id="${f._id}">
-//             <div class="feed-user">
-//                 <span>${f.users[0].firstName} ${f.users[0].lastName}</span>
-//             </div>
-//             <div class="feed-img">
-//                 <div id="images-list-${f._id}" class="carousel slide" data-ride="carousel">
-//                     <div class="carousel-inner">
-//                         ${imgs}
-//                     </div>
-//                     <a class="carousel-control-prev" href="#images-list-${f._id}" role="button" data-slide="prev">
-//                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-//                         <span class="sr-only">Previous</span>
-//                     </a>
-//                     <a class="carousel-control-next" href="#images-list-${f._id}" role="button" data-slide="next">
-//                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-//                         <span class="sr-only">Next</span>
-//                     </a>
-//                 </div>
-
-//             </div>
-//             <div class="feed-data"><span>${f.data}</span></div>
-//             <div class="feed-footer"><button>Comment</button></div>
-//         </div>`;
-//   });
-
-//   document.getElementById("live-feed").innerHTML = res;
-//   $(".carousel").carousel();
-// }
-// if (document.getElementById("live-feed") != undefined) {
-//   loadFeed();
-// }
-
-// //Not in main.js
-
-// // async function loadFeed() {
-// //     let { data } = await axios.get('/get-feed');
-// //     console.log(data);
-
-// //     let res = "";
-// //     data.forEach(f => {
-
-// //         let imgs = ``;
-// //         JSON.parse(f.images).forEach((i, idx) => {
-// //             imgs += `<div class="carousel-item ${idx == 0 ? 'active' : ''}">
-// //                 <img class="d-block w-100" src="${i}">
-// //             </div>`
-// //         })
-
-// //         res += `<div class="feed-main" data-id="${f._id}">
-// //             <div class="feed-user">
-// //                 <span>${f.users[0].firstName} ${f.users[0].lastName}</span>
-// //             </div>
-// //             <div class="feed-img">
-// //                 <div id="images-list-${f._id}" class="carousel slide" data-ride="carousel">
-// //                     <div class="carousel-inner">
-// //                         ${imgs}
-// //                     </div>
-// //                     <a class="carousel-control-prev" href="#images-list-${f._id}" role="button" data-slide="prev">
-// //                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-// //                         <span class="sr-only">Previous</span>
-// //                     </a>
-// //                     <a class="carousel-control-next" href="#images-list-${f._id}" role="button" data-slide="next">
-// //                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-// //                         <span class="sr-only">Next</span>
-// //                     </a>
-// //                 </div>
-
-// //             </div>
-// //             <div class="feed-data"><span>${f.data}</span></div>
-// //             <div class="feed-footer"><button>Comment</button></div>
-// //         </div>`;
-// //     });
-
-// //     document.getElementById('live-feed').innerHTML = res;
-// //     $('.carousel').carousel()
-// // }
-// // if (document.getElementById('live-feed') != undefined) {
-// //     loadFeed();
-// // }
-
 function like(id) {
   console.log(id);
+}
+
+//Login FORM
+
+let loginForm = document.getElementById("loginForm");
+
+console.log(loginForm);
+
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let email = e.target.loginEmail.value;
+    let password = e.target.loginPassword.value;
+
+    try {
+      email = validValue(email, "EAMIL");
+      password = validValue(password, "PASSWORD");
+
+      password = checkPassword(password);
+
+      //Password Validations
+      //Min len 8
+      // 1 Uppercase
+      // 1 Number
+      // 1 Special charcter
+
+      //password should be equal to cpassword
+    } catch (e) {
+      let errorDiv = document.getElementsByClassName("error");
+      if (errorDiv.length == 0) {
+        let error = document.createElement("p");
+        error.className = "error";
+        error.innerHTML = e.msg;
+        loginForm.append(error);
+      } else {
+        errorDiv[0].innerHTML = e.msg;
+      }
+      console.log(errorDiv);
+      return;
+    }
+
+    e.target.submit();
+  });
+}
+
+//REGISTER FORM
+let registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let firstName = e.target.registerFN.value;
+    let lastName = e.target.registerLN.value;
+
+    let age = e.target.registerAge.value;
+    let city = e.target.registerCity.value;
+    let state = e.target.registerState.value;
+    let email = e.target.registerEmail.value;
+    let petName = e.target.registerPetName.value;
+    let petBreed = e.target.registerPetBreed.value;
+    let password = e.target.registerPassword.value;
+    let cpassword = e.target.registerCPassword.value;
+
+    try {
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
+      age = validValue(age, "AGE");
+      city = validValue(city, "CITY");
+      state = validValue(state, "STATE");
+      email = validValue(email, "EAMIL");
+      petName = validValue(petName, "PET NAME");
+      petBreed = validValue(petBreed, "PET BREED");
+      password = validValue(password, "PASSWORD");
+      cpassword = validValue(cpassword, "RETYPE PASSWORD");
+
+      password = checkPassword(password);
+
+      if (password !== cpassword) {
+        throw { msg: "Error: PASSWORD Mismatch" };
+      }
+    } catch (e) {
+      let errorDiv = document.getElementsByClassName("error");
+      if (errorDiv.length == 0) {
+        let error = document.createElement("p");
+        error.className = "error";
+        error.innerHTML = e.msg;
+        registerForm.append(error);
+      } else {
+        errorDiv[0].innerHTML = e.msg;
+      }
+      console.log(errorDiv);
+      return;
+    }
+
+    e.target.submit();
+  });
+}
+
+function validValue(input, fieldName) {
+  if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
+
+  return input;
+}
+
+function checkPassword(password) {
+  let regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+  if (!password.match(regex))
+    throw {
+      status: 400,
+      msg: "Password should contain atleast one uppercase character, one number, special character and minimum 8 characters in length",
+    };
+
+  return password;
 }
