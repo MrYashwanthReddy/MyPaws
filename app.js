@@ -11,6 +11,7 @@ const static = express.static(__dirname + "/public");
 const configRoutes = require("./routes");
 
 app.use("/public", static);
+app.use("/assets", express.static(__dirname + '/assets'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
