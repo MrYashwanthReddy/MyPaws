@@ -158,6 +158,8 @@ li {
 .post-card .text-part {
   height: 15%;
   padding: 0px 4px 0px 4px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .post-card .img-container {
@@ -175,6 +177,10 @@ li {
 .post-card .img-container img {
   height: 100%;
   object-fit: cover;
+}
+
+.post-card .text-part i {
+  float:right;
 }
 
 .pagination {
