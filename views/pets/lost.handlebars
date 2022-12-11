@@ -1,5 +1,5 @@
 <h1>Lost Pet Form</h1>
-<form id="lostpet-form" method="post" action="/pets/lost">
+<form id="lostpet-form" method="post" action="/pets/lost" enctype="multipart/form-data">
   {{#if error}}
     <div class="error">{{error}}</div>
   {{/if}}
@@ -7,7 +7,7 @@
   <label for="animalInput">Pet Lost</label>
   <input type="text" id="animalInput" name="animalInput" />
   <label for="imageInput">Upload Image</label>
-  <input id="imageInput" type="file" name="imageInput" />
+  <input id="imageInput" type="file" name="imageInput" accept="image/*" />
   <label for="breedInput">Breed</label>
   <input type="text" id="breedInput" name="breedInput" />
   <label for="colorInput">Color</label>

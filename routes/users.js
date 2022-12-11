@@ -65,6 +65,7 @@ router
         profileImage = profileImage.data;
       }
 
+
       firstName = checkString(body.firstName, "FIRST NAME");
       lastName = checkString(body.lastName, "LAST NAME");
       email = checkString(body.email, "EMAIL");
