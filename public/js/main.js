@@ -98,6 +98,114 @@ if (registerForm) {
   });
 }
 
+//FOUNDPET FORM
+let foundpetForm = document.getElementById("foundpet-form");
+
+if (foundpetForm) {
+  foundpetForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    //Pending
+    let firstName = e.target.registerFN.value;
+    let lastName = e.target.registerLN.value;
+
+    let age = e.target.registerAge.value;
+    let city = e.target.registerCity.value;
+    let state = e.target.registerState.value;
+    let email = e.target.registerEmail.value;
+    let petName = e.target.registerPetName.value;
+    let petBreed = e.target.registerPetBreed.value;
+    let password = e.target.registerPassword.value;
+    let cpassword = e.target.registerCPassword.value;
+
+    try {
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
+      age = validValue(age, "AGE");
+      city = validValue(city, "CITY");
+      state = validValue(state, "STATE");
+      email = validValue(email, "EAMIL");
+      petName = validValue(petName, "PET NAME");
+      petBreed = validValue(petBreed, "PET BREED");
+      password = validValue(password, "PASSWORD");
+      cpassword = validValue(cpassword, "RETYPE PASSWORD");
+
+      password = checkPassword(password);
+
+      if (password !== cpassword) {
+        throw { msg: "Error: PASSWORD Mismatch" };
+      }
+    } catch (e) {
+      let errorDiv = document.getElementsByClassName("error");
+      if (errorDiv.length == 0) {
+        let error = document.createElement("p");
+        error.className = "error";
+        error.innerHTML = e.msg;
+        registerForm.append(error);
+      } else {
+        errorDiv[0].innerHTML = e.msg;
+      }
+      console.log(errorDiv);
+      return;
+    }
+
+    e.target.submit();
+  });
+}
+
+//LOSTPET FORM
+let lostpetForm = document.getElementById("lostpet-form");
+
+if (lostpetForm) {
+  lostpetForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    //Pending
+    let name = e.target.lostName.value;
+    let email = e.target.lostEmail.value;
+    let animal = e.target.lostAnimal.value;
+    let city = e.target.registerCity.value;
+    let state = e.target.registerState.value;
+    let petName = e.target.registerPetName.value;
+    let petBreed = e.target.registerPetBreed.value;
+    let password = e.target.registerPassword.value;
+    let cpassword = e.target.registerCPassword.value;
+
+    try {
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
+      age = validValue(age, "AGE");
+      city = validValue(city, "CITY");
+      state = validValue(state, "STATE");
+      email = validValue(email, "EAMIL");
+      petName = validValue(petName, "PET NAME");
+      petBreed = validValue(petBreed, "PET BREED");
+      password = validValue(password, "PASSWORD");
+      cpassword = validValue(cpassword, "RETYPE PASSWORD");
+
+      password = checkPassword(password);
+
+      if (password !== cpassword) {
+        throw { msg: "Error: PASSWORD Mismatch" };
+      }
+    } catch (e) {
+      let errorDiv = document.getElementsByClassName("error");
+      if (errorDiv.length == 0) {
+        let error = document.createElement("p");
+        error.className = "error";
+        error.innerHTML = e.msg;
+        registerForm.append(error);
+      } else {
+        errorDiv[0].innerHTML = e.msg;
+      }
+      console.log(errorDiv);
+      return;
+    }
+
+    e.target.submit();
+  });
+}
+
 function validValue(input, fieldName) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
 

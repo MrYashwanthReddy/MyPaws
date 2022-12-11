@@ -1,20 +1,25 @@
 <h1>Found Pet Form</h1>
-<form id="foundpet-form" method="post" action="/pets/found" enctype="multipart/form-data">
+<form
+  id="foundpet-form"
+  method="post"
+  action="/pets/found"
+  enctype="multipart/form-data"
+>
   {{#if error}}
     <div class="error">{{error}}</div>
   {{/if}}
   <label for="nameInput"> Your Name</label>
-  <input type="text" id="nameInput" name="nameInput" />
+  <input i type="text" id="lostName" name="nameInput" />
   <label for="emailInput">Your Email</label>
-  <input type="text" id="emailInput" name="emailInput" />
+  <input type="text" id="lostEmail" name="emailInput" />
   <label for="animalInput">Pet Found</label>
-  <input type="text" id="animalInput" name="animalInput" />
+  <input type="text" id="lostAnimal" name="animalInput" />
   <label for="imageInput">Upload Image</label>
   <input id="imageInput" type="file" name="imageInput" accept="image/*" />
   <label for="breedInput">Breed</label>
-  <input type="text" id="breedInput" name="breedInput" />
+  <input type="text" id="lostBreed" name="breedInput" />
   <label for="colorInput">Color</label>
-  <input type="text" id="colorInput" name="colorInput" />
+  <input type="text" id="lostColor" name="colorInput" />
   <div id="colarInput" class="wrapper">
     <p>Colar</p>
     <input
@@ -47,7 +52,8 @@
   <input type="text" id="earTypeInput" name="earTypeInput" />
   <label for="bodyTypeInput">Body Type</label>
   <input type="text" id="bodyTypeInput" name="bodyTypeInput" />
-  <label for="distinguishingInput">Distinguishing information  ("My cat has a brown nose with a white spot on it" )</label>
+  <label for="distinguishingInput">Distinguishing information ("My cat has a
+    brown nose with a white spot on it" )</label>
   <input type="text" id="distinguishingInput" name="distinguishingInput" />
 
   <button type="submit">Submit</button>
