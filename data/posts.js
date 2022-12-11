@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const { validValue, checkString, checkId } = require("../validation");
+const { getUserById } = require("./users");
 const posts = mongoCollections.posts;
 
 const getAllPosts = async (queryDoc) => {

@@ -59,7 +59,11 @@ router
       let petBreed = validValue(body.petBreed, "PET BREED");
       let password = validValue(body.password, "PASSWORD");
       let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
-      let profileImage = checkImage(req.files.profileImage);
+      let profileImage;
+      if (req.files) {
+        profileImage = checkImage(req.files.profileImage);
+        profileImage = profileImage.data;
+      }
 
       firstName = checkString(body.firstName, "FIRST NAME");
       lastName = checkString(body.lastName, "LAST NAME");
@@ -68,8 +72,6 @@ router
       petBreed = checkString(body.petBreed, "PET BREED");
       password = checkString(body.password, "PASSWORD");
       cpassword = checkString(body.cpassword, "RETYPE PASSWORD");
-
-      profileImage = profileImage.data;
 
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
