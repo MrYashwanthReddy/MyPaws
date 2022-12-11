@@ -15,7 +15,7 @@ module.exports = {
         status: 400,
         msg: `Error: ${varName} cannot be an empty string or string with just spaces`,
       };
-    if (!isNaN(strVal))
+    if (!isNaN(strVal) && varName !== 'height')
       throw {
         status: 400,
         msg: `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`,
@@ -39,6 +39,8 @@ module.exports = {
   },
 
   checkImage(image) {
+    if(!image)
+      throw {status : 400, msg: "Error: You must provide an image."}
     if (image.size > 5000000)
       throw { status: 413, msg: "Error: File size limit exceeded" };
 

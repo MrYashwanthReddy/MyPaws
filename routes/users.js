@@ -59,7 +59,7 @@ router
       let petBreed = validValue(body.petBreed, "PET BREED");
       let password = validValue(body.password, "PASSWORD");
       let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
-      let profileImage = checkImage(req.files.profileImage);
+      let profileImage = checkImage(req.files?.profileImage);
 
       firstName = checkString(body.firstName, "FIRST NAME");
       lastName = checkString(body.lastName, "LAST NAME");
@@ -71,6 +71,8 @@ router
 
       profileImage = profileImage.data;
 
+      if (!/^(?=.*\d)(?=.*[A-Z])(?=.*[^\w\d\s])([^\s]){6,}$/.test(password))
+        throw { status: 400, msg: "Error: Password did not match with the constraints, need atleast 1 uppercase letter, 1 number, 1 special character!" };
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
 
