@@ -9,7 +9,7 @@ let loginForm = document.getElementById("loginForm");
 console.log(loginForm);
 
 if (loginForm) {
-  loginForm.addEventListener("subm", (e) => {
+  loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let email = e.target.loginEmail.value;
     let password = e.target.loginPassword.value;
