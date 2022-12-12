@@ -65,7 +65,6 @@ router
         profileImage = profileImage.data;
       }
 
-
       firstName = checkString(body.firstName, "FIRST NAME");
       lastName = checkString(body.lastName, "LAST NAME");
       email = checkString(body.email, "EMAIL");
@@ -88,7 +87,7 @@ router
         petName,
         petBreed,
         hashpass,
-        profileImage
+        profileImage && profileImage
       );
       res.redirect("/auth/login");
     } catch (error) {
