@@ -58,17 +58,17 @@ let registerForm = document.getElementById("registerForm");
 if (registerForm) {
   registerForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    // let firstName = e.target.registerFN.value;
-    // let lastName = e.target.registerLN.value;
+    let firstName = e.target.firstName.value;
+    let lastName = e.target.lastName.value;
 
-    // let age = e.target.registerAge.value;
-    // let city = e.target.registerCity.value;
-    // let state = e.target.registerState.value;
-    // let email = e.target.registerEmail.value;
-    // let petName = e.target.registerPetName.value;
-    // let petBreed = e.target.registerPetBreed.value;
-    let password = e.target.registerPassword.value;
-    let cpassword = e.target.registerCPassword.value;
+    let age = e.target.age.value;
+    let city = e.target.city.value;
+    let state = e.target.state.value;
+    let email = e.target.email.value;
+    let petName = e.target.petName.value;
+    let petBreed = e.target.petBreed.value;
+    let password = e.target.password.value;
+    let cpassword = e.target.cpassword.value;
 
     try {
       firstName = validValue(firstName, "FIRST NAME");

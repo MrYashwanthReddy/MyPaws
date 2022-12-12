@@ -14,7 +14,11 @@ router.route("/").get(async (req, res) => {
 router
   .route("/login")
   .get((req, res) => {
-    res.render("users/login", { page: { title: "Login" } });
+    let error = req.query.e;
+    if (error == "l") {
+      error = "Error: Login Required to Proceed";
+    }
+    res.render("users/login", { page: { title: "Login" }, error: error });
   })
   .post(async (req, res) => {
     let body = req.body;
