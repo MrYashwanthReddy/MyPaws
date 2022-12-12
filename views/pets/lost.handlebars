@@ -1,5 +1,5 @@
 <h1>Lost Pet Form</h1>
-<form id="lostpet-form" method="post" action="/pets/lost" enctype="multipart/form-data">
+<form id="lostpet-form" method="post" action="/pets/lost">
   {{#if error}}
     <div class="error">{{error}}</div>
   {{/if}}
@@ -7,11 +7,12 @@
   <label for="animalInput">Pet Lost</label>
   <input type="text" id="animalInput" name="animalInput" />
   <label for="imageInput">Upload Image</label>
-  <input id="imageInput" type="file" name="imageInput" accept="image/*" />
+  <input id="imageInput" type="file" name="imageInput" />
   <label for="breedInput">Breed</label>
   <input type="text" id="breedInput" name="breedInput" />
   <label for="colorInput">Color</label>
   <input type="text" id="colorInput" name="colorInput" />
+  
   <div id="colarInput" class="wrapper">
     <p>Colar</p>
     <input
@@ -44,10 +45,11 @@
   <input type="text" id="earTypeInput" name="earTypeInput" />
   <label for="bodyTypeInput">Body Type</label>
   <input type="text" id="bodyTypeInput" name="bodyTypeInput" />
-  <label for="distinguishingInput">Distinguishing information ("My cat has a
-    brown nose with a white spot on it" )</label>
+  <label for="distinguishingInput">Distinguishing information  ("My cat has a brown nose with a white spot on it" )</label>
   <input type="text" id="distinguishingInput" name="distinguishingInput" />
 
   <button type="submit">Submit</button>
 
 </form>
+
+<script src="/public/js/form.js" />
