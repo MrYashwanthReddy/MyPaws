@@ -9,7 +9,7 @@ const storeRoutes = require("./stores");
 const constructorMethod = (app) => {
   app.use("/auth", mainRoutes);
   app.use("/pets", petRoutes);
-  app.use("/pet-store", storeRoutes);
+  app.use("/pet-stores", storeRoutes);
   app.use("/", postRoutes);
 
   // app.use("*", (req, res) => {
