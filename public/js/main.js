@@ -48,15 +48,15 @@ let registerForm = document.getElementById("registerForm");
 if (registerForm) {
   registerForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let firstName = e.target.registerFN.value;
-    let lastName = e.target.registerLN.value;
+    // let firstName = e.target.registerFN.value;
+    // let lastName = e.target.registerLN.value;
 
-    let age = e.target.registerAge.value;
-    let city = e.target.registerCity.value;
-    let state = e.target.registerState.value;
-    let email = e.target.registerEmail.value;
-    let petName = e.target.registerPetName.value;
-    let petBreed = e.target.registerPetBreed.value;
+    // let age = e.target.registerAge.value;
+    // let city = e.target.registerCity.value;
+    // let state = e.target.registerState.value;
+    // let email = e.target.registerEmail.value;
+    // let petName = e.target.registerPetName.value;
+    // let petBreed = e.target.registerPetBreed.value;
     let password = e.target.registerPassword.value;
     let cpassword = e.target.registerCPassword.value;
 
@@ -69,6 +69,7 @@ if (registerForm) {
       email = validValue(email, "EMAIL");
       petName = validValue(petName, "PET NAME");
       petBreed = validValue(petBreed, "PET BREED");
+
       password = validValue(password, "PASSWORD");
       cpassword = validValue(cpassword, "RETYPE PASSWORD");
 
