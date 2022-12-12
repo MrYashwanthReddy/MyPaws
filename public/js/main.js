@@ -1,15 +1,15 @@
 function like(id) {
   console.log(id);
-  fetch('/add-like', {
-    method: 'POST',
+  fetch("/add-like", {
+    method: "POST",
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ "postId": id })
+    body: JSON.stringify({ postId: id }),
   })
-    .then(response => response.json())
-    .then(response => console.log(response))
+    .then((response) => response.json())
+    .then((response) => console.log(response));
 }
 
 //Login FORM
@@ -112,36 +112,29 @@ if (foundpetForm) {
   foundpetForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    //Pending
-    let firstName = e.target.registerFN.value;
-    let lastName = e.target.registerLN.value;
+    let name = e.target.foundName.value;
+    let email = e.target.foundEmail.value;
 
-    let age = e.target.registerAge.value;
-    let city = e.target.registerCity.value;
-    let state = e.target.registerState.value;
-    let email = e.target.registerEmail.value;
-    let petName = e.target.registerPetName.value;
-    let petBreed = e.target.registerPetBreed.value;
-    let password = e.target.registerPassword.value;
-    let cpassword = e.target.registerCPassword.value;
+    let animal = e.target.foundAnimal.value;
+    let breed = e.target.foundBreed.value;
+    let color = e.target.foundColor.value;
+    let height = e.target.foundHeight.value;
+    let gender = e.target.foundGender.value;
+    let hairType = e.target.foundHairType.value;
+    let earType = e.target.foundEarType.value;
+    let bodyType = e.target.foundBodyType.value;
 
     try {
-      firstName = validValue(firstName, "FIRST NAME");
-      lastName = validValue(lastName, "LAST NAME");
-      age = validValue(age, "AGE");
-      city = validValue(city, "CITY");
-      state = validValue(state, "STATE");
+      name = validValue(name, "NAME");
       email = validValue(email, "EMAIL");
-      petName = validValue(petName, "PET NAME");
-      petBreed = validValue(petBreed, "PET BREED");
-      password = validValue(password, "PASSWORD");
-      cpassword = validValue(cpassword, "RETYPE PASSWORD");
-
-      password = checkPassword(password);
-
-      if (password !== cpassword) {
-        throw { msg: "Error: PASSWORD Mismatch" };
-      }
+      animal = validValue(animal, "ANIMAL");
+      breed = validValue(breed, "BREED");
+      color = validValue(color, "COLOR");
+      height = validValue(height, "HEIGHT");
+      gender = validValue(gender, "GENDER");
+      hairType = validValue(petBreed, "HAIR TYPE");
+      earType = validValue(password, "EAR TYPE");
+      bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -167,33 +160,24 @@ if (lostpetForm) {
     e.preventDefault();
 
     //Pending
-    let name = e.target.lostName.value;
-    let email = e.target.lostEmail.value;
     let animal = e.target.lostAnimal.value;
-    let city = e.target.registerCity.value;
-    let state = e.target.registerState.value;
-    let petName = e.target.registerPetName.value;
-    let petBreed = e.target.registerPetBreed.value;
-    let password = e.target.registerPassword.value;
-    let cpassword = e.target.registerCPassword.value;
+    let breed = e.target.lostBreed.value;
+    let color = e.target.lostColor.value;
+    let height = e.target.lostHeight.value;
+    let gender = e.target.lostGender.value;
+    let hairType = e.target.lostHairType.value;
+    let earType = e.target.lostEarType.value;
+    let bodyType = e.target.lostBodyType.value;
 
     try {
-      firstName = validValue(firstName, "FIRST NAME");
-      lastName = validValue(lastName, "LAST NAME");
-      age = validValue(age, "AGE");
-      city = validValue(city, "CITY");
-      state = validValue(state, "STATE");
-      email = validValue(email, "EMAIL");
-      petName = validValue(petName, "PET NAME");
-      petBreed = validValue(petBreed, "PET BREED");
-      password = validValue(password, "PASSWORD");
-      cpassword = validValue(cpassword, "RETYPE PASSWORD");
-
-      password = checkPassword(password);
-
-      if (password !== cpassword) {
-        throw { msg: "Error: PASSWORD Mismatch" };
-      }
+      animal = validValue(animal, "ANIMAL");
+      breed = validValue(breed, "BREED");
+      color = validValue(color, "COLOR");
+      height = validValue(height, "HEIGHT");
+      gender = validValue(gender, "GENDER");
+      hairType = validValue(petBreed, "HAIR TYPE");
+      earType = validValue(password, "EAR TYPE");
+      bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {

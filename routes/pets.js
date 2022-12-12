@@ -37,7 +37,7 @@ router
       hairType = checkString(body.hairTypeInput, "hair type");
       height = checkString(body.heightInput, "height");
       body.imageInput = imageInput.data;
-      
+
       const result = await pets.createLostPet(body);
 
       if (result.insertedPet) {
@@ -76,7 +76,12 @@ router
       let gender = validValue(body.genderInput, "gender");
       let hairType = validValue(body.hairTypeInput, "hair type");
       let height = validValue(body.heightInput, "height");
-      let imageInput = checkImage(req.files?.imageInput);
+
+      let imageInput;
+      if (req.files) {
+        imageInput = checkImage(req.files.imageInput);
+        imageInput = imageInput.data;
+      }
 
       name = checkString(body.nameInput, "name");
       email = checkString(body.emailInput, "email");
@@ -89,9 +94,23 @@ router
       gender = checkString(body.genderInput, "gender");
       hairType = checkString(body.hairTypeInput, "hair type");
       height = checkString(body.heightInput, "height");
-      body.imageInput = imageInput.data;
 
-      const result = await pets.createFoundPet(body);
+      const foundPetData = {
+        name,
+        email,
+        animal,
+        bodyType,
+        breedType,
+        colar,
+        colar,
+        earType,
+        gender,
+        hairType,
+        height,
+        imageInput,
+      };
+
+      //const result = await pets.createFoundPet(body);
 
       if (result.insertedPet) {
         res.redirect("/live");
