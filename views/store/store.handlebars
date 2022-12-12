@@ -5,15 +5,15 @@
 
     {{#each data}}
       <div class="pet-store-list-item">
-        <a class="pet-store-link" href="/pet-store/review/{{{place_id}}}">
+        <a class="pet-store-link" href="/pet-stores/review/{{{place_id}}}">
           <h2 class="pet-store-name">{{{name}}}</h2>
           <p class="pet-store-rating">
-            Rating: 
+            Rating:
             {{#if rating}}
               {{{rating}}}
             {{else}}
               0
-            {{/if}} 
+            {{/if}}
             / 5
           </p>
           <p class="pet-store-address">{{{vicinity}}}</p>
@@ -27,3 +27,5 @@
   {{/if}}
 
 </div>
+
+<script src="/public/js/stores.js"></script>

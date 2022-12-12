@@ -77,12 +77,6 @@ app.use("/auth/register", (req, res, next) => {
   }
 });
 
-app.use("/pet-store", (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else res.redirect("/");
-});
-
 configRoutes(app);
 
 app.listen(3000, () => {

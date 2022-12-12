@@ -16,7 +16,7 @@ const main = async () => {
   await db.dropDatabase();
 
   function bindata() {
-    fs.readFile("assets/img.jpeg", "base64", async (e, data) => {
+    fs.readFile("public/img.jpeg", "base64", async (e, data) => {
       const buffer = new Buffer.from(data, "base64");
       call(buffer);
     });
