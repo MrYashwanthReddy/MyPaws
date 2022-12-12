@@ -8,22 +8,11 @@ collar1.addEventListener("click", (e) => {
   ) {
     let collarInputDiv = document.getElementById("colarInput");
     let input = document.createElement("input");
-    input.name = "colarInformationInput";
-    input.type = "text";
-    input.id = "colarInformationInput";
-
-    let label = document.createElement("label");
-    label.innerHTML = "Colar Information";
-    label.for = "colarInformationInput";
-    label.id = "colarInformationLabel";
-    collarInputDiv.after(label, input);
-
-    input = document.createElement("input");
     input.name = "colarColorInput";
     input.type = "text";
     input.id = "colarColorInput";
 
-    label = document.createElement("label");
+    let label = document.createElement("label");
     label.innerHTML = "Colar Color";
     label.for = "colarColorInput";
     label.id = "colarColorLabel";
@@ -40,10 +29,5 @@ collar2.addEventListener("click", (e) => {
     let colarColorLabel = document.getElementById("colarColorLabel");
     collarColorInput.remove();
     colarColorLabel.remove();
-    
-    let collarInformationInput = document.getElementById("colarInformationInput");
-    let colarInformationLabel = document.getElementById("colarInformationLabel");
-    collarInformationInput.remove();
-    colarInformationLabel.remove();
   }
 });

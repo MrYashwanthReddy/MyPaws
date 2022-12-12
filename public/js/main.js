@@ -6,8 +6,6 @@ function like(id) {
 
 let loginForm = document.getElementById("loginForm");
 
-console.log(loginForm);
-
 if (loginForm) {
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -15,7 +13,7 @@ if (loginForm) {
     let password = e.target.loginPassword.value;
 
     try {
-      email = validValue(email, "EAMIL");
+      email = validValue(email, "EMAIL");
       password = validValue(password, "PASSWORD");
 
       password = checkPassword(password);
@@ -37,7 +35,6 @@ if (loginForm) {
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
-      console.log(errorDiv);
       return;
     }
 
@@ -64,14 +61,15 @@ if (registerForm) {
     let cpassword = e.target.registerCPassword.value;
 
     try {
-      // firstName = validValue(firstName, "FIRST NAME");
-      // lastName = validValue(lastName, "LAST NAME");
-      // age = validValue(age, "AGE");
-      // city = validValue(city, "CITY");
-      // state = validValue(state, "STATE");
-      // email = validValue(email, "EAMIL");
-      // petName = validValue(petName, "PET NAME");
-      // petBreed = validValue(petBreed, "PET BREED");
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
+      age = validValue(age, "AGE");
+      city = validValue(city, "CITY");
+      state = validValue(state, "STATE");
+      email = validValue(email, "EMAIL");
+      petName = validValue(petName, "PET NAME");
+      petBreed = validValue(petBreed, "PET BREED");
+
       password = validValue(password, "PASSWORD");
       cpassword = validValue(cpassword, "RETYPE PASSWORD");
 
@@ -90,7 +88,6 @@ if (registerForm) {
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
-      console.log(errorDiv);
       return;
     }
 
@@ -124,7 +121,7 @@ if (foundpetForm) {
       age = validValue(age, "AGE");
       city = validValue(city, "CITY");
       state = validValue(state, "STATE");
-      email = validValue(email, "EAMIL");
+      email = validValue(email, "EMAIL");
       petName = validValue(petName, "PET NAME");
       petBreed = validValue(petBreed, "PET BREED");
       password = validValue(password, "PASSWORD");
@@ -145,7 +142,6 @@ if (foundpetForm) {
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
-      console.log(errorDiv);
       return;
     }
 
@@ -177,7 +173,7 @@ if (lostpetForm) {
       age = validValue(age, "AGE");
       city = validValue(city, "CITY");
       state = validValue(state, "STATE");
-      email = validValue(email, "EAMIL");
+      email = validValue(email, "EMAIL");
       petName = validValue(petName, "PET NAME");
       petBreed = validValue(petBreed, "PET BREED");
       password = validValue(password, "PASSWORD");
@@ -198,7 +194,6 @@ if (lostpetForm) {
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
-      console.log(errorDiv);
       return;
     }
 
