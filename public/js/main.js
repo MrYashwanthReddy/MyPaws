@@ -1,6 +1,7 @@
 function like(id) {
   console.log(id);
-  fetch("/add-like", {
+
+  fetch(`/like/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -126,7 +127,7 @@ if (foundpetForm) {
       color = validValue(color, "COLOR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(petBreed, "HAIR TYPE");
+      hairType = validValue(hairType, "HAIR TYPE");
       earType = validValue(password, "EAR TYPE");
       bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
@@ -169,7 +170,7 @@ if (lostpetForm) {
       color = validValue(color, "COLOR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(petBreed, "HAIR TYPE");
+      hairType = validValue(hairType, "HAIR TYPE");
       earType = validValue(password, "EAR TYPE");
       bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
