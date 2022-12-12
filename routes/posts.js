@@ -1,5 +1,5 @@
 const express = require("express");
-const { posts } = require("../data");
+const { posts, likes } = require("../data");
 const { validValue, checkImage } = require("../validation");
 
 const router = express.Router();
@@ -75,6 +75,20 @@ router.route("/post").post(async (req, res) => {
 
     res.redirect("/live");
   } catch (error) {}
+});
+
+router.route('/add-like').post(async (req, res) => {
+  try {
+    let body = req.body;
+    let userId = req.session.user._id;
+    let postId = body.postId;
+    const result = await likes.createLike(userId, postId);
+
+    res.send(result);
+  } catch (error) {
+    res.send(error)
+    console.log(error);
+  }
 });
 
 module.exports = router;
