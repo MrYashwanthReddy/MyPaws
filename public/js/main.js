@@ -1,5 +1,15 @@
 function like(id) {
   console.log(id);
+  fetch('/add-like', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "postId": id })
+  })
+    .then(response => response.json())
+    .then(response => console.log(response))
 }
 
 //Login FORM
@@ -9,8 +19,8 @@ let loginForm = document.getElementById("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    let email = e.target.loginEmail.value;
-    let password = e.target.loginPassword.value;
+    let email = e.target.email.value;
+    let password = e.target.password.value;
 
     try {
       email = validValue(email, "EMAIL");
