@@ -1,0 +1,29 @@
+<h1>Pet Stores</h1>
+<div class="pet-store-list">
+
+  {{#if data}}
+
+    {{#each data}}
+      <div class="pet-store-list-item">
+        <a class="pet-store-link" href="/pet-store/review/{{{place_id}}}">
+          <h2 class="pet-store-name">{{{name}}}</h2>
+          <p class="pet-store-rating">
+            Rating: 
+            {{#if rating}}
+              {{{rating}}}
+            {{else}}
+              0
+            {{/if}} 
+            / 5
+          </p>
+          <p class="pet-store-address">{{{vicinity}}}</p>
+          <p class="pet-store-status">{{{business_status}}}</p>
+        </a>
+      </div>
+    {{/each}}
+
+  {{else}}
+    <p>No data</p>
+  {{/if}}
+
+</div>

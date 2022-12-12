@@ -46,4 +46,10 @@ module.exports = {
 
     return image;
   },
+
+  checkRating(rating) {
+    if (parseInt(rating) < 1 || parseInt(rating) > 5)
+      throw { status: 400, msg: "Error: invalid rating" };
+    return rating;
+  }
 };

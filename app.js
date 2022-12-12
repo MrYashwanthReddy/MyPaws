@@ -38,6 +38,13 @@ app.use(
   })
 );
 
+var hbs = exphbs.create({});
+
+// register new function
+hbs.handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
+  return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+});
+
 app.use("/live", (req, res, next) => {
   if (!req.session.user) {
     res.redirect("/auth/login");
@@ -68,6 +75,12 @@ app.use("/auth/register", (req, res, next) => {
   } else {
     next();
   }
+});
+
+app.use("/pet-store", (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else res.redirect("/");
 });
 
 configRoutes(app);
