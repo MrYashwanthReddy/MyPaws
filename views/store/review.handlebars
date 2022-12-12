@@ -30,7 +30,7 @@
       <div class="pet-store-reivew-list">
         <h2>Reviews</h2>
         {{#unless existReview}}
-          <a href="/pet-store/review-post/{{{place_id}}}/0"><button>Post Review</button></a>
+          <a href="/pet-stores/review-post/{{{place_id}}}/0"><button>Post Review</button></a>
         {{/unless}}
         {{#each reviews}}
           <div class="pet-store-review-list-item">
@@ -54,8 +54,8 @@
             <p class="pet-store-review-text">{{{comment}}}</p>
             {{#ifEquals ../../this.cookie._id userId}}
               <div class="pet-store-review-action">
-                <i class="material-icons" onclick="window.location.href= '/pet-store/review-delete/{{{placeId}}}/{{{_id}}}'">delete</i>
-                <i class="material-icons" onclick="window.location.href= '/pet-store/review-post/{{{placeId}}}/{{{_id}}}'">edit</i>
+                <i class="material-icons" onclick="window.location.href= '/pet-stores/review-delete/{{{placeId}}}/{{{_id}}}'">delete</i>
+                <i class="material-icons" onclick="window.location.href= '/pet-stores/review-post/{{{placeId}}}/{{{_id}}}'">edit</i>
               </div>
             {{/ifEquals}}
           </div>

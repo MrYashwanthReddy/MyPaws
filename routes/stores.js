@@ -54,7 +54,7 @@ router.route("/review/:placeId").get(async (req, res) => {
       data.result.plus_code.global_code.replace("+", "%2B");
 
     data.result.reviews = await reviews.getAllReviews(data.result.placeId);
-    data.result.existReview = await reviews.existReview(req.session.user._id);
+    //data.result.existReview = await reviews.existReview(req.session.user._id);
 
     res.render("store/review", {
       page: { title: "Pet Stores Review" },
@@ -100,11 +100,11 @@ router
       if (reviewId === "0") {
         const result = await reviews.createReview(data);
         if (result.insertedReview)
-          return res.redirect(`/pet-store/review/${placeId}`);
+          return res.redirect(`/pet-stores/review/${placeId}`);
       } else {
         const result = await reviews.updateReview(reviewId, data);
         if (result.updatedReview)
-          return res.redirect(`/pet-store/review/${placeId}`);
+          return res.redirect(`/pet-stores/review/${placeId}`);
       }
     } catch (error) {
       res.status(error.status).json({ error: error.msg });
@@ -117,7 +117,7 @@ router.route("/review-delete/:placeId/:reviewId").get(async (req, res) => {
 
     const result = await reviews.deleteReview(reviewId);
     if (result.deletedReview)
-      return res.redirect(`/pet-store/review/${placeId}/`);
+      return res.redirect(`/pet-stores/review/${placeId}/`);
   } catch (error) {
     res.status(error.status).json({ error: error.msg });
   }
