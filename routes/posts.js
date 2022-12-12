@@ -77,16 +77,21 @@ router.route("/post").post(async (req, res) => {
   } catch (error) {}
 });
 
-router.route('/add-like').post(async (req, res) => {
+router.route("/like/:id").post(async (req, res) => {
   try {
-    let body = req.body;
-    let userId = req.session.user._id;
-    let postId = body.postId;
-    const result = await likes.createLike(userId, postId);
+    if (!req.session.user) {
+      throw { status: 404, msg: "Error: User not found " };
+    }
 
-    res.send(result);
+    let userId = req.session.user._id;
+    let postId = req.params.id;
+
+    
+    // const result = await likes.createLike(userId, postId);
+
+    //res.send(result);
   } catch (error) {
-    res.send(error)
+    res.send(error);
     console.log(error);
   }
 });

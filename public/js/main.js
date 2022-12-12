@@ -1,6 +1,7 @@
 function like(id) {
   console.log(id);
-  fetch("/add-like", {
+
+  fetch(`/like/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -26,15 +27,9 @@ if (loginForm) {
       email = validValue(email, "EMAIL");
       password = validValue(password, "PASSWORD");
 
+      email = checkEmail(email);
+
       password = checkPassword(password);
-
-      //Password Validations
-      //Min len 8
-      // 1 Uppercase
-      // 1 Number
-      // 1 Special charcter
-
-      //password should be equal to cpassword
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -132,7 +127,7 @@ if (foundpetForm) {
       color = validValue(color, "COLOR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(petBreed, "HAIR TYPE");
+      hairType = validValue(hairType, "HAIR TYPE");
       earType = validValue(password, "EAR TYPE");
       bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
@@ -175,7 +170,7 @@ if (lostpetForm) {
       color = validValue(color, "COLOR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(petBreed, "HAIR TYPE");
+      hairType = validValue(hairType, "HAIR TYPE");
       earType = validValue(password, "EAR TYPE");
       bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
@@ -211,4 +206,11 @@ function checkPassword(password) {
     };
 
   return password;
+}
+
+function checkEmail(email) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return email;
+  }
+  throw { msg: "Error: Invalid email format" };
 }
