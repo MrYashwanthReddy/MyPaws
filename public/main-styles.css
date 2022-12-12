@@ -187,3 +187,96 @@ li {
   display: flex;
   justify-content: space-evenly;
 }
+
+.icon-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pet-store-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.pet-store-link {
+  text-decoration: none;
+}
+
+.pet-store-list-item {
+  width: 300px;
+  height: 200px;
+  padding: 8px;
+  margin: 12px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.pet-store-name {
+  margin: 8px;
+  color: blue;
+}
+
+.pet-store-rating {
+  margin: 8px;
+  color: #a3a316;
+}
+
+.pet-store-address {
+  margin: 8px;
+}
+
+.pet-store-status {
+  margin: 8px;
+  color: lightcoral;
+}
+
+.pet-store-review {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pet-store-detail {
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 16px;
+  margin: 8px;
+  text-align: center;
+  height: 100%;
+}
+
+.pet-store-reivew-list {
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 16px;
+  margin: 8px;
+  width: 450px;
+  height: 100%;
+}
+
+.pet-store-review-list-item {
+  box-shadow: 5px 5px #f1f1f1;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.pet-store-reviewer-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pet-store-review-text {
+  color: #4a4a4a;
+}
+
+.pet-store-review-action {
+  display: flex;
+  flex-direction: row-reverse;
+}

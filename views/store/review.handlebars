@@ -1,0 +1,68 @@
+<div class="pet-store-review">
+  {{#if data}}
+    {{#with data}}
+      <div class="pet-store-detail">
+        <h2 class="pet-store-name">{{name}}</h2>
+        <p class="pet-store-rating">
+          Rating:
+          {{#if rating}}
+            {{{rating}}}
+          {{else}}
+            0
+          {{/if}}
+          / 5
+        </p>
+        <p class="pet-store-address">{{{vicinity}}}</p>
+        <p class="pet-store-status">{{{business_status}}}</p>
+        <a class="pet-store-link" href="{{{website}}}">
+          <p>More info</p>
+        </a>
+        <iframe
+          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCCBTWUmMlVv-dt5VvetyGkH9mdbVL6iy4&q={{{plus_code.global_code}}}"
+          width="600"
+          height="450"
+          style="border: 0px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div class="pet-store-reivew-list">
+        <h2>Reviews</h2>
+        {{#unless existReview}}
+          <a href="/pet-store/review-post/{{{place_id}}}/0"><button>Post Review</button></a>
+        {{/unless}}
+        {{#each reviews}}
+          <div class="pet-store-review-list-item">
+            <div class="pet-store-reviewer-container">
+              <div class="icon-text">
+                <i class="material-icons">person</i>
+                <h4>{{user.[0].firstName}}</h4>
+              </div>
+              <div class="icon-text">
+                <i class="material-icons pet-store-rating">star</i>
+                <p class="pet-store-rating">
+                  {{#if rating}}
+                    {{{rating}}}
+                  {{else}}
+                    0
+                  {{/if}}
+                  / 5
+                </p>
+              </div>
+            </div>
+            <p class="pet-store-review-text">{{{comment}}}</p>
+            {{#ifEquals ../../this.cookie._id userId}}
+              <div class="pet-store-review-action">
+                <i class="material-icons" onclick="window.location.href= '/pet-store/review-delete/{{{placeId}}}/{{{_id}}}'">delete</i>
+                <i class="material-icons" onclick="window.location.href= '/pet-store/review-post/{{{placeId}}}/{{{_id}}}'">edit</i>
+              </div>
+            {{/ifEquals}}
+          </div>
+        {{/each}}
+      </div>
+    {{/with}}
+  {{else}}
+    <p>No data</p>
+  {{/if}}
+</div>
