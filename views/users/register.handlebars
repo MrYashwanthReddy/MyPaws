@@ -1,54 +1,137 @@
-<form method="post" id="registerForm" action="/auth/register" enctype="multipart/form-data">
+<form
+  method="post"
+  id="registerForm"
+  action="/auth/register"
+  enctype="multipart/form-data"
+>
   {{#if error}}
-  <div class="error">{{error}}</div>
+    <div class="error">{{error}}</div>
   {{/if}}
   <h2>Register Now</h2>
   <label>
     Profile Picture
-    <input id="profileImageInput" type="file" name="profileImage" accept="image/*" required />
+    <input
+      id="profileImageInput"
+      type="file"
+      name="profileImage"
+      accept="image/*"
+      required
+    />
   </label>
 
   <div class="profile-image-container">
 
-    <img id="outputProfileImage" src="/assets/img.jpeg" alt="Image Preview" />
+    <img id="outputProfileImage" src="/public/img.jpeg" alt="Image Preview" />
   </div>
   <label>
     First Name
-    <input type="text" placeholder="Enter your first name.." pattern="[A-Za-z ]{1,}" name="firstName" value="{{firstName}}" required />
+    <input
+      type="text"
+      placeholder="Enter your first name.."
+      pattern="[A-Za-z ]{1,}"
+      name="firstName"
+      value="{{firstName}}"
+      required
+    />
   </label>
   <label>
     Last Name
-    <input type="text" placeholder="Enter your last name.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" name="lastName" value="{{lastName}}" required />
+    <input
+      type="text"
+      placeholder="Enter your last name.."
+      pattern="[A-Za-z ]{1,}"
+      title="Enter only Alphabets"
+      name="lastName"
+      value="{{lastName}}"
+      required
+    />
   </label>
   <label>Age
-    <input type="number" placeholder="Enter your age.. e.g. 8" name="age" value="{{age}}" min="8" required/>
+    <input
+      type="number"
+      placeholder="Enter your age.. e.g. 8"
+      name="age"
+      value="{{age}}"
+      min="8"
+      required
+    />
   </label>
   <label>City
-    <input type="text" placeholder="Enter city.. e.g. New York City" pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" name="city" value="{{city}}" required />
+    <input
+      type="text"
+      placeholder="Enter city.. e.g. New York City"
+      pattern="[A-Za-z ]{1,}"
+      title="Enter only Alphabets"
+      name="city"
+      value="{{city}}"
+      required
+    />
   </label>
   <label>State
-    <input type="text" placeholder="Enter state.. e.g. New York" pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" name="state" value="{{state}}" required />
+    <input
+      type="text"
+      placeholder="Enter state.. e.g. New York"
+      pattern="[A-Za-z ]{1,}"
+      title="Enter only Alphabets"
+      name="state"
+      value="{{state}}"
+      required
+    />
   </label>
   <label>
     Email
-    <input type="email" placeholder="Enter your email.. e.g. example@email.com" name="email" value="{{email}}" required />
+    <input
+      type="email"
+      placeholder="Enter your email.. e.g. example@email.com"
+      name="email"
+      value="{{email}}"
+      required
+    />
   </label>
   <label>
     Pet Name
-    <input type="text" placeholder="Enter your pet name.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" name="petName" value="{{petName}}" required />
+    <input
+      type="text"
+      placeholder="Enter your pet name.."
+      pattern="[A-Za-z ]{1,}"
+      title="Enter only Alphabets"
+      name="petName"
+      value="{{petName}}"
+      required
+    />
   </label>
   <label>
     Pet Breed
-    <input type="text" placeholder="Enter your pet breed type.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" name="petBreed" value="{{petBreed}}" required />
+    <input
+      type="text"
+      placeholder="Enter your pet breed type.."
+      pattern="[A-Za-z ]{1,}"
+      title="Enter only Alphabets"
+      name="petBreed"
+      value="{{petBreed}}"
+      required
+    />
   </label>
 
   <label>
     Password
-    <input type="password" id="registerPassword" placeholder="Enter password.." name="password" required />
+    <input
+      type="password"
+      id="registerPassword"
+      placeholder="Enter password.."
+      name="password"
+      required
+    />
   </label>
   <label>
     Retype Password
-    <input type="password" id="registerCPassword" placeholder="Retype password.." name="cpassword" required />
+    <input
+      type="password"
+      id="registerCPassword"
+      placeholder="Retype password.."
+      name="cpassword"
+      required
+    />
   </label>
   <button type="submit">Sign Up</button>
 </form>
