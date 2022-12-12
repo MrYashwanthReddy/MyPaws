@@ -4,18 +4,18 @@
   <div class="error">{{error}}</div>
   {{/if}}
   <label for="foundName">Your Name</label>
-  <input type="text" placeholder="Enter your name.." id="foundName" pattern="[A-Za-z ]{1,}" required autofocus name="nameInput" />
+  <input type="text" placeholder="Enter your name.." id="foundName" pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required autofocus name="nameInput" />
   <label for="foundEmail">Your Email</label>
   <input type="email" id="foundEmail" placeholder="Enter your email.. e.g. example@email.com" name="email"
     name="emailInput" />
   <label for="foundAnimal">Pet Found</label>
-  <input type="text" id="foundAnimal" placeholder="Enter pet type.. e.g. Dog" pattern="[A-Za-z ]{1,}" required name="animalInput" />
+  <input type="text" id="foundAnimal" placeholder="Enter pet type.. e.g. Dog" pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="animalInput" />
   <label for="foundImage">Upload Image</label>
   <input id="foundImage" type="file" name="imageInput" accept="image/*" required/>
   <label for="foundBreed">Breed</label>
-  <input type="text" id="foundBreed" placeholder="Enter pet breed.." pattern="[A-Za-z ]{1,}" required name="breedInput" />
+  <input type="text" id="foundBreed" placeholder="Enter pet breed.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="breedInput" />
   <label for="foundColor">Color</label>
-  <input type="text" id="foundColor" placeholder="Enter pet color.." pattern="[A-Za-z ]{1,}" required name="colorInput" />
+  <input type="text" id="foundColor" placeholder="Enter pet color.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="colorInput" />
   <div id="colarInput" class="wrapper">
     <p>Colar</p>
     <input required type="radio" id="colarInput1" name="colarInput" value="true" checked />
@@ -31,11 +31,11 @@
     <option value="F">Female</option>
   </select>
   <label for="foundHairType">Hair Type</label>
-  <input type="text" id="foundHairType" placeholder="Enter pet hair type.." pattern="[A-Za-z ]{1,}" required name="hairTypeInput" />
+  <input type="text" id="foundHairType" placeholder="Enter pet hair type.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="hairTypeInput" />
   <label for="foundEaType">Ear Type</label>
-  <input type="text" id="foundEaType" placeholder="Enter pet ear type.." pattern="[A-Za-z ]{1,}" required name="earTypeInput" />
+  <input type="text" id="foundEaType" placeholder="Enter pet ear type.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="earTypeInput" />
   <label for="foundBodyType">Body Type</label>
-  <input type="text" id="foundBodyType" placeholder="Enter pet body type.." pattern="[A-Za-z ]{1,}" required name="bodyTypeInput" />
+  <input type="text" id="foundBodyType" placeholder="Enter pet body type.." pattern="[A-Za-z ]{1,}" title="Enter only Alphabets" required name="bodyTypeInput" />
 
   <button type="submit">Submit</button>
 
