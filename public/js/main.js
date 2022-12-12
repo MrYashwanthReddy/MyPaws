@@ -18,7 +18,7 @@ function like(id) {
 let loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
+  loginForm.addEventListener("subm", (e) => {
     e.preventDefault();
     let email = e.target.email.value;
     let password = e.target.password.value;
@@ -104,7 +104,7 @@ if (registerForm) {
 let foundpetForm = document.getElementById("foundpet-form");
 
 if (foundpetForm) {
-  foundpetForm.addEventListener("submit", (e) => {
+  foundpetForm.addEventListener("subm", (e) => {
     e.preventDefault();
 
     let name = e.target.foundName.value;
@@ -151,7 +151,7 @@ if (foundpetForm) {
 let lostpetForm = document.getElementById("lostpet-form");
 
 if (lostpetForm) {
-  lostpetForm.addEventListener("submit", (e) => {
+  lostpetForm.addEventListener("subm", (e) => {
     e.preventDefault();
 
     //Pending

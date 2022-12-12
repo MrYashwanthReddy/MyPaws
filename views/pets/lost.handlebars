@@ -1,54 +1,37 @@
 <h1>Lost Pet Form</h1>
-<form
-  id="lostpet-form"
-  method="post"
-  action="/pets/lost"
-  enctype="multipart/form-data"
->
+<form id="lostpet-form" method="post" action="/pets/lost" enctype="multipart/form-data">
   {{#if error}}
-    <div class="error">{{error}}</div>
+  <div class="error">{{error}}</div>
   {{/if}}
 
   <label for="lostAnimal">Animal</label>
-  <input type="text" id="lostAnimal" name="animalInput" />
+  <input type="text" id="lostAnimal" placeholder="Enter your pet type.. e.g. Dog" pattern="[A-Za-z ]{1,}" name="animalInput" required autofocus />
   <label for="imageInput">Upload Image</label>
-  <input id="imageInput" type="file" name="imageInput" accept="image/*" />
+  <input id="imageInput" type="file" name="imageInput" accept="image/*" required />
   <label for="lostBreed">Breed</label>
-  <input type="text" id="lostBreed" name="breedInput" />
+  <input type="text" id="lostBreed" placeholder="Enter pet breed.." pattern="[A-Za-z ]{1,}" name="breedInput" required />
   <label for="lostColor">Color</label>
-  <input type="text" id="lostColor" name="colorInput" />
+  <input type="text" id="lostColor" placeholder="Enter pet color.." pattern="[A-Za-z ]{1,}" name="colorInput" required />
   <div id="colarInput" class="wrapper">
     <p>Colar</p>
-    <input
-      required
-      type="radio"
-      id="colarInput1"
-      name="colarInput"
-      value="true"
-    />
+    <input required type="radio" id="colarInput1" name="colarInput" value="true" checked />
     <label for="colarInput1">Yes</label>
-    <input
-      required
-      type="radio"
-      id="colarInput2"
-      name="colarInput"
-      value="false"
-    />
+    <input required type="radio" id="colarInput2" name="colarInput" value="false" />
     <label for="colarInput2">No</label>
   </div>
   <label for="lostHeight">Height</label>
-  <input type="number" id="lostHeight" name="heightInput" />
+  <input type="number" id="lostHeight" placeholder="Enter pet height in ft.." min="0" name="heightInput" required />
   <label for="lostGender">Gender</label>
   <select id="lostGender" name="genderInput">
     <option value="M">Male</option>
     <option value="F">Female</option>
   </select>
   <label for="lostHairType">Hair Type</label>
-  <input type="text" id="lostHairType" name="hairTypeInput" />
+  <input type="text" id="lostHairType" placeholder="Enter pet hair type.." pattern="[A-Za-z ]{1,}" name="hairTypeInput" required />
   <label for="lostEarType">Ear Type</label>
-  <input type="text" id="lostEarType" name="earTypeInput" />
+  <input type="text" id="lostEarType" placeholder="Enter pet ear type.." pattern="[A-Za-z ]{1,}" name="earTypeInput" required />
   <label for="lostBodyType">Body Type</label>
-  <input type="text" id="lostBodyType" name="bodyTypeInput" />
+  <input type="text" id="lostBodyType" placeholder="Enter pet body type.." pattern="[A-Za-z ]{1,}" name="bodyTypeInput" required />
 
   <button type="submit">Submit</button>
 
