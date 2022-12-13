@@ -109,7 +109,8 @@ router.route("/logout").get(async (req, res) => {
 });
 
 router.route("/profile").get(async (req, res) => {
-  let data = xss(req.session.user);
+  //XSS
+  let data = req.session.user;
 
   if (!data.image) {
     let img = "data:image/webp;base64," + data.profileImage;
