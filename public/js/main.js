@@ -171,7 +171,7 @@ if (lostpetForm) {
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
       hairType = validValue(hairType, "HAIR TYPE");
-      earType = validValue(password, "EAR TYPE");
+      earType = validValue(earType, "EAR TYPE");
       bodyType = validValue(bodyType, "BODY TYPE");
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
