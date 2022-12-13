@@ -61,7 +61,7 @@ const createPost = async ({ content, image, userId, title }) => {
     image,
     title,
     postDate: new Date(),
-    likes: 0,
+    likes: [],
     comments: [],
   };
 
@@ -75,8 +75,39 @@ const createPost = async ({ content, image, userId, title }) => {
   return { status: 200, insertedUser: true };
 };
 
+const likePost = async (postId, userId) => {
+  let postsCollection;
+  try {
+    postsCollection = await posts();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+
+  let post = await postsCollection.findOne({ _id: ObjectId(postId) });
+
+  //var item = post.likes.find(item => item.id === ObjectId(userId));
+  if (post.likes == 0) {
+    post.likes = []
+  }
+  if (post.likes.includes(userId)) {
+    post.likes = post.likes.filter(e => e !== userId);
+  } else {
+    post.likes.push(userId)
+  }
+
+  const insertInfo = await postsCollection.updateOne({ _id: ObjectId(postId) }, { $set: { likes: post.likes } });
+
+  if (!insertInfo.acknowledged || !insertInfo.modifiedCount) {
+    throw { status: 400, msg: "Could not add feed" };
+  }
+
+
+  return { status: 200, liked: true };
+};
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostsCount,
+  likePost
 };

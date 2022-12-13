@@ -34,11 +34,27 @@ router
         queryDoc = 0;
       }
 
-      const result = await posts.getAllPosts(queryDoc);
+      let userId;
+      try {
+        userId = req.session.user._id;
+      } catch (c) { }
 
+      let result = await posts.getAllPosts(queryDoc);
       result.posts.forEach((element) => {
         let binString = JSON.stringify(element.image);
         element.image = "data:image/webp;base64," + JSON.parse(binString);
+
+        element.isLiked = false;
+        element.comments = [{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'}]
+        if (userId) {
+          if (element.likes != 0) {
+            if (element.likes.includes(userId)) {
+              element.isLiked = true;
+            }
+          }else{
+            element.likes = [];
+          }
+        }
       });
 
       res.status(200).render("home/live", {
@@ -86,9 +102,9 @@ router.route("/like/:id").post(async (req, res) => {
     let userId = req.session.user._id;
     let postId = req.params.id;
 
-    // const result = await likes.createLike(userId, postId);
 
-    //res.send(result);
+    const result = await posts.likePost(postId, userId);
+    res.send(result);
   } catch (error) {
     res.send(error);
     console.log(error);
