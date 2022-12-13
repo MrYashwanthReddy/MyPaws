@@ -2,28 +2,52 @@
 
   {{#if data}}
 
-    {{#each data}}
-      <div class="post-card">
-        <div class="text-part">
-          <div class="main-text">
-            <h1>{{{title}}}</h1>
-            <p>{{{content}}}</p>
-          </div>
-          <div class="repo">
-            <i onclick="report()" class="material-icons">report</i>
-          </div>
-        </div>
-        {{#if image}}
-          <div class="img-container">
-
-            <img src={{{image}}} />
-          </div>
-        {{/if}}
-        <div class="bottom-part">
-          <i onclick="comment()" class="material-icons">comment</i>
-          <i onclick='like("{{_id}}")' class="material-icons">favorite</i>
-        </div>
+  {{#each data}}
+  <div class="post-card">
+  <div>
+    <div class="text-part">
+      <div class="main-text">
+        <h1>{{{title}}}</h1>
+        <p>{{{content}}}</p>
       </div>
+      <div class="repo">
+        <i onclick="report()" class="material-icons">report</i>
+      </div>
+    </div>
+    {{#if image}}
+    <div class="img-container">
+
+      <img src={{{image}}} />
+    </div>
+    {{/if}}
+    <div class="bottom-part">
+      <i onclick="comment()" class="material-icons">comment</i>
+      <div class="flex items-center">
+        <span>{{ likes.length }}</span>
+        <i onclick='like("{{_id}}", this)' class="material-icons {{#if isLiked}} active {{^}} {{/if}}">favorite</i>
+      </div>
+
+    </div>
+  </div>
+
+
+      <div class="comment-sec">
+        <div class="comment-list">
+          {{#each comments}}
+          <div class="single-comment"><b>{{ name }}:</b><br><span>{{ txt }}</span></div>
+          {{/each}}
+        </div>
+        <div class="comment-send">
+          <form style="width: 100%;">
+            <div class="flex">
+              <input type="text" style="flex: 1"/>
+              <input type="submit" value="Send" />
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
 
     {{/each}}
 

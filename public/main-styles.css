@@ -2,6 +2,15 @@
   margin: 0;
   padding: 0;
 }
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
 header {
   height: 40px;
   background-color: black;
@@ -19,6 +28,7 @@ footer {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
 footer a {
   color: white;
 }
@@ -100,6 +110,10 @@ li {
   cursor: pointer;
 }
 
+.material-icons.active {
+  color: cyan;
+}
+
 .feed-main {
   margin: 12px 10px;
   max-width: 350px;
@@ -144,6 +158,7 @@ li {
 }
 
 .post-card {
+  display: flex;
   height: 500px;
   margin-bottom: 30px;
   border-radius: 10px;
@@ -151,8 +166,32 @@ li {
   padding: 5px 0px 0px 0px;
   background-color: #ee6c4d;
   color: white;
-
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.comment-sec {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  margin: 3px 8px 8px 8px;
+  padding: 0 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #000;
+  overflow: auto;
+}
+
+.comment-send{
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+}
+
+.single-comment {
+  border-bottom: 1px solid lightgray;
+  margin: 6px 0;
+  padding-bottom: 4px;
 }
 
 .post-card .text-part {

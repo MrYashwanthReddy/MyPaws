@@ -1,4 +1,4 @@
-function like(id) {
+function like(id, element) {
   console.log(id);
 
   fetch(`/like/${id}`, {
@@ -10,7 +10,23 @@ function like(id) {
     body: JSON.stringify({ postId: id }),
   })
     .then((response) => response.json())
-    .then((response) => console.log(response));
+    .then((response) => {
+      console.log(response);
+      if(response.liked == true){
+        let c = $('span', $(element).parent()).html();
+        if(c == ""){c = "0"}
+        c = parseInt(c);
+        
+        if( $(element).hasClass('active') ){
+          $('span', $(element).parent()).html(c - 1)
+        }else{
+          $('span', $(element).parent()).html(c + 1)
+        }
+        $(element).toggleClass('active');
+
+        
+      }
+    });
 }
 
 //Login FORM
