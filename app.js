@@ -84,6 +84,13 @@ app.use("/auth/register", (req, res, next) => {
     next();
   }
 });
+app.use("/auth/profile", (req, res, next) => {
+  if (!req.session.user) {
+    res.redirect("/auth/login?e=l");
+  } else {
+    next();
+  }
+});
 
 app.use("/pet-stores/review-post", (req, res, next) => {
   if (req.session.user) {
