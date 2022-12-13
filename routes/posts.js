@@ -86,7 +86,6 @@ router.route("/like/:id").post(async (req, res) => {
     let userId = req.session.user._id;
     let postId = req.params.id;
 
-    
     // const result = await likes.createLike(userId, postId);
 
     //res.send(result);
