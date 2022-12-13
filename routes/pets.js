@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: xss } = require("xss");
 const { pets } = require("../data");
 const { checkString, validValue, checkImage } = require("../validation");
 
@@ -7,13 +8,14 @@ const router = express.Router();
 router
   .route("/lost")
   .get(async (req, res) => {
+    let sessionUser = xss(req.session.user) ? req.session.user : false;
     res.render("pets/lost", {
       page: { title: "PET LOST" },
-      cookie: req.session.user ? req.session.user : false,
+      cookie: sessionUser,
     });
   })
   .post(async (req, res) => {
-    let body = req.body;
+    let body = xss(req.body);
 
     try {
       let animal = validValue(body.animalInput, "animal");
@@ -44,11 +46,12 @@ router
         res.redirect("/live");
       }
     } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
       res.status(error.status).render("pets/lost", {
         ...body,
         error: error.msg,
         page: { title: "PET LOST" },
-        cookie: req.session.user ? req.session.user : false,
+        cookie: sessionUser,
       });
     }
   });
@@ -56,13 +59,14 @@ router
 router
   .route("/found")
   .get(async (req, res) => {
+    let sessionUser = xss(req.session.user) ? req.session.user : false;
     res.render("pets/found", {
       page: { title: "PET FOUND" },
-      cookie: req.session.user ? req.session.user : false,
+      cookie: sessionUser,
     });
   })
   .post(async (req, res) => {
-    let body = req.body;
+    let body = xss(req.body);
 
     try {
       let name = validValue(body.nameInput, "name");
@@ -78,8 +82,8 @@ router
       let height = validValue(body.heightInput, "height");
 
       let imageInput;
-      if (req.files) {
-        imageInput = checkImage(req.files.imageInput);
+      if (xss(req.files)) {
+        imageInput = checkImage(xss(req.files.imageInput));
         imageInput = imageInput.data;
       }
 
@@ -116,11 +120,12 @@ router
         res.redirect("/live");
       }
     } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
       res.status(error.status).render("pets/found", {
         ...body,
         error: error.msg,
         page: { title: "PET FOUND" },
-        cookie: req.session.user ? req.session.user : false,
+        cookie: sessionUser,
       });
     }
   });
