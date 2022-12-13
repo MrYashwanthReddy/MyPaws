@@ -47,7 +47,15 @@ hbs.handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 
 app.use("/live", (req, res, next) => {
   if (!req.session.user) {
-    res.redirect("/auth/login?e=l");
+    res.redirect("/home");
+  } else {
+    next();
+  }
+});
+
+app.use("/home", (req, res, next) => {
+  if (!req.session.user) {
+    res.render("home/home",{page: { title: "Home" }});
   } else {
     next();
   }

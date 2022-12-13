@@ -1,66 +1,66 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyPaws | {{page.title}}</title>
 
-    <link rel="stylesheet" href="/public/main-styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="logo"><a href="/">MyPaws</a> </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyPaws | {{page.title}}</title>
 
-      <div class="header-right">
+  <link rel="stylesheet" href="/public/main-styles.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
 
+<body>
+  <header>
+    <div class="logo"><a href="/">MyPaws</a> </div>
+
+    <div class="header-right">
+
+      {{#if cookie}}
+
+      <i onclick="window.location.href= '/post'" class="material-icons">create</i>
+      {{/if}}
+
+      <div class="profile">
         {{#if cookie}}
-
-          <i
-            onclick="window.location.href= '/post'"
-            class="material-icons"
-          >create</i>
-        {{/if}}
-
-        <div class="profile">
-          {{#if cookie}}
-            <i
-              onclick="window.location.href = '/auth/profile'"
-              class="material-icons"
-            >person</i>
-          {{/if}}
-        </div>
-      </div>
-
-    </header>
-    <main>
-      {{{body}}}
-    </main>
-    <footer>
-      <ul>
-        {{#if cookie}}
-          <li><a href="/auth/logout">Logout</a></li>
-
+        <i onclick="window.location.href = '/auth/profile'" class="material-icons">person</i>
         {{else}}
-          <li><a href="/auth/login">Login</a></li>
-          <li><a href="/auth/register">Register</a></li>
-
+        {{#ifEquals page.title 'Login'}}
+        <i onclick="window.location.href = '/auth/register'" class="material-icons">person_add</i>
+        {{else}}
+        <i onclick="window.location.href = '/auth/login'" class="material-icons">login</i>
+        {{/ifEquals}}
         {{/if}}
+      </div>
+    </div>
 
-        {{!-- {{#if cookie.auth}}{{/if}} --}}
-      </ul>
-      <ul>
-        <li><a href="/pets/lost">Lost</a></li>
-        <li><a href="/pets/found">Found</a></li>
-        <li><a href="/pet-stores">Nearby Pet Stores</a></li>
+  </header>
+  <main>
+    {{{body}}}
+  </main>
+  <footer>
+    <ul>
+      {{#if cookie}}
+      <li><a href="/auth/logout">Logout</a></li>
 
-      </ul>
-    </footer>
+      {{else}}
+      <li><a href="/auth/login">Login</a></li>
+      <li><a href="/auth/register">Register</a></li>
 
-    <script src="/public/js/main.js"></script>
+      {{/if}}
 
-  </body>
+      {{!-- {{#if cookie.auth}}{{/if}} --}}
+    </ul>
+    <ul>
+      <li><a href="/pets/lost">Lost</a></li>
+      <li><a href="/pets/found">Found</a></li>
+      <li><a href="/pet-stores">Nearby Pet Stores</a></li>
+
+    </ul>
+  </footer>
+
+  <script src="/public/js/main.js"></script>
+
+</body>
+
 </html>
