@@ -6,6 +6,7 @@ const { users } = require("../data");
 const { validValue, checkString, checkImage } = require("../validation");
 
 const bcrypt = require("bcrypt");
+const xss = require("xss");
 
 router.route("/").get(async (req, res) => {
   res.redirect("/live");
@@ -14,20 +15,19 @@ router.route("/").get(async (req, res) => {
 router
   .route("/login")
   .get((req, res) => {
-    let error = req.query.e;
+    let error = xss(req.query.e);
     if (error == "l") {
       error = "Error: Login Required to Proceed";
     }
     res.render("users/login", { page: { title: "Login" }, error: error });
   })
   .post(async (req, res) => {
-    let body = req.body;
     try {
-      let email = validValue(body.email, "EMAIL");
-      let pass = validValue(body.password, "PASSWORD");
+      let email = validValue(xss(req.body.email), "EMAIL");
+      let pass = validValue(xss(req.body.password), "PASSWORD");
 
-      email = checkString(body.email, "EMAIL");
-      pass = checkString(body.password, "PASSWORD");
+      email = checkString(email, "EMAIL");
+      pass = checkString(pass, "PASSWORD");
 
       const result = await users.userLogin(email, pass);
 
@@ -54,28 +54,28 @@ router
     res.render("users/register", { page: { title: "Registration" } });
   })
   .post(async (req, res) => {
-    let body = req.body;
+    let body = xss(req.body);
     try {
-      let firstName = validValue(body.firstName, "FIRST NAME");
-      let lastName = validValue(body.lastName, "LAST NAME");
-      let email = validValue(body.email, "EMAIL");
-      let petName = validValue(body.petName, "PET NAME");
-      let petBreed = validValue(body.petBreed, "PET BREED");
-      let password = validValue(body.password, "PASSWORD");
-      let cpassword = validValue(body.cpassword, "RETYPE PASSWORD");
+      let firstName = validValue(xss(req.body.firstName), "FIRST NAME");
+      let lastName = validValue(xss(req.body.lastName), "LAST NAME");
+      let email = validValue(xss(req.body.email), "EMAIL");
+      let petName = validValue(xss(req.body.petName), "PET NAME");
+      let petBreed = validValue(xss(req.body.petBreed), "PET BREED");
+      let password = validValue(xss(req.body.password), "PASSWORD");
+      let cpassword = validValue(xss(req.body.cpassword), "RETYPE PASSWORD");
       let profileImage;
-      if (req.files) {
-        profileImage = checkImage(req.files.profileImage);
+      if (xss(req.files)) {
+        profileImage = checkImage(xss(req.files.profileImage));
         profileImage = profileImage.data;
       }
 
-      firstName = checkString(body.firstName, "FIRST NAME");
-      lastName = checkString(body.lastName, "LAST NAME");
-      email = checkString(body.email, "EMAIL");
-      petName = checkString(body.petName, "PET NAME");
-      petBreed = checkString(body.petBreed, "PET BREED");
-      password = checkString(body.password, "PASSWORD");
-      cpassword = checkString(body.cpassword, "RETYPE PASSWORD");
+      firstName = checkString(xss(req.body.firstName), "FIRST NAME");
+      lastName = checkString(xss(req.body.lastName), "LAST NAME");
+      email = checkString(xss(req.body.email), "EMAIL");
+      petName = checkString(xss(req.body.petName), "PET NAME");
+      petBreed = checkString(xss(req.body.petBreed), "PET BREED");
+      password = checkString(xss(req.body.password), "PASSWORD");
+      cpassword = checkString(xss(req.body.cpassword), "RETYPE PASSWORD");
 
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
@@ -109,7 +109,7 @@ router.route("/logout").get(async (req, res) => {
 });
 
 router.route("/profile").get(async (req, res) => {
-  let data = req.session.user;
+  let data = xss(req.session.user);
 
   if (!data.image) {
     let img = "data:image/webp;base64," + data.profileImage;
@@ -120,7 +120,7 @@ router.route("/profile").get(async (req, res) => {
   res.render("users/profile", {
     page: { title: "Profile" },
     data: data,
-    cookie: req.session.user ? req.session.user : false,
+    cookie: xss(req.session.user) ? xss(req.session.user) : false,
   });
 });
 
