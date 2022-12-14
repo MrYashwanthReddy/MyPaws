@@ -1,3 +1,33 @@
+function comment(id) {
+  console.log(id);
+
+  let comment = $(`.comment-ip`, $(`[data-post="${id}"]`) );
+
+  fetch(`/comment/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      postId: id,
+      comment: comment.val()
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      //comment.val('');
+
+      if (response.comment == true) {
+        $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
+        <div class="single-comment"><b>${response.username}:</b><br><span>${comment.val()}</span></div>
+        `);
+        comment.val('');
+      }
+    });
+}
+
 function like(id, element) {
   console.log(id);
 
