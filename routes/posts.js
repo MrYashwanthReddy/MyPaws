@@ -47,7 +47,7 @@ router
         element.isLiked = false;
         element.comments = [{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'}]
         if (userId) {
-          if (element.likes != 0) {
+          if (element.likes.length != 0) {
             if (element.likes.includes(userId)) {
               element.isLiked = true;
             }

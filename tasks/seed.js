@@ -25,25 +25,27 @@ const main = async () => {
   bindata();
 
   async function call(binImg) {
-    const user1 = await users.createUser(
-      "Yashwanth",
-      "Reddy",
-      "yash@gmail.com",
-      "jack",
-      "lab",
-      "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
-      binImg
-    );
+    const user1 = await users.createUser({
+      firstName: "Yash",
+      lastName: "Reddy",
+      age: 22,
+      email: "yash@gmail.com",
+      petName: "jack",
+      petBreed: "lab",
+      password: "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
+      profileImage: binImg,
+    });
 
-    const user2 = await users.createUser(
-      "Yash",
-      "Reddy",
-      "yashwanth@gmail.com",
-      "jack",
-      "lab",
-      "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
-      binImg
-    );
+    const user2 = await users.createUser({
+      firstName: "Yash",
+      lastName: "Reddy",
+      age: 22,
+      email: "yashwanth@gmail.com",
+      petName: "jack",
+      petBreed: "lab",
+      password: "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
+      profileImage: binImg,
+    });
 
     const uid1 = await user1.data._id.toString();
     const uid2 = await user2.data._id.toString();
@@ -52,7 +54,6 @@ const main = async () => {
       title: "POST 1",
       content: "This is the description for post 1",
       userId: uid1,
-
       image: binImg,
     });
 
