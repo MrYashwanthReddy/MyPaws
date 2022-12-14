@@ -11,9 +11,6 @@
         <h1>{{{title}}}</h1>
         <p>{{{content}}}</p>
       </div>
-      <div class="repo">
-        <i onclick="report()" class="material-icons">report</i>
-      </div>
     </div>
     {{#if image}}
     <div class="img-container">
@@ -31,17 +28,17 @@
   </div>
 
 
-      <div class="comment-sec">
+      <div class="comment-sec" data-post="{{_id}}">
         <div class="comment-list">
           {{#each comments}}
-          <div class="single-comment"><b>{{ name }}:</b><br><span>{{ txt }}</span></div>
+          <div class="single-comment"><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
           {{/each}}
         </div>
         <div class="comment-send">
           <form style="width: 100%;">
             <div class="flex">
               <input type="text" style="flex: 1"/>
-              <button type="submit" >Comment </button>
+              <input type="submit" value="Send" />
             </div>
           </form>
         </div>

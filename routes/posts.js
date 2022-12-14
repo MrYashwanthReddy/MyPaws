@@ -1,5 +1,6 @@
 const express = require("express");
-const { posts, likes } = require("../data");
+const { posts, likes, users } = require("../data");
+const { getUserById } = require("../data/users");
 const { validValue, checkImage } = require("../validation");
 
 const router = express.Router();
@@ -35,8 +36,11 @@ router
       }
 
       let userId;
+      let userName
       try {
         userId = req.session.user._id;
+        userName =  req.session.user.firstName
+        console.log(userName)
       } catch (c) { }
 
       let result = await posts.getAllPosts(queryDoc);
@@ -45,7 +49,6 @@ router
         element.image = "data:image/webp;base64," + JSON.parse(binString);
 
         element.isLiked = false;
-        element.comments = [{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'},{name: 'Prit', txt: 'asdad as d'}]
         if (userId) {
           if (element.likes.length != 0) {
             if (element.likes.includes(userId)) {
@@ -98,11 +101,8 @@ router.route("/like/:id").post(async (req, res) => {
     if (!req.session.user) {
       throw { status: 404, msg: "Error: User not found " };
     }
-
     let userId = req.session.user._id;
     let postId = req.params.id;
-
-
     const result = await posts.likePost(postId, userId);
     res.send(result);
   } catch (error) {
@@ -110,5 +110,21 @@ router.route("/like/:id").post(async (req, res) => {
     console.log(error);
   }
 });
+
+router.route("/comment").post(async (req, res) => {
+  try {
+    if (!req.session.user) {
+      throw { status: 404, msg: "Error: User not found " };
+    }
+    let userId = req.session.user._id;
+    let postId = req.body.postId;
+    let comment = req.body.comment;
+    const result = await posts.commentPost(req, postId, userId, comment);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+})
 
 module.exports = router;
