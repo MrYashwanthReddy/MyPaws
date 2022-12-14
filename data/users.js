@@ -19,15 +19,16 @@ const getAllUsers = async () => {
   return data;
 };
 
-const createUser = async (
+const createUser = async ({
   firstName,
   lastName,
+  age,
   email,
   petName,
   petBreed,
   password,
-  profileImage
-) => {
+  profileImage,
+}) => {
   let usersCollection;
   try {
     usersCollection = await users();
@@ -44,6 +45,7 @@ const createUser = async (
   const userData = {
     firstName,
     lastName,
+    age,
     email,
     petName,
     petBreed,

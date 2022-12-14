@@ -1,4 +1,5 @@
 <div id="live-feed">
+  <br />
 
   {{#if data}}
 
@@ -13,13 +14,12 @@
     </div>
     {{#if image}}
     <div class="img-container">
-
-      <img src={{{image}}} />
+      <img src={{{image}}}  alt={{{title}}} />
     </div>
     {{/if}}
     <div class="bottom-part">
-      <i onclick="report()" class="material-icons">report</i>
-      <div class="flex items-center">
+      <i onclick="comment()" class="material-icons">comment</i>
+      <div class="likes">
         <span>{{ likes.length }}</span>
         <i onclick='like("{{_id}}", this)' class="material-icons {{#if isLiked}} active {{^}} {{/if}}">favorite</i>
       </div>
@@ -34,12 +34,14 @@
           <div class="single-comment"><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
           {{/each}}
         </div>
-      <div class="comment-send">
-        <div class="flex items-center">
-          <input type="text" class="comment-ip" style="flex: 1; padding: 10px"/>
-          <button onclick="comment('{{_id}}')">Send</button>
+        <div class="comment-send">
+          <form style="width: 100%;">
+            <div class="flex">
+              <input type="text" style="flex: 1"/>
+              <input type="submit" value="Send" />
+            </div>
+          </form>
         </div>
-      </div>
 
       </div>
     </div>

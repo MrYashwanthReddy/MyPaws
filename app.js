@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars");
 const session = require("express-session");
-const FileStore = require('session-file-store')(session);
 
 const fileUpload = require("express-fileupload");
 
@@ -31,7 +30,6 @@ app.set("view engine", "handlebars");
 
 app.use(
   session({
-    store: new FileStore({}),
     name: "AuthCookie",
     secret: "MyPaws",
     saveUninitialized: false,
@@ -49,15 +47,7 @@ hbs.handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 
 app.use("/live", (req, res, next) => {
   if (!req.session.user) {
-    res.redirect("/home");
-  } else {
-    next();
-  }
-});
-
-app.use("/home", (req, res, next) => {
-  if (!req.session.user) {
-    res.render("home/home",{page: { title: "Home" }});
+    res.redirect("/auth/login?e=l");
   } else {
     next();
   }

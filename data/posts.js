@@ -3,7 +3,6 @@ const mongoCollections = require("../config/mongoCollections");
 const { validValue, checkString, checkId } = require("../validation");
 const { getUserById } = require("./users");
 const posts = mongoCollections.posts;
-const uuidv4 = require('uuid').v4;
 
 const getAllPosts = async (queryDoc) => {
   let postsCollection;
@@ -88,24 +87,25 @@ const likePost = async (postId, userId) => {
 
   //var item = post.likes.find(item => item.id === ObjectId(userId));
   if (post.likes == 0) {
-    post.likes = []
+    post.likes = [];
   }
   if (post.likes.includes(userId)) {
-    post.likes = post.likes.filter(e => e !== userId);
+    post.likes = post.likes.filter((e) => e !== userId);
   } else {
-    post.likes.push(userId)
+    post.likes.push(userId);
   }
 
-  const insertInfo = await postsCollection.updateOne({ _id: ObjectId(postId) }, { $set: { likes: post.likes } });
+  const insertInfo = await postsCollection.updateOne(
+    { _id: ObjectId(postId) },
+    { $set: { likes: post.likes } }
+  );
 
   if (!insertInfo.acknowledged || !insertInfo.modifiedCount) {
     throw { status: 400, msg: "Could not add feed" };
   }
 
-
   return { status: 200, liked: true };
 };
-
 
 const commentPost = async (req, postId, userId, comment) => {
   let postsCollection;
@@ -118,18 +118,20 @@ const commentPost = async (req, postId, userId, comment) => {
   let post = await postsCollection.findOne({ _id: ObjectId(postId) });
   //var item = post.likes.find(item => item.id === ObjectId(userId));
   if (post.comments == 0) {
-    post.comments = []
+    post.comments = [];
   }
-  let cid = uuidv4();
 
   post.comments.push({
-    commentId: cid,
+    commentId: ObjectId(),
     comment: comment,
     commentDate: new Date(),
-    userId: userId
+    userId: userId,
   });
 
-  const insertInfo = await postsCollection.updateOne({ _id: ObjectId(postId) }, { $set: { comments: post.comments } });
+  const insertInfo = await postsCollection.updateOne(
+    { _id: ObjectId(postId) },
+    { $set: { comments: post.comments } }
+  );
 
   if (!insertInfo.acknowledged || !insertInfo.modifiedCount) {
     throw { status: 400, msg: "Could not add comment" };
@@ -138,11 +140,10 @@ const commentPost = async (req, postId, userId, comment) => {
   return { status: 200, comment: true, username: req.session.user.firstName };
 };
 
-
 module.exports = {
   getAllPosts,
   createPost,
   getPostsCount,
   likePost,
-  commentPost
+  commentPost,
 };

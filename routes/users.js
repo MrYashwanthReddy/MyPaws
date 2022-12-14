@@ -58,6 +58,7 @@ router
     try {
       let firstName = validValue(xss(req.body.firstName), "FIRST NAME");
       let lastName = validValue(xss(req.body.lastName), "LAST NAME");
+      let age = validValue(xss(req.body.age), "AGE");
       let email = validValue(xss(req.body.email), "EMAIL");
       let petName = validValue(xss(req.body.petName), "PET NAME");
       let petBreed = validValue(xss(req.body.petBreed), "PET BREED");
@@ -84,15 +85,16 @@ router
 
       let hashpass = await bcrypt.hash(password, salt);
 
-      const result = await users.createUser(
-        firstName,
-        lastName,
-        email,
-        petName,
-        petBreed,
-        hashpass,
-        profileImage && profileImage
-      );
+      const result = await users.createUser({
+        ...firstName,
+        ...lastName,
+        ...age,
+        ...email,
+        ...petName,
+        ...petBreed,
+        ...hashpass,
+        profileImage: profileImage && profileImage,
+      });
       res.redirect("/auth/login");
     } catch (error) {
       res.status(error.status).render("users/register", {

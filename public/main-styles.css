@@ -83,10 +83,13 @@ li {
   list-style: none;
 }
 
-.logo a {
+.logo {
   color: white;
+
   text-decoration: none;
   font-size: xx-large;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .wrapper {
@@ -111,7 +114,7 @@ li {
 }
 
 .material-icons.active {
-  color: cyan;
+  color: red;
 }
 
 .feed-main {
@@ -164,7 +167,7 @@ li {
   border-radius: 10px;
   overflow: hidden;
   padding: 5px 0px 0px 0px;
-  background-color: #ee6c4d;
+  background-color: black;
   color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -182,7 +185,7 @@ li {
   overflow: auto;
 }
 
-.comment-send{
+.comment-send {
   position: sticky;
   bottom: 0;
   background-color: #fff;
@@ -219,7 +222,7 @@ li {
 }
 
 .post-card .text-part i {
-  float:right;
+  float: right;
 }
 
 .pagination {
@@ -318,4 +321,19 @@ li {
 .pet-store-review-action {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.likes span {
+  position: absolute;
+  font-size: 10px;
+  background-color: #fff;
+  padding: 2px;
+  max-height: 10px;
+  min-width: 10px;
+  color: black;
+  border-radius: 2em;
+  transform: translateX(-50%) translateY(-40%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
