@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars");
 const session = require("express-session");
-const FileStore = require('session-file-store')(session);
 
 const fileUpload = require("express-fileupload");
 
@@ -31,7 +30,6 @@ app.set("view engine", "handlebars");
 
 app.use(
   session({
-    store: new FileStore({}),
     name: "AuthCookie",
     secret: "MyPaws",
     saveUninitialized: false,
