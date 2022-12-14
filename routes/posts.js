@@ -29,19 +29,20 @@ router
     try {
       const count = await posts.getPostsCount();
 
-      let queryDoc = req.session.queryDoc ? parseInt(req.session.queryDoc) : 0;
+      let queryDoc = req.session.queryDoc
+        ? parseInt(xss(req.session.queryDoc))
+        : 0;
 
       if (queryDoc == 1) {
         queryDoc = 0;
       }
 
       let userId;
-      let userName
+      let userName;
       try {
         userId = req.session.user._id;
-        userName =  req.session.user.firstName
-        console.log(userName)
-      } catch (c) { }
+        userName = req.session.user.firstName;
+      } catch (c) {}
 
       let result = await posts.getAllPosts(queryDoc);
       result.posts.forEach((element) => {
@@ -54,7 +55,7 @@ router
             if (element.likes.includes(userId)) {
               element.isLiked = true;
             }
-          }else{
+          } else {
             element.likes = [];
           }
         }
@@ -84,7 +85,12 @@ router.route("/post").post(async (req, res) => {
     let title = validValue(body.title);
     let content = validValue(body.content);
 
-    let image = checkImage(req.files.images);
+    let image;
+
+    if (xss(req.files)) {
+      image = checkImage(xss(req.files.profileImage));
+      image = image.data;
+    }
 
     image = image.data;
 
@@ -101,8 +107,8 @@ router.route("/like/:id").post(async (req, res) => {
     if (!req.session.user) {
       throw { status: 404, msg: "Error: User not found " };
     }
-    let userId = req.session.user._id;
-    let postId = req.params.id;
+    let userId = xss(req.session.user._id);
+    let postId = xss(req.params.id);
     const result = await posts.likePost(postId, userId);
     res.send(result);
   } catch (error) {
@@ -125,6 +131,10 @@ router.route("/comment").post(async (req, res) => {
     console.log(error);
     res.send(error);
   }
-})
+});
+
+router.route("/home").get(async (req, res) => {
+  res.status(200).render("home/landing", { page: { title: "MyPaws | Home" } });
+});
 
 module.exports = router;

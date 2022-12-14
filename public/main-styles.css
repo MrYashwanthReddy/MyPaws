@@ -90,6 +90,12 @@ li {
   font-size: xx-large;
   cursor: pointer;
   z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.logo h1 {
+  font-size: 1em;
 }
 
 .wrapper {

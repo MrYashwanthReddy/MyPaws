@@ -50,6 +50,7 @@ const createLostPet = async (data) => {
 };
 
 const createFoundPet = async (data) => {
+  let foundPetsCollection;
   try {
     foundPetsCollection = await foundpets();
   } catch (error) {
@@ -65,9 +66,17 @@ const createFoundPet = async (data) => {
   return { insertedPet: true };
 };
 
+const makeMatch = async () => {
+  const lostData = await getLostpets();
+  const foundData = await getFoundpets();
+
+  return { ...lostData, ...foundData };
+};
+
 module.exports = {
   getLostpets,
   getFoundpets,
   createLostPet,
   createFoundPet,
+  makeMatch,
 };
