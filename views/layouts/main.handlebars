@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,10 +12,9 @@
 
 <body>
   <header>
-    <div   onclick="window.location.href = '/'" class="logo">
+    <div onclick="window.location.href = '/'" class="logo">
     <h1>
       MyPaws
-
     </h1>
         <i class="material-icons">pets</i>
     </div>
@@ -30,6 +30,9 @@
         {{#if cookie}}
         <i onclick="window.location.href = '/auth/profile'" class="material-icons">person</i>
         {{else}}
+        <a href="/pets/lost">Lost</a>
+        <a href="/pets/found">Found</a>
+        <a href="/pet-stores">Nearby Pet Stores</a>
         {{#ifEquals page.title 'Login'}}
         <i onclick="window.location.href = '/auth/register'" class="material-icons">person_add</i>
         {{else}}
@@ -43,6 +46,8 @@
   <main>
     {{{body}}}
   </main>
+  {{#ifEquals page.title 'Home'}}
+  {{else}}
   <footer>
     <ul>
       {{#if cookie}}
@@ -63,6 +68,7 @@
 
     </ul>
   </footer>
+  {{/ifEquals}}
 
   <script src="https://code.jquery.com/jquery-3.6.2.slim.min.js"
     integrity="sha256-E3P3OaTZH+HlEM7f1gdAT3lHAn4nWBZXuYe89DFg2d0=" crossorigin="anonymous"></script>
