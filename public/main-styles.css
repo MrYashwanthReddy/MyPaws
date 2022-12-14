@@ -439,3 +439,25 @@ li {
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
+.nav-item {
+  margin-right: 30px;
+}
+
+.hair-type-item {
+  width: 100px;
+  height: 75px;
+}
+
+.type-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
