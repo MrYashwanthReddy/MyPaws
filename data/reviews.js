@@ -1,4 +1,4 @@
-const {ObjectId} = require("mongodb");
+const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const reviews = mongoCollections.reviews;
 
@@ -20,7 +20,7 @@ const getAllReviews = async (placeId) => {
 
     return data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -28,13 +28,15 @@ const existReview = async (userId) => {
   try {
     const reviewsCollection = await reviews();
 
-    const review = await reviewsCollection.findOne({userId: new ObjectId(userId)});
+    const review = await reviewsCollection.findOne({
+      userId: new ObjectId(userId),
+    });
 
     if (review) return true;
 
     return false;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -50,21 +52,23 @@ const createReview = async (data) => {
     const insertInfo = await reviewsCollection.insertOne(newData);
 
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
-      throw {status: 400, msg: "Could not add review"};
+      throw { status: 400, msg: "Could not add review" };
 
-    return {status: 200, insertedReview: true};
+    return { status: 200, insertedReview: true };
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
 const getReview = async (reviewId) => {
   try {
     const reviewsCollection = await reviews();
-    const data = await reviewsCollection.findOne({_id: new ObjectId(reviewId)});
+    const data = await reviewsCollection.findOne({
+      _id: new ObjectId(reviewId),
+    });
     return data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -73,16 +77,16 @@ const updateReview = async (reviewId, data) => {
     const reviewsCollection = await reviews();
 
     const updateInfo = await reviewsCollection.updateOne(
-      {_id: new ObjectId(reviewId)},
-      {$set: data}
+      { _id: new ObjectId(reviewId) },
+      { $set: data }
     );
 
     if (!updateInfo.acknowledged || !updateInfo.modifiedCount)
-      throw {status: 400, msg: "Could not update review"};
+      throw { status: 400, msg: "Could not update review" };
 
-    return {status: 200, updatedReview: true};
+    return { status: 200, updatedReview: true };
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -95,11 +99,11 @@ const deleteReview = async (reviewId) => {
     });
 
     if (!deleteInfo.acknowledged || !deleteInfo.deletedCount)
-      throw {status: 400, msg: "Could not delete review"};
+      throw { status: 400, msg: "Could not delete review" };
 
-    return {status: 200, deletedReview: true};
+    return { status: 200, deletedReview: true };
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
