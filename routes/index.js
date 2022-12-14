@@ -12,9 +12,9 @@ const constructorMethod = (app) => {
   app.use("/pet-stores", storeRoutes);
   app.use("/", postRoutes);
 
-  // app.use("*", (req, res) => {
-  //   res.redirect("/live");
-  // });
+  app.use("*", (req, res) => {
+    res.redirect("/live");
+  });
 };
 
 module.exports = constructorMethod;

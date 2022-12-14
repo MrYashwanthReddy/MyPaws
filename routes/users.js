@@ -18,6 +18,7 @@ router
     let error = xss(req.query.e);
     if (error == "l") {
       error = "Error: Login Required to Proceed";
+      res.render("home/landing", { page: { title: "Home" } });
     }
     res.render("users/login", { page: { title: "Login" }, error: error });
   })
