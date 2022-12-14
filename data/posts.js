@@ -3,6 +3,7 @@ const mongoCollections = require("../config/mongoCollections");
 const { validValue, checkString, checkId } = require("../validation");
 const { getUserById } = require("./users");
 const posts = mongoCollections.posts;
+const uuidv4 = require('uuid').v4;
 
 const getAllPosts = async (queryDoc) => {
   let postsCollection;
@@ -105,9 +106,43 @@ const likePost = async (postId, userId) => {
   return { status: 200, liked: true };
 };
 
+
+const commentPost = async (req, postId, userId, comment) => {
+  let postsCollection;
+  try {
+    postsCollection = await posts();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+
+  let post = await postsCollection.findOne({ _id: ObjectId(postId) });
+  //var item = post.likes.find(item => item.id === ObjectId(userId));
+  if (post.comments == 0) {
+    post.comments = []
+  }
+  let cid = uuidv4();
+
+  post.comments.push({
+    commentId: cid,
+    comment: comment,
+    commentDate: new Date(),
+    userId: userId
+  });
+
+  const insertInfo = await postsCollection.updateOne({ _id: ObjectId(postId) }, { $set: { comments: post.comments } });
+
+  if (!insertInfo.acknowledged || !insertInfo.modifiedCount) {
+    throw { status: 400, msg: "Could not add comment" };
+  }
+
+  return { status: 200, comment: true, username: req.session.user.firstName };
+};
+
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostsCount,
-  likePost
+  likePost,
+  commentPost
 };
