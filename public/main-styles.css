@@ -154,7 +154,7 @@ li {
   display: flex;
 }
 
-.header-right a {
+.header-right .navLink {
   color: #f2f2f2;
   text-align: center;
   padding: 10px 16px;
@@ -162,7 +162,16 @@ li {
   font-size: 18px;
 }
 
-.header-right a:hover {
+.header-right .authLink{
+  padding: 10px 16px 10px 0;
+  padding-left: 0;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.header-right .navLink:hover {
   background-color: #ddd;
   color: black;
 }
