@@ -3,8 +3,8 @@ const xss = require("xss");
 const { posts, likes, users } = require("../data");
 const { getUserById } = require("../data/users");
 const { validValue, checkImage } = require("../validation");
-
 const router = express.Router();
+
 
 router.route("/post").get(async (req, res) => {
   res.render("home/post", {
