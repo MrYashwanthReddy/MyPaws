@@ -18,7 +18,7 @@
     </div>
     {{/if}}
     <div class="bottom-part">
-      <i onclick="comment()" class="material-icons">comment</i>
+      {{!-- <i onclick="comment()" class="material-icons">comment</i> --}}
       <div class="likes">
         <span>{{ likes.length }}</span>
         <i onclick='like("{{_id}}", this)' class="material-icons {{#if isLiked}} active {{^}} {{/if}}">favorite</i>
