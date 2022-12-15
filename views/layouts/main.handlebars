@@ -36,10 +36,8 @@
 
         {{#ifEquals page.title 'Login'}}
         <i onclick="window.location.href = '/auth/register'" class="material-icons">person_add</i>
-        <a href="/auth/register"  class="authLink">Register</a>
         {{else}}
         <i onclick="window.location.href = '/auth/login'" class="material-icons">login</i>
-        <a href="/auth/login" class="authLink">Login</a>
         {{/ifEquals}}
         {{/if}}
       </div>
