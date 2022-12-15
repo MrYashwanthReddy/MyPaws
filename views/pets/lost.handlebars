@@ -1,4 +1,4 @@
-<h1>Lost Pet Form</h1>
+<h1>Lost {{page.animal}} Form</h1>
 <form
   id="lostpet-form"
   method="post"
@@ -9,19 +9,11 @@
     <div class="error">{{error}}</div>
   {{/if}}
 
-  <label for="petType">Pet Type</label>
-  <select id="petType" name="petType">
-    <option value="cat">Cat</option>
-    <option value="dog">Dog</option>
-  </select>
-  <label for="imageInput">Upload Image</label>
-  <input
-    id="imageInput"
-    type="file"
-    name="imageInput"
-    accept="image/*"
-    required
-  />
+
+
+  <input hidden value="{{page.animal}}" name="animalInput" />
+
+
   <label for="lostBreed">Breed</label>
   <input
     type="text"
@@ -76,341 +68,410 @@
     <option value="M">Male</option>
     <option value="F">Female</option>
   </select>
-  <label>Hair Type</p>
-  <div id="catHairType" class="type-wrapper">
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="hairless"
-        name="catHairTypeInput"
-        value="hairless"
-      />
-      <label for="hairless">
-        <img class="hair-type-item" src="/public/img/Cat hairs/hairless.png" />
-        Hairless
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="long"
-        name="catHairTypeInput"
-        value="long"
-      />
-      <label for="long">
-        <img class="hair-type-item" src="/public/img/Cat hairs/long.png" />
-        Long Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="short"
-        name="catHairTypeInput"
-        value="short"
-      />
-      <label for="short">
-        <img class="hair-type-item" src="/public/img/Cat hairs/short.png" />
-        Short Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="tabby"
-        name="catHairTypeInput"
-        value="tabby"
-      />
-      <label for="tabby">
-        <img class="hair-type-item" src="/public/img/Cat hairs/tabby.png" />
-        Tabby Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="tortoiseshell"
-        name="catHairTypeInput"
-        value="tortoiseshell"
-      />
-      <label for="tortoiseshell">
-        <img class="hair-type-item" src="/public/img/Cat hairs/tortoiseshell.png" />
-        Tortoise Shell Hair
-      </label>
-    </div>
-  </div>
-  <div id="dogHairType" class="type-wrapper" style="display: none;">
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="curly"
-        name="dogHairTypeInput"
-        value="curly"
-      />
-      <label for="curly">
-        <img class="hair-type-item" src="/public/img/Dog hairs/curly.png" />
-        Curly Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="double"
-        name="dogHairTypeInput"
-        value="double"
-      />
-      <label for="double">
-        <img class="hair-type-item" src="/public/img/Dog hairs/double.png" />
-        Double Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="dogHairless"
-        name="dogHairTypeInput"
-        value="dogHairless"
-      />
-      <label for="dogHairless">
-        <img class="hair-type-item" src="/public/img/Dog hairs/hairless.png" />
-        Hairless
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="longer"
-        name="dogHairTypeInput"
-        value="longer"
-      />
-      <label for="longer">
-        <img class="hair-type-item" src="/public/img/Dog hairs/longer.png" />
-        Longer Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="medium"
-        name="dogHairTypeInput"
-        value="medium"
-      />
-      <label for="medium">
-        <img class="hair-type-item" src="/public/img/Dog hairs/medium.png" />
-        Medium Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="dogShort"
-        name="dogHairTypeInput"
-        value="dogShort"
-      />
-      <label for="dogShort">
-        <img class="hair-type-item" src="/public/img/Dog hairs/short.png" />
-        Short Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="silky"
-        name="dogHairTypeInput"
-        value="silky"
-      />
-      <label for="silky">
-        <img class="hair-type-item" src="/public/img/Dog hairs/silky.png" />
-        Silky Hair
-      </label>
-    </div>
-    <div class="radio-group">
-      <input
-        required
-        type="radio"
-        id="wire"
-        name="dogHairTypeInput"
-        value="wire"
-      />
-      <label for="wire">
-        <img class="hair-type-item" src="/public/img/Dog hairs/wire.png" />
-        Wire Hair
-      </label>
-    </div>
-  </div>
-  <div id="dogEarType" style="display: none;">
-    <label>Ear Type</label>
-    <div class="type-wrapper">
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="batt"
-          name="dogEarTypeInput"
-          value="batt"
-        />
-        <label for="batt">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Batt ears.png" />
-          Batt Ears
-        </label>
+
+  {{#ifEquals page.animal "cat"}}
+
+    <label>Hair Type
+      <div id="catHairType" class="type-wrapper">
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="hairless"
+            name="catHairTypeInput"
+            value="hairless"
+          />
+          <label for="hairless">
+            <img
+              class="hair-type-item"
+              src="/public/img/Cat hairs/hairless.png"
+            />
+            Hairless
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="long"
+            name="catHairTypeInput"
+            value="long"
+          />
+          <label for="long">
+            <img class="hair-type-item" src="/public/img/Cat hairs/long.png" />
+            Long Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="short"
+            name="catHairTypeInput"
+            value="short"
+          />
+          <label for="short">
+            <img class="hair-type-item" src="/public/img/Cat hairs/short.png" />
+            Short Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="tabby"
+            name="catHairTypeInput"
+            value="tabby"
+          />
+          <label for="tabby">
+            <img class="hair-type-item" src="/public/img/Cat hairs/tabby.png" />
+            Tabby Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="tortoiseshell"
+            name="catHairTypeInput"
+            value="tortoiseshell"
+          />
+          <label for="tortoiseshell">
+            <img
+              class="hair-type-item"
+              src="/public/img/Cat hairs/tortoiseshell.png"
+            />
+            Tortoise Shell Hair
+          </label>
+        </div>
       </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="bluntTipped"
-          name="dogEarTypeInput"
-          value="bluntTipped"
-        />
-        <label for="bluntTipped">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Blunt Tipped ears.png" />
-          Blunt Tipped Ears
-        </label>
+    </label>
+
+  {{/ifEquals}}
+
+  {{#ifEquals page.animal "dog"}}
+    <label>Hair Type
+      <div id="dogHairType" class="type-wrapper">
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="curly"
+            name="dogHairTypeInput"
+            value="curly"
+          />
+          <label for="curly">
+            <img class="hair-type-item" src="/public/img/Dog hairs/curly.png" />
+            Curly Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="double"
+            name="dogHairTypeInput"
+            value="double"
+          />
+          <label for="double">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog hairs/double.png"
+            />
+            Double Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="dogHairless"
+            name="dogHairTypeInput"
+            value="dogHairless"
+          />
+          <label for="dogHairless">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog hairs/hairless.png"
+            />
+            Hairless
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="longer"
+            name="dogHairTypeInput"
+            value="longer"
+          />
+          <label for="longer">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog hairs/longer.png"
+            />
+            Longer Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="medium"
+            name="dogHairTypeInput"
+            value="medium"
+          />
+          <label for="medium">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog hairs/medium.png"
+            />
+            Medium Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="dogShort"
+            name="dogHairTypeInput"
+            value="dogShort"
+          />
+          <label for="dogShort">
+            <img class="hair-type-item" src="/public/img/Dog hairs/short.png" />
+            Short Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="silky"
+            name="dogHairTypeInput"
+            value="silky"
+          />
+          <label for="silky">
+            <img class="hair-type-item" src="/public/img/Dog hairs/silky.png" />
+            Silky Hair
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="wire"
+            name="dogHairTypeInput"
+            value="wire"
+          />
+          <label for="wire">
+            <img class="hair-type-item" src="/public/img/Dog hairs/wire.png" />
+            Wire Hair
+          </label>
+        </div>
       </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="button"
-          name="dogEarTypeInput"
-          value="button"
-        />
-        <label for="button">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Button ears.png" />
-          Button Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="candleFlame"
-          name="dogEarTypeInput"
-          value="candleFlame"
-        />
-        <label for="candleFlame">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Candle Flame ears.png" />
-          Candle Flame Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="cocked"
-          name="dogEarTypeInput"
-          value="cocked"
-        />
-        <label for="cocked">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Cocked ears.png" />
-          Cocked Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="drop"
-          name="dogEarTypeInput"
-          value="drop"
-        />
-        <label for="drop">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Drop ears.png" />
-          Drop Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="filbertShaped"
-          name="dogEarTypeInput"
-          value="filbertShaped"
-        />
-        <label for="filbertShaped">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Filbert shaped ears.png" />
-          Filbert Shaped Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="folded"
-          name="dogEarTypeInput"
-          value="folded"
-        />
-        <label for="folded">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Folded ears.png" />
-          Folded Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="hoodded"
-          name="dogEarTypeInput"
-          value="hoodded"
-        />
-        <label for="hoodded">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Hoodded ears.png" />
-          Hoodded Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="prick"
-          name="dogEarTypeInput"
-          value="prick"
-        />
-        <label for="prick">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Prick ears.png" />
-          Prick Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="rose"
-          name="dogEarTypeInput"
-          value="rose"
-        />
-        <label for="rose">
-          <img class="hair-type-item" src="/public/img/Dog Ears/Rose ears.png" />
-          Rose Ears
-        </label>
-      </div>
-      <div class="radio-group">
-        <input
-          required
-          type="radio"
-          id="vShapes"
-          name="dogEarTypeInput"
-          value="vShapes"
-        />
-        <label for="vShapes">
-          <img class="hair-type-item" src="/public/img/Dog Ears/V shapes ears.png" />
-          V Shapes Ears
-        </label>
+    </label>
+    <label>Ear Type
+    <div id="dogEarType">
+      <div class="type-wrapper">
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="batt"
+            name="dogEarTypeInput"
+            value="batt"
+          />
+          <label for="batt">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Batt ears.png"
+            />
+            Batt Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="bluntTipped"
+            name="dogEarTypeInput"
+            value="bluntTipped"
+          />
+          <label for="bluntTipped">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Blunt Tipped ears.png"
+            />
+            Blunt Tipped Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="button"
+            name="dogEarTypeInput"
+            value="button"
+          />
+          <label for="button">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Button ears.png"
+            />
+            Button Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="candleFlame"
+            name="dogEarTypeInput"
+            value="candleFlame"
+          />
+          <label for="candleFlame">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Candle Flame ears.png"
+            />
+            Candle Flame Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="cocked"
+            name="dogEarTypeInput"
+            value="cocked"
+          />
+          <label for="cocked">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Cocked ears.png"
+            />
+            Cocked Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="drop"
+            name="dogEarTypeInput"
+            value="drop"
+          />
+          <label for="drop">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Drop ears.png"
+            />
+            Drop Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="filbertShaped"
+            name="dogEarTypeInput"
+            value="filbertShaped"
+          />
+          <label for="filbertShaped">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Filbert shaped ears.png"
+            />
+            Filbert Shaped Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="folded"
+            name="dogEarTypeInput"
+            value="folded"
+          />
+          <label for="folded">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Folded ears.png"
+            />
+            Folded Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="hoodded"
+            name="dogEarTypeInput"
+            value="hoodded"
+          />
+          <label for="hoodded">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Hoodded ears.png"
+            />
+            Hoodded Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="prick"
+            name="dogEarTypeInput"
+            value="prick"
+          />
+          <label for="prick">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Prick ears.png"
+            />
+            Prick Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="rose"
+            name="dogEarTypeInput"
+            value="rose"
+          />
+          <label for="rose">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/Rose ears.png"
+            />
+            Rose Ears
+          </label>
+        </div>
+        <div class="radio-group">
+          <input
+            required
+            type="radio"
+            id="vShapes"
+            name="dogEarTypeInput"
+            value="vShapes"
+          />
+          <label for="vShapes">
+            <img
+              class="hair-type-item"
+              src="/public/img/Dog Ears/V shapes ears.png"
+            />
+            V Shapes Ears
+        </div>
       </div>
     </div>
-  </div>
+    </label>
+
+
+
+  {{/ifEquals}}
+
   <label for="bodyTypeInput">Body Type</label>
   <select id="bodyTypeInput" name="bodyTypeInput">
     <option value="ServerelyUnderWeight">Severely Under Weight</option>
@@ -419,7 +480,8 @@
     <option value="OverWeight">Over Weight</option>
   </select>
   <label for="distinguishingInput">
-    Distinguishing information ("My cat has a brown nose with a white spot on it" )
+    Distinguishing information ("My cat has a brown nose with a white spot on
+    it" )
   </label>
   <input type="text" id="distinguishingInput" name="distinguishingInput" />
 
@@ -428,3 +490,4 @@
 </form>
 
 <script src="/public/js/form.js">
+</script>
