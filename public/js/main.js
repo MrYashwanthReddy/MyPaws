@@ -1,7 +1,7 @@
 function comment(id) {
   console.log(id);
 
-  let comment = $(`.comment-ip`, $(`[data-post="${id}"]`) );
+  let comment = $(`.comment-ip`, $(`[data-post="${id}"]`));
 
   fetch(`/comment/`, {
     method: "POST",
@@ -11,7 +11,7 @@ function comment(id) {
     },
     body: JSON.stringify({
       postId: id,
-      comment: comment.val()
+      comment: comment.val(),
     }),
   })
     .then((response) => response.json())
@@ -26,7 +26,7 @@ function comment(id) {
             <div><span class="material-icons">delete</span></div>
           </div>
         `);
-        comment.val('');
+        comment.val("");
       }
     });
 }
@@ -45,19 +45,19 @@ function like(id, element) {
     .then((response) => response.json())
     .then((response) => {
       console.log(response);
-      if(response.liked == true){
-        let c = $('span', $(element).parent()).html();
-        if(c == ""){c = "0"}
-        c = parseInt(c);
-        
-        if( $(element).hasClass('active') ){
-          $('span', $(element).parent()).html(c - 1)
-        }else{
-          $('span', $(element).parent()).html(c + 1)
+      if (response.liked == true) {
+        let c = $("span", $(element).parent()).html();
+        if (c == "") {
+          c = "0";
         }
-        $(element).toggleClass('active');
+        c = parseInt(c);
 
-        
+        if ($(element).hasClass("active")) {
+          $("span", $(element).parent()).html(c - 1);
+        } else {
+          $("span", $(element).parent()).html(c + 1);
+        }
+        $(element).toggleClass("active");
       }
     });
 }
@@ -178,11 +178,10 @@ if (foundpetForm) {
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
       hairType = validValue(hairType, "HAIR TYPE", true);
-      earType = validValue(password, "EAR TYPE", true);
+      earType = validValue(earType, "EAR TYPE", true);
       bodyType = validValue(bodyType, "BODY TYPE", true);
 
       email = checkEmail(email);
-
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -246,8 +245,8 @@ if (lostpetForm) {
 function validValue(input, fieldName, isTextCheck) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
 
-  if(isTextCheck){
-    checkValidText(input,fieldName);
+  if (isTextCheck) {
+    checkValidText(input, fieldName);
   }
 
   return input;
@@ -257,7 +256,10 @@ function checkValidText(input, fieldName) {
   if (/^[A-Za-z ]{1,}$/.test(input)) {
     return input;
   }
-  throw { status: 400, msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.` };
+  throw {
+    status: 400,
+    msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+  };
 }
 
 function checkPassword(password) {

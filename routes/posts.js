@@ -1,4 +1,5 @@
 const express = require("express");
+const xss = require("xss");
 const { posts, likes, users } = require("../data");
 const { getUserById } = require("../data/users");
 const { validValue, checkImage } = require("../validation");
@@ -100,7 +101,9 @@ router.route("/post").post(async (req, res) => {
     const result = await posts.createPost({ content, image, userId, title });
 
     res.redirect("/live");
-  } catch (error) {}
+  } catch (error) {
+    res.status(error.status).json({ error: error.msg });
+  }
 });
 
 router.route("/like/:id").post(async (req, res) => {
