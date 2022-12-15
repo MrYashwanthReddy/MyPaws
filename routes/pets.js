@@ -11,12 +11,34 @@ router.route("/match").post(async (req, res) => {
   res.send(result);
 });
 
+router.route("/report").get(async (req, res) => {
+  let error = xss(req.query.e);
+  let errorMsg;
+  if (error == "p") {
+    errorMsg = "Error: Found/Lost animal should be either dog or cat";
+  }
+
+  let sessionUser = xss(req.session.user) ? req.session.user : false;
+  res.render("pets/report", {
+    page: { title: "My Paws | REPORT" },
+    cookie: sessionUser,
+    error: error ? errorMsg : false,
+  });
+});
+
 router
-  .route("/lost")
+  .route("/lost/:animal")
   .get(async (req, res) => {
+    let animal = xss(req.params.animal);
+
+    if (animal != "dog" && animal != "cat") {
+      res.redirect("/pets/report?e=p");
+    }
+
     let sessionUser = xss(req.session.user) ? req.session.user : false;
+
     res.render("pets/lost", {
-      page: { title: "PET LOST" },
+      page: { title: "PET LOST", animal: animal },
       cookie: sessionUser,
     });
   })
@@ -73,17 +95,20 @@ router
   });
 
 router
-  .route("/found")
+  .route("/found/:animal")
   .get(async (req, res) => {
+    let animal = xss(req.params.animal);
+    if (animal != "dog" && animal != "cat") {
+      res.redirect("pets/report?e=p");
+    }
+
     let sessionUser = xss(req.session.user) ? req.session.user : false;
     res.render("pets/found", {
-      page: { title: "PET FOUND" },
+      page: { title: "PET FOUND", animal: animal },
       cookie: sessionUser,
     });
   })
   .post(async (req, res) => {
-    let body = xss(req.body);
-
     try {
       let name = validValue(req.body.nameInput, "name");
       let email = validValue(req.body.emailInput, "email");

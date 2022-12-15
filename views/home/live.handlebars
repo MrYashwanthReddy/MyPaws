@@ -23,7 +23,6 @@
         <span>{{ likes.length }}</span>
         <i onclick='like("{{_id}}", this)' class="material-icons {{#if isLiked}} active {{^}} {{/if}}">favorite</i>
       </div>
-
     </div>
   </div>
 
@@ -31,16 +30,19 @@
       <div class="comment-sec" data-post="{{_id}}">
         <div class="comment-list">
           {{#each comments}}
-          <div class="single-comment"><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
+          <div class="single-comment" data-id="{{ commentId }}">
+            <div><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
+            <div><span class="material-icons" onclick="deleteComment('{{ commentId }}')">delete</span></div>
+          </div>
           {{/each}}
         </div>
         <div class="comment-send">
-          <form style="width: 100%;">
+          <div style="width: 100%;">
             <div class="flex">
-              <input type="text" style="flex: 1"/>
-              <input type="submit" value="Send" />
+              <input type="text" class="comment-ip" style="flex: 1"/>
+              <input type="submit" value="Send" onclick="comment('{{ _id }}')" />
             </div>
-          </form>
+          </div>
         </div>
 
       </div>

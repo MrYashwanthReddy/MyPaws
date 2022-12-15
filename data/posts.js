@@ -118,7 +118,7 @@ const commentPost = async (req, postId, userId, comment) => {
   }
 
   post.comments.push({
-    commentId: ObjectId(),
+    commentId: new ObjectId(),
     comment: comment,
     commentDate: new Date(),
     userId: userId,
@@ -133,7 +133,41 @@ const commentPost = async (req, postId, userId, comment) => {
     throw { status: 400, msg: "Could not add comment" };
   }
 
-  return { status: 200, comment: true, username: req.session.user.firstName };
+  return { status: 200, comment: true, username: req.session.user._id };
+};
+
+const commentDelete = async (req, postId, userId, commentId) => {
+  let postsCollection;
+  try {
+    postsCollection = await posts();
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+
+  let post = await postsCollection.findOne({ _id: ObjectId(postId) });
+  //var item = post.likes.find(item => item.id === ObjectId(userId));
+  if (post.comments == 0) {
+    post.comments = [];
+  }
+
+  post.comments.forEach( (c, i) => {
+    if( c.commentId == ObjectId(commentId) ){
+      if(c.userId == userId){
+        c.splice(i,1);
+      }
+    }
+  });
+
+  const insertInfo = await postsCollection.updateOne(
+    { _id: ObjectId(postId) },
+    { $set: { comments: post.comments } }
+  );
+
+  if (!insertInfo.acknowledged || !insertInfo.modifiedCount) {
+    throw { status: 400, msg: "Could not delete comment" };
+  }
+
+  return { status: 200, comment: true, username: req.session.user._id };
 };
 
 module.exports = {
@@ -142,4 +176,5 @@ module.exports = {
   getPostsCount,
   likePost,
   commentPost,
+  commentDelete,
 };

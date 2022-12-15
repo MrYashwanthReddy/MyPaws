@@ -21,9 +21,10 @@ function comment(id) {
 
       if (response.comment == true) {
         $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
-        <div class="single-comment"><b>${
-          response.username
-        }:</b><br><span>${comment.val()}</span></div>
+        <div class="single-comment">
+            <div><b>${response.username}:</b><br><span>${comment.val()}</span></div>
+            <div><span class="material-icons">delete</span></div>
+          </div>
         `);
         comment.val("");
       }
@@ -159,14 +160,24 @@ if (foundpetForm) {
     let name = e.target.foundName.value;
     let email = e.target.foundEmail.value;
 
-    let animal = e.target.foundAnimal.value;
+    let animal = e.target.animalInput.value;
     let breed = e.target.foundBreed.value;
     let color = e.target.foundColor.value;
     let height = e.target.foundHeight.value;
     let gender = e.target.foundGender.value;
-    let hairType = e.target.foundHairType.value;
-    let earType = e.target.foundEarType.value;
-    let bodyType = e.target.foundBodyType.value;
+
+    let hairType;
+    let earType;
+
+    if (animal == "dog") {
+      hairType = e.target.dogHairTypeInput.value;
+      earType = e.target.dogEarTypeInput.value;
+    } else {
+      hairType = e.target.catHairTypeInput.value;
+      earType = e.target.catEarTypeInput.value;
+    }
+
+    let bodyType = e.target.bodyTypeInput.value;
 
     try {
       name = validValue(name, "NAME", true);
@@ -181,6 +192,9 @@ if (foundpetForm) {
       bodyType = validValue(bodyType, "BODY TYPE", true);
 
       email = checkEmail(email);
+
+      //Have to be removed later
+      return;
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {

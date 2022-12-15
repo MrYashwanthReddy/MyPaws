@@ -20,6 +20,8 @@
     </div>
 
     <div class="header-right">
+      <a href="/pets/report">Report</a>
+
 
       {{#if cookie}}
 
@@ -31,8 +33,7 @@
         <i onclick="window.location.href = '/auth/profile'" class="material-icons">person</i>
         {{else}}
         <a href="/home">Home</a>
-        <a href="/pets/lost">Lost</a>
-        <a href="/pets/found">Found</a>
+
         {{#ifEquals page.title 'Login'}}
         <i onclick="window.location.href = '/auth/register'" class="material-icons">person_add</i>
         {{else}}
@@ -46,29 +47,24 @@
   <main>
     {{{body}}}
   </main>
-  {{#ifEquals page.title 'Home'}}
-  {{else}}
+
   <footer>
     <ul>
       {{#if cookie}}
       <li><a href="/auth/logout">Logout</a></li>
-
       {{else}}
       <li><a href="/auth/login">Login</a></li>
       <li><a href="/auth/register">Register</a></li>
 
       {{/if}}
 
-      {{!-- {{#if cookie.auth}}{{/if}} --}}
     </ul>
     <ul>
-      <li><a href="/pets/lost">Lost</a></li>
-      <li><a href="/pets/found">Found</a></li>
+      <li><a href="/pets/report">Report a missing or found pet</a></li>
       <li><a href="/pet-stores">Nearby Pet Stores</a></li>
 
     </ul>
   </footer>
-  {{/ifEquals}}
 
   <script src="https://code.jquery.com/jquery-3.6.2.slim.min.js"
     integrity="sha256-E3P3OaTZH+HlEM7f1gdAT3lHAn4nWBZXuYe89DFg2d0=" crossorigin="anonymous"></script>
