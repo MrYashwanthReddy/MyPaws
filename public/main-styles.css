@@ -430,3 +430,10 @@ li {
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
+
+.single-comment{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -21,7 +21,10 @@ function comment(id) {
 
       if (response.comment == true) {
         $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
-        <div class="single-comment"><b>${response.username}:</b><br><span>${comment.val()}</span></div>
+        <div class="single-comment">
+            <div><b>${response.username}:</b><br><span>${comment.val()}</span></div>
+            <div><span class="material-icons">delete</span></div>
+          </div>
         `);
         comment.val('');
       }
