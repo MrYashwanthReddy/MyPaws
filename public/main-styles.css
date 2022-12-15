@@ -155,7 +155,7 @@ li {
   display: flex;
 }
 
-.header-right a {
+.header-right .navLink {
   color: #f2f2f2;
   text-align: center;
   padding: 10px 16px;
