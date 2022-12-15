@@ -26,6 +26,8 @@ router
     });
   })
   .post(async (req, res) => {
+    let body = xss(req.body);
+    
     try {
       let email = validValue(xss(req.body.email), "EMAIL");
       let pass = validValue(xss(req.body.password), "PASSWORD");
