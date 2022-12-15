@@ -137,7 +137,7 @@ router.route("/comment").post(async (req, res) => {
 });
 
 router.route("/home").get(async (req, res) => {
-  res.status(200).render("home/landing", { page: { title: "MyPaws | Home" } });
+  res.status(200).render("home/landing", { page: { title: "Home" } });
 });
 
 module.exports = router;

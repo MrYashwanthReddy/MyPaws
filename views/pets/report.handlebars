@@ -1,0 +1,41 @@
+{{#if error}}
+  <div class="error">{{error}}</div>
+{{/if}}
+<h2>You lost or found a pet</h2>
+<p>
+  We are here for you
+</p>
+<br />
+<h3>
+  REPORT NOW
+</h3>
+<br />
+
+<div id="report">
+
+  <button id="reportLost" onclick="lost()">
+    LOST
+  </button>
+
+  <button id="reportFound" onclick="found()">
+    FOUND
+  </button>
+
+</div>
+
+<div id="reportLostDiv">
+  <h4>Lost </h4>
+
+  <button onclick='window.location.href = "/pets/lost/dog"'>DOG</button>
+  <button onclick='window.location.href = "/pets/lost/cat"'>CAT</button>
+
+</div>
+
+<div id="reportFoundDiv">
+  <h4>Found </h4>
+  <button onclick='window.location.href = "/pets/found/dog"'>DOG</button>
+  <button onclick='window.location.href = "/pets/found/cat"'>CAT</button>
+
+</div>
+
+<script src="/public/js/report.js"></script>

@@ -16,10 +16,14 @@ router
   .route("/login")
   .get((req, res) => {
     let error = xss(req.query.e);
+    let errorMsg;
     if (error == "l") {
-      error = "Error: Login Required to Proceed";
+      errorMsg = "Error: Login Required to Proceed";
     }
-    res.render("users/login", { page: { title: "Login" }, error: error });
+    res.render("users/login", {
+      page: { title: "Login" },
+      error: error ? errorMsg : false,
+    });
   })
   .post(async (req, res) => {
     try {
