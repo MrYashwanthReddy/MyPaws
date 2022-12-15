@@ -30,13 +30,16 @@
         {{#if cookie}}
         <i onclick="window.location.href = '/auth/profile'" class="material-icons">person</i>
         {{else}}
-        <a href="/home">Home</a>
-        <a href="/pets/lost">Lost</a>
-        <a href="/pets/found">Found</a>
+        <a href="/home" class="navLink">Home</a>
+        <a href="/pets/lost" class="navLink">Lost</a>
+        <a href="/pets/found" class="navLink">Found</a>
+        <a href="/pet-stores" class="navLink">Nearby Pet Stores</a>
         {{#ifEquals page.title 'Login'}}
         <i onclick="window.location.href = '/auth/register'" class="material-icons">person_add</i>
+        <a href="/auth/register"  class="authLink">Register</a>
         {{else}}
         <i onclick="window.location.href = '/auth/login'" class="material-icons">login</i>
+        <a href="/auth/login" class="authLink">Login</a>
         {{/ifEquals}}
         {{/if}}
       </div>

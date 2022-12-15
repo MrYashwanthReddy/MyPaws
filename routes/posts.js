@@ -3,7 +3,6 @@ const xss = require("xss");
 const { posts, likes, users } = require("../data");
 const { getUserById } = require("../data/users");
 const { validValue, checkImage } = require("../validation");
-var xss = require("xss");
 
 const router = express.Router();
 
@@ -138,7 +137,7 @@ router.route("/comment").post(async (req, res) => {
 });
 
 router.route("/home").get(async (req, res) => {
-  res.status(200).render("home/landing", { page: { title: "MyPaws | Home" } });
+  res.status(200).render("home/landing", { page: { title: "Home" } });
 });
 
 module.exports = router;
