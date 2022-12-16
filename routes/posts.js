@@ -136,6 +136,22 @@ router.route("/comment").post(async (req, res) => {
   }
 });
 
+router.route("/deleteComment").post(async (req, res) => {
+  try {
+    if (!req.session.user) {
+      throw { status: 404, msg: "Error: User not found " };
+    }
+    let userId = req.session.user._id;
+    let postId = req.body.postId;
+    let commentId = req.body.commentId;
+    const result = await posts.commentDelete(req, postId, userId, commentId);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
 router.route("/home").get(async (req, res) => {
   res.status(200).render("home/landing", { page: { title: "Home" } });
 });

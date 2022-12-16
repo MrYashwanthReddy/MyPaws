@@ -1,9 +1,32 @@
+function deleteComment(id, commentId) {
+  fetch(`/deleteComment`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      postId: id,
+      commentId:commentId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      //comment.val('');
+
+      if (response.status == 200) {
+        $('[data-cid="' + commentId + '"]').remove();
+      }
+    });
+}
+
 function comment(id) {
   console.log(id);
 
   let comment = $(`.comment-ip`, $(`[data-post="${id}"]`));
 
-  fetch(`/comment/`, {
+  fetch(`/comment`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -21,9 +44,9 @@ function comment(id) {
 
       if (response.comment == true) {
         $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
-        <div class="single-comment">
+        <div class="single-comment" data-cid="${response.cid}">
             <div><b>${response.username}:</b><br><span>${comment.val()}</span></div>
-            <div><span class="material-icons">delete</span></div>
+            <div><span class="material-icons" onclick="deleteComment('${id}','${response.cid}')">delete</span></div>
           </div>
         `);
         comment.val("");
