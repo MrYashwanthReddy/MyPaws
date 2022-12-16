@@ -228,6 +228,7 @@ if (lostpetForm) {
     let hairType = e.target.lostHairType.value;
     let earType = e.target.lostEarType.value;
     let bodyType = e.target.lostBodyType.value;
+    let info = e.target.distinguishingInput.value;
 
     try {
       animal = validValue(animal, "ANIMAL", true);
@@ -238,6 +239,7 @@ if (lostpetForm) {
       hairType = validValue(hairType, "HAIR TYPE", true);
       earType = validValue(earType, "EAR TYPE", true);
       bodyType = validValue(bodyType, "BODY TYPE", true);
+      info = validValue(info, "DISTINGUISHING INFO", true);
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -257,6 +259,19 @@ if (lostpetForm) {
 
 function validValue(input, fieldName, isTextCheck) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
+
+  const field = fieldName.toLowerCase();
+  if(field == 'animal' && !['dog','cat'].includes(input.toLowerCase()))
+    throw { status: 400, msg: `Error: Invalid Pet type` };
+
+  if(field == 'gender' && !['male','female'].includes(input.toLowerCase()))
+    throw { status: 400, msg: `Error: Invalid Pet gender` };
+
+  if(field == 'height' && (typeof input != 'number' || input < 0 || input > 6)  )
+    throw { status: 400, msg: `Error: Invalid Pet height` };
+
+  if(field == 'age' && (typeof input != 'number' || input < 8)  )
+    throw { status: 400, msg: `Error: Invalid age` };
 
   if (isTextCheck) {
     checkValidText(input, fieldName);
