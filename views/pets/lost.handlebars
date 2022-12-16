@@ -11,7 +11,7 @@
 
 
 
-  <input hidden value="{{page.animal}}" name="animalInput" />
+  <input hidden id="lostAnimal" value="{{page.animal}}" name="animalInput" />
 
 
   <label for="lostBreed">Breed</label>
@@ -58,8 +58,9 @@
   <input
     type="number"
     id="lostHeight"
-    placeholder="Enter pet height in ft.."
+    placeholder="Enter pet height in ft.. e.g. 3.5"
     min="0"
+    max="6"
     name="heightInput"
     required
   />
