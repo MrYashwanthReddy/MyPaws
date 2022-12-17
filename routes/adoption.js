@@ -75,4 +75,25 @@ router
     }
   });
 
+router
+  .route("/:postId/comment")
+  .post(async (req, res) => {
+    const body = xss(req.body);
+    try {
+      const comment = validValue(xss(req.body.comment), "Content");
+      const userId = req.session.user.firstName;
+      const postId = req.params.postId;
+      await adoptions.commentPost(postId, userId, comment);
+      res.redirect("/adoption");
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("adoption/view", { 
+        ...body, 
+        page: { title: "Adoption Post" },
+        error: error.msg,
+        cookie: sessionUser,
+      });
+    }
+  });
+
 module.exports = router;
