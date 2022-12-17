@@ -6,10 +6,13 @@ const postRoutes = require("./posts");
 
 const storeRoutes = require("./stores");
 
+const walkerRoutes = require("./walker");
+
 const constructorMethod = (app) => {
   app.use("/auth", mainRoutes);
   app.use("/pets", petRoutes);
   app.use("/pet-stores", storeRoutes);
+  app.use("/dog-walker", walkerRoutes);
   app.use("/", postRoutes);
 
   app.use("*", (req, res) => {

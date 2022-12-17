@@ -92,6 +92,14 @@ app.use("/pet-stores/review-post", (req, res, next) => {
   }
 });
 
+app.use("/dog-walker", (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/auth/login?e=l");
+  }
+});
+
 configRoutes(app);
 
 app.listen(3000, () => {
