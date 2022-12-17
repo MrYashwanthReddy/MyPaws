@@ -41,4 +41,38 @@ router
     res.redirect("/live");
   });
 
+router
+  .route("/post")
+  .get(async (req, res) => {
+    res.render("walker/post", {
+      page: { title: "Dog Walker Post" },
+      cookie: req.session.user || false
+    });
+  })
+  .post(async (req, res) => {
+    const body = xss(req.body);
+    try {
+
+      const title = validValue(xss(req.body.title), "Title");
+      const content = validValue(xss(req.body.content), "Content");
+      const userId = validValue(xss(req.body.userId), "UserId");
+  
+      let image = checkImage(req.files.images);
+      image = image.data;
+  
+      await walkers.createPost(content, image, userId, title);
+  
+      res.redirect("/dog-walker");
+  
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("walker/post", { 
+        ...body, 
+        page: { title: "Dog Walker Post" },
+        error: error.msg,
+        cookie: sessionUser,
+      });
+    }
+  });
+
 module.exports = router;
