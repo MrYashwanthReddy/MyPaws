@@ -21,6 +21,22 @@
           {{/if}}
         </div>
 
+        <div class="comment-sec" data-post="{{_id}}">
+          <div class="comment-list">
+            {{#each comments}}
+            <div class="single-comment"><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
+            {{/each}}
+          </div>
+          <div class="comment-send">
+            <form style="width: 100%;" action="/dog-walker/{{_id}}/comment" method="post">
+              <div class="flex">
+                <input type="text" name="comment" style="flex: 1"/>
+                <input type="submit" value="Send" />
+              </div>
+            </form>
+          </div>
+
+        </div>
       </div>
 
     {{/each}}

@@ -67,8 +67,41 @@ const createPost = async (content, image, userId, title) => {
   }
 }
 
+const commentPost = async (postId, userId, comment) => {
+  try {
+    const walkersCollection = await walkers();
+    let post = await walkersCollection.findOne({ _id: ObjectId(postId) });
+
+    if (post.comments == 0) {
+      post.comments = [];
+    }
+
+    post.comments.push({
+      commentId: ObjectId(),
+      comment: comment,
+      commentDate: new Date(),
+      userId: userId,
+    });
+
+    const updateInfo = await walkersCollection.updateOne(
+      { _id: ObjectId(postId) },
+      { $set: { comments: post.comments } }
+    );
+
+    if (!updateInfo.acknowledged || !updateInfo.modifiedCount) {
+      throw { status: 400, msg: "Could not add comment" };
+    }
+
+    return { status: 200, comment: true };
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+
+};
+
 module.exports = {
   getAllPosts,
   getPostsCount,
   createPost,
+  commentPost,
 }
