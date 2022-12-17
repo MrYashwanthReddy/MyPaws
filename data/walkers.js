@@ -36,7 +36,6 @@ const getPostsCount = async () => {
 
 const createPost = async (content, image, userId, title) => {
   try {
-    console.log({ title });
     const walkersCollection = await walkers();
     validValue(content, "Content");
     validValue(userId, "User Id");
