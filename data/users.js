@@ -38,6 +38,7 @@ const createUser = async ({
       throw {status: 403, msg: "User already exists"};
     }
 
+
     const userData = {
       firstName,
       lastName,
@@ -58,7 +59,7 @@ const createUser = async ({
 
     return {status: 200, insertedUser: true, data: newUser};
   } catch (error) {
-    throw {status: 500, msg: "Error: Server error"};
+    throw {status: error.status || 500, msg: error.msg || "Error: Server error"};
   }
 };
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const xss = require("xss");
 const { pets } = require("../data");
-const { checkString, validValue, checkImage } = require("../validation");
+const { checkString, validValue, checkImage, checkEmail } = require("../validation");
 
 const router = express.Router();
 
@@ -48,7 +48,7 @@ router
       let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
       let breedType = validValue(xss(req.body.breedInput), "breed type");
       let color = validValue(xss(req.body.colorInput), "color");
-      let colar = validValue(xss(req.body.colarInput), "colar");
+      let collar = validValue(xss(req.body.collarInput), "collar");
       let earType = validValue(xss(req.body.earTypeInput), "ear type");
       let gender = validValue(xss(req.body.genderInput), "gender");
       let hairType = validValue(xss(req.body.hairTypeInput), "hair type");
@@ -59,7 +59,7 @@ router
       bodyType = checkString(bodyType, "body type");
       breedType = checkString(breedType, "breed type");
       color = checkString(color, "color");
-      colar = checkString(colar, "colar");
+      collar = checkString(collar, "collar");
       earType = checkString(earType, "ear type");
       gender = checkString(gender, "gender");
       hairType = checkString(hairType, "hair type");
@@ -70,7 +70,7 @@ router
         animal: animal,
         gender: gender,
         color: color,
-        colar: colar,
+        collar: collar,
         height: height,
         bodyType: bodyType,
         breedType: breedType,
@@ -116,7 +116,7 @@ router
       let bodyType = validValue(req.body.bodyTypeInput, "body type");
       let breedType = validValue(req.body.breedInput, "breed type");
       let color = validValue(req.body.colorInput, "color");
-      let colar = validValue(req.body.colarInput, "colar");
+      let collar = validValue(req.body.collarInput, "collar");
       let earType = validValue(req.body.earTypeInput, "ear type");
       let gender = validValue(req.body.genderInput, "gender");
       let hairType = validValue(req.body.hairTypeInput, "hair type");
@@ -134,19 +134,20 @@ router
       bodyType = checkString(req.body.bodyTypeInput, "body type");
       breedType = checkString(req.body.breedInput, "breed type");
       color = checkString(req.body.colorInput, "color");
-      colar = checkString(req.body.colarInput, "colar");
+      collar = checkString(req.body.collarInput, "collar");
       earType = checkString(req.body.earTypeInput, "ear type");
       gender = checkString(req.body.genderInput, "gender");
       hairType = checkString(req.body.hairTypeInput, "hair type");
       height = checkString(req.body.heightInput, "height");
 
+      email = checkEmail(email);
       const foundPet = {
         name: name,
         email: email,
         animal: animal,
         gender: gender,
         color: color,
-        colar: colar,
+        collar: collar,
         height: height,
         bodyType: bodyType,
         breedType: breedType,
