@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const xss = require("xss");
 
+const { validValue, checkImage } = require("../validation");
 const { adoptions } = require("../data");
 
 router
@@ -38,6 +39,40 @@ router
   .post(async (req, res) => {
     req.session.queryDoc = req.body.queryDoc;
     res.redirect("/live");
+  });
+
+router
+  .route("/post")
+  .get(async (req, res) => {
+    res.render("adoption/post", {
+      page: { title: "Adoption Post" },
+      cookie: req.session.user || false
+    });
+  })
+  .post(async (req, res) => {
+    const body = xss(req.body);
+    try {
+
+      const title = validValue(xss(req.body.title), "Title");
+      const content = validValue(xss(req.body.content), "Content");
+      const userId = validValue(xss(req.body.userId), "UserId");
+  
+      let image = checkImage(req.files.images);
+      image = image.data;
+  
+      await adoptions.createPost(content, image, userId, title);
+  
+      res.redirect("/adoption");
+  
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("adoption/post", { 
+        ...body, 
+        page: { title: "Adoption Post" },
+        error: error.msg,
+        cookie: sessionUser,
+      });
+    }
   });
 
 module.exports = router;
