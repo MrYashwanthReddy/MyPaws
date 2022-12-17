@@ -20,6 +20,11 @@ module.exports = {
         status: 400,
         msg: `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`,
       };
+    if (!/^[A-Za-z ]{1,}$/.test(strVal))
+      throw {
+        status: 400,
+        msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+      };
     return strVal;
   },
   checkId(id) {
@@ -51,5 +56,24 @@ module.exports = {
     if (parseInt(rating) < 1 || parseInt(rating) > 5)
       throw { status: 400, msg: "Error: invalid rating" };
     return rating;
+  },
+
+  checkPassword(password) {
+    let regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  
+    if (!password.match(regex))
+      throw {
+        status: 400,
+        msg: "Password should contain atleast 1 uppercase character, 1 number,1 special character and minimum of 8 characters in length",
+      };
+  
+    return password;
+  },
+  
+  checkEmail(email) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return email;
+    }
+    throw { status : 400, msg: "Error: Invalid email format" };
   }
 };

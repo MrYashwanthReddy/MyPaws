@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { users } = require("../data");
-const { validValue, checkString, checkImage } = require("../validation");
+const { validValue, checkString, checkImage, checkEmail, checkPassword } = require("../validation");
 
 const bcrypt = require("bcrypt");
 const xss = require("xss");
@@ -31,6 +31,7 @@ router
       let pass = validValue(xss(req.body.password), "PASSWORD");
 
       email = checkString(email, "EMAIL");
+      email = checkEmail(email);
       pass = checkString(pass, "PASSWORD");
 
       const result = await users.userLogin(email, pass);
@@ -81,7 +82,9 @@ router
       petBreed = checkString(xss(req.body.petBreed), "PET BREED");
       password = checkString(xss(req.body.password), "PASSWORD");
       cpassword = checkString(xss(req.body.cpassword), "RETYPE PASSWORD");
-
+      
+      email = checkEmail(email);
+      password = checkPassword(password);
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
 

@@ -1,5 +1,5 @@
-let collar1 = document.getElementById("colarInput1");
-let collar2 = document.getElementById("colarInput2");
+let collar1 = document.getElementById("collarInput1");
+let collar2 = document.getElementById("collarInput2");
 // const petType = document.getElementById("petType");
 // const catHairType = document.getElementById("catHairType");
 // const dogHairType = document.getElementById("dogHairType");
@@ -11,29 +11,29 @@ let collar2 = document.getElementById("colarInput2");
 collar1.addEventListener("click", (e) => {
   if (
     (e.target.value = "true") &&
-    !document.getElementById("colarColorInput")
+    !document.getElementById("collarColorInput")
   ) {
-    let collarInputDiv = document.getElementById("colarInput");
+    let collarInputDiv = document.getElementById("collarInput");
     let input = document.createElement("input");
-    input.name = "colarInformationInput";
+    input.name = "collarInformationInput";
     input.type = "text";
-    input.id = "colarInformationInput";
+    input.id = "collarInformationInput";
 
     let label = document.createElement("label");
-    label.innerHTML = "Colar Information";
-    label.for = "colarInformationInput";
-    label.id = "colarInformationLabel";
+    label.innerHTML = "Collar Information";
+    label.for = "collarInformationInput";
+    label.id = "collarInformationLabel";
     collarInputDiv.after(label, input);
 
     input = document.createElement("input");
-    input.name = "colarColorInput";
+    input.name = "collarColorInput";
     input.type = "text";
-    input.id = "colarColorInput";
+    input.id = "collarColorInput";
 
     label = document.createElement("label");
-    label.innerHTML = "Colar Color";
-    label.for = "colarColorInput";
-    label.id = "colarColorLabel";
+    label.innerHTML = "Collar Color";
+    label.for = "collarColorInput";
+    label.id = "collarColorLabel";
     collarInputDiv.after(label, input);
   }
 });
@@ -41,21 +41,21 @@ collar1.addEventListener("click", (e) => {
 collar2.addEventListener("click", (e) => {
   if (
     (e.target.value = "false") &&
-    document.getElementById("colarColorInput")
+    document.getElementById("collarColorInput")
   ) {
-    let collarColorInput = document.getElementById("colarColorInput");
-    let colarColorLabel = document.getElementById("colarColorLabel");
+    let collarColorInput = document.getElementById("collarColorInput");
+    let collarColorLabel = document.getElementById("collarColorLabel");
     collarColorInput.remove();
-    colarColorLabel.remove();
+    collarColorLabel.remove();
 
     let collarInformationInput = document.getElementById(
-      "colarInformationInput"
+      "collarInformationInput"
     );
-    let colarInformationLabel = document.getElementById(
-      "colarInformationLabel"
+    let collarInformationLabel = document.getElementById(
+      "collarInformationLabel"
     );
     collarInformationInput.remove();
-    colarInformationLabel.remove();
+    collarInformationLabel.remove();
   }
 });
 

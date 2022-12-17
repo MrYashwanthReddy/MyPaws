@@ -52,8 +52,8 @@ router
 
         element.isLiked = false;
         if (userId) {
-          if (element.likes.length != 0) {
-            if (element.likes.includes(userId)) {
+          if (element.likes.length) {
+            if (element.likes?.includes(userId)) {
               element.isLiked = true;
             }
           } else {
