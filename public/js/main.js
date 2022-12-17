@@ -1,9 +1,32 @@
+function deleteComment(id, commentId) {
+  fetch(`/deleteComment`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      postId: id,
+      commentId:commentId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      //comment.val('');
+
+      if (response.status == 200) {
+        $('[data-cid="' + commentId + '"]').remove();
+      }
+    });
+}
+
 function comment(id) {
   console.log(id);
 
   let comment = $(`.comment-ip`, $(`[data-post="${id}"]`));
 
-  fetch(`/comment/`, {
+  fetch(`/comment`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -21,9 +44,9 @@ function comment(id) {
 
       if (response.comment == true) {
         $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
-        <div class="single-comment">
+        <div class="single-comment" data-cid="${response.cid}">
             <div><b>${response.username}:</b><br><span>${comment.val()}</span></div>
-            <div><span class="material-icons">delete</span></div>
+            <div><span class="material-icons" onclick="deleteComment('${id}','${response.cid}')">delete</span></div>
           </div>
         `);
         comment.val("");
@@ -228,6 +251,7 @@ if (lostpetForm) {
     let hairType = e.target.lostHairType.value;
     let earType = e.target.lostEarType.value;
     let bodyType = e.target.lostBodyType.value;
+    let info = e.target.distinguishingInput.value;
 
     try {
       animal = validValue(animal, "ANIMAL", true);
@@ -238,6 +262,7 @@ if (lostpetForm) {
       hairType = validValue(hairType, "HAIR TYPE", true);
       earType = validValue(earType, "EAR TYPE", true);
       bodyType = validValue(bodyType, "BODY TYPE", true);
+      info = validValue(info, "DISTINGUISHING INFO", true);
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -257,6 +282,19 @@ if (lostpetForm) {
 
 function validValue(input, fieldName, isTextCheck) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
+
+  const field = fieldName.toLowerCase();
+  if(field == 'animal' && !['dog','cat'].includes(input.toLowerCase()))
+    throw { status: 400, msg: `Error: Invalid Pet type` };
+
+  if(field == 'gender' && !['male','female'].includes(input.toLowerCase()))
+    throw { status: 400, msg: `Error: Invalid Pet gender` };
+
+  if(field == 'height' && (typeof input != 'number' || input < 0 || input > 6)  )
+    throw { status: 400, msg: `Error: Invalid Pet height` };
+
+  if(field == 'age' && (typeof input != 'number' || input < 8)  )
+    throw { status: 400, msg: `Error: Invalid age` };
 
   if (isTextCheck) {
     checkValidText(input, fieldName);

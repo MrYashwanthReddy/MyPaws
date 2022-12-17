@@ -3,8 +3,8 @@ const xss = require("xss");
 const { posts, likes, users } = require("../data");
 const { getUserById } = require("../data/users");
 const { validValue, checkImage } = require("../validation");
-
 const router = express.Router();
+
 
 router.route("/post").get(async (req, res) => {
   res.render("home/post", {
@@ -129,6 +129,22 @@ router.route("/comment").post(async (req, res) => {
     let postId = req.body.postId;
     let comment = req.body.comment;
     const result = await posts.commentPost(req, postId, userId, comment);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+
+router.route("/deleteComment").post(async (req, res) => {
+  try {
+    if (!req.session.user) {
+      throw { status: 404, msg: "Error: User not found " };
+    }
+    let userId = req.session.user._id;
+    let postId = req.body.postId;
+    let commentId = req.body.commentId;
+    const result = await posts.commentDelete(req, postId, userId, commentId);
     res.send(result);
   } catch (error) {
     console.log(error);

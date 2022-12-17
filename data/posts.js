@@ -117,8 +117,9 @@ const commentPost = async (req, postId, userId, comment) => {
     post.comments = [];
   }
 
+  let cid = new ObjectId(); 
   post.comments.push({
-    commentId: new ObjectId(),
+    commentId: cid,
     comment: comment,
     commentDate: new Date(),
     userId: userId,
@@ -133,7 +134,7 @@ const commentPost = async (req, postId, userId, comment) => {
     throw { status: 400, msg: "Could not add comment" };
   }
 
-  return { status: 200, comment: true, username: req.session.user._id };
+  return { status: 200, comment: true, cid: cid, username: req.session.user._id };
 };
 
 const commentDelete = async (req, postId, userId, commentId) => {
@@ -151,12 +152,13 @@ const commentDelete = async (req, postId, userId, commentId) => {
   }
 
   post.comments.forEach( (c, i) => {
-    if( c.commentId == ObjectId(commentId) ){
+    if( c.commentId == commentId ){
       if(c.userId == userId){
-        c.splice(i,1);
+        post.comments.splice(i,1);
       }
     }
   });
+  console.log(post.comments);
 
   const insertInfo = await postsCollection.updateOne(
     { _id: ObjectId(postId) },

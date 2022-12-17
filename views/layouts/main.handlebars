@@ -16,8 +16,12 @@
     <h1>
       MyPaws
     </h1>
+     
         <i class="material-icons">pets</i>
     </div>
+      <small> 
+        We help reunite lost pets with their families</small>
+       
 
     <div class="header-right">
       <a href="/pets/report">Report</a>
@@ -53,8 +57,24 @@
       {{#if cookie}}
       <li><a href="/auth/logout">Logout</a></li>
       {{else}}
-      <li><a href="/auth/login">Login</a></li>
-      <li><a href="/auth/register">Register</a></li>
+       
+        
+    
+      <li><label>
+        1 IN 3 PETS GO MISSING IN THEIR LIFETIME. BE PREPARED IN CASE IT HAPPENS TO YOU
+      </label><a href="/auth/register">Register</a>
+      <label>
+        OR
+      </label
+        >
+      
+      </label><a href="/auth/login">Login</a>
+      </li>
+      </button>
+      
+       
+       
+      
 
       {{/if}}
 
@@ -64,6 +84,7 @@
       <li><a href="/pet-stores">Nearby Pet Stores</a></li>
 
     </ul>
+    
   </footer>
 
   <script src="https://code.jquery.com/jquery-3.6.2.slim.min.js"

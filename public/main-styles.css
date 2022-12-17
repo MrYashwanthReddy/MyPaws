@@ -473,3 +473,14 @@ li {
   align-items: center;
   justify-content: space-between;
 }
+
+.comSub {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.comSub input {
+  padding: 10px;
+  margin: 5px;
+}
