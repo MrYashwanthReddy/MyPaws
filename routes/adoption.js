@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const xss = require("xss");
+const { ObjectId } = require("mongodb");
 
 const { validValue, checkImage } = require("../validation");
 const { adoptions } = require("../data");
@@ -55,10 +56,11 @@ router
 
       const title = validValue(xss(req.body.title), "Title");
       const content = validValue(xss(req.body.content), "Content");
-      const userId = validValue(xss(req.body.userId), "UserId");
+      const userId = new ObjectId(req.session.user._id);
   
       let image = checkImage(req.files.images);
       image = image.data;
+      console.log()
   
       await adoptions.createPost(content, image, userId, title);
   
