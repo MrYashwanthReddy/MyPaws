@@ -1,7 +1,6 @@
 const { ObjectId } = require("mongodb");
 
 const mongoCollections = require("../config/mongoCollections");
-const { validValue, checkString, checkId } = require("../validation");
 const walkers = mongoCollections.walkers;
 
 const getAllPosts = async (queryDoc) => {
@@ -52,9 +51,9 @@ const getAllPosts = async (queryDoc) => {
         },
         { $project: { user: 0 } }
       ])
-      // .sort({ walkerDate: -1 })
-      // .skip(queryDoc)
-      // .limit(10)
+      .sort({ walkerDate: -1 })
+      .skip(queryDoc)
+      .limit(10)
       .toArray();
 
     queryDoc = queryDoc + 10;
