@@ -15,28 +15,6 @@ module.exports = {
         status: 400,
         msg: `Error: ${varName} cannot be an empty string or string with just spaces`,
       };
-    if (!isNaN(strVal) && varName !== "height")
-      throw {
-        status: 400,
-        msg: `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`,
-      };
-    // if (!/^[A-Za-z ]{1,}$/.test(strVal))
-    //   throw {
-    //     status: 400,
-    //     msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
-    //   };
-    return strVal.toLowerCase();
-  },
-  checkString(strVal, varName) {
-    if (!strVal) throw { status: 400, msg: `Error: Missing ${varName} input` };
-    if (typeof strVal !== "string")
-      throw { status: 400, msg: `Error: ${varName} must be a string!` };
-    strVal = strVal.trim();
-    if (strVal.length === 0)
-      throw {
-        status: 400,
-        msg: `Error: ${varName} cannot be an empty string or string with just spaces`,
-      };
     // if (!isNaN(strVal) && varName !== "height")
     //   throw {
     //     status: 400,
@@ -49,6 +27,7 @@ module.exports = {
     //   };
     return strVal.toLowerCase();
   },
+
   checkPasswordString(strVal, varName) {
     if (!strVal) throw { status: 400, msg: `Error: Missing ${varName} input` };
     if (typeof strVal !== "string")
@@ -103,7 +82,6 @@ module.exports = {
 
   checkPassword(password) {
     let regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
     if (!password.match(regex))
       throw {
         status: 400,
@@ -117,6 +95,7 @@ module.exports = {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return email;
     }
+
     throw { status: 400, msg: "Error: Invalid email format" };
   },
 };

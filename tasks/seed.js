@@ -28,7 +28,7 @@ const main = async () => {
     const user1 = await users.createUser({
       firstName: "Yash",
       lastName: "Reddy",
-      age: 22,
+      age: "22",
       email: "yash@gmail.com",
       petName: "jack",
       petBreed: "lab",
@@ -39,7 +39,7 @@ const main = async () => {
     const user2 = await users.createUser({
       firstName: "Yash",
       lastName: "Reddy",
-      age: 22,
+      age: "22",
       email: "yashwanth@gmail.com",
       petName: "jack",
       petBreed: "lab",

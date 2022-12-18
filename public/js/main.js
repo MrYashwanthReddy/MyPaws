@@ -20,6 +20,7 @@ function deleteComment(id, commentId) {
       }
     });
 }
+checkString;
 
 function comment(id) {
   console.log(id);
@@ -103,6 +104,9 @@ if (loginForm) {
       email = validValue(email, "EMAIL");
       password = validValue(password, "PASSWORD");
 
+      email = checkString(email, "EMAIL");
+      password = checkPasswordString(password, "PASSWORD");
+
       email = checkEmail(email);
       password = checkPassword(password);
     } catch (e) {
@@ -132,29 +136,42 @@ if (registerForm) {
     let lastName = e.target.lastName.value;
 
     let age = e.target.age.value;
-    let city = e.target.city.value;
-    let state = e.target.state.value;
+
     let email = e.target.email.value;
     let petName = e.target.petName.value;
     let petBreed = e.target.petBreed.value;
     let password = e.target.password.value;
     let cpassword = e.target.cpassword.value;
 
-    try {
-      firstName = validValue(firstName, "FIRST NAME", true);
-      lastName = validValue(lastName, "LAST NAME", true);
-      age = validValue(age, "AGE");
-      city = validValue(city, "CITY", true);
-      state = validValue(state, "STATE", true);
-      email = validValue(email, "EMAIL");
-      petName = validValue(petName, "PET NAME", true);
-      petBreed = validValue(petBreed, "PET BREED", true);
+    let profileImage;
 
-      password = validValue(password, "PASSWORD");
-      cpassword = validValue(cpassword, "RETYPE PASSWORD");
+    try {
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
+      age = validValue(age, "AGE");
+
+      email = validValue(email, "EMAIL");
+      petName = validValue(petName, "PET NAME");
+      petBreed = validValue(petBreed, "PET BREED");
+
+      firstName = checkString(firstName, "FIRST NAME");
+      lastName = checkString(lastName, "LAST NAME");
+      age = checkString(age, "AGE");
+
+      email = checkString(email, "EMAIL");
+      petName = checkString(petName, "PET NAME");
+      petBreed = checkString(petBreed, "PET BREED");
+
+      password = checkPasswordString(password, "PASSWORD");
+      cpassword = checkPasswordString(cpassword, "RETYPE PASSWORD");
 
       email = checkEmail(email);
       password = checkPassword(password);
+
+      let files = e.target.profileImage.files;
+      if (files.length == 0) {
+        throw { status: 400, msg: "Error: Image Upload Required" };
+      }
 
       if (password !== cpassword) {
         throw { msg: "Error: PASSWORD Mismatch" };
@@ -283,8 +300,6 @@ if (lostpetForm) {
       hairType = checkString(hairType, "HAIR TYPE");
       earType = checkString(earType, "EAR TYPE");
       bodyType = checkString(bodyType, "BODY TYPE");
-
-      
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -302,25 +317,57 @@ if (lostpetForm) {
   });
 }
 
-function validValue(input, fieldName, isTextCheck) {
+let postForm = document.getElementById("post-form");
+
+if (postForm) {
+  postForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let title = e.target.title.value;
+    let content = e.target.content.value;
+
+    try {
+      title = validValue(title, "TITLE");
+      content = validValue(content, "CONTENT");
+
+      title = checkString(title, "TITLE");
+      content = checkString(content, "CONTENT");
+
+      title = checkValidText(title, "TITLE");
+      content = checkValidText(content, "CONTENT");
+    } catch (e) {
+      let errorDiv = document.getElementsByClassName("error");
+      if (errorDiv.length == 0) {
+        let error = document.createElement("p");
+        error.className = "error";
+        error.innerHTML = e.msg;
+        postForm.append(error);
+      } else {
+        errorDiv[0].innerHTML = e.msg;
+      }
+      return;
+    }
+  });
+}
+
+function validValue(input, fieldName) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
 
-  const field = fieldName.toLowerCase();
-  if (field == "animal" && !["dog", "cat"].includes(input.toLowerCase()))
-    throw { status: 400, msg: `Error: Invalid Pet type` };
+  // const field = fieldName.toLowerCase();
+  // if (field == "animal" && !["dog", "cat"].includes(input.toLowerCase()))
+  //   throw { status: 400, msg: `Error: Invalid Pet type` };
 
-  if (field == "gender" && !["male", "female"].includes(input.toLowerCase()))
-    throw { status: 400, msg: `Error: Invalid Pet gender` };
+  // if (field == "gender" && !["male", "female"].includes(input.toLowerCase()))
+  //   throw { status: 400, msg: `Error: Invalid Pet gender` };
 
-  if (field == "height" && (typeof input != "number" || input < 0 || input > 6))
-    throw { status: 400, msg: `Error: Invalid Pet height` };
+  // if (field == "height" && (typeof input != "number" || input < 0 || input > 6))
+  //   throw { status: 400, msg: `Error: Invalid Pet height` };
 
-  if (field == "age" && (typeof input != "number" || input < 8))
-    throw { status: 400, msg: `Error: Invalid age` };
+  // if (field == "age" && (typeof input != "number" || input < 8))
+  //   throw { status: 400, msg: `Error: Invalid age` };
 
-  if (isTextCheck) {
-    checkValidText(input, fieldName);
-  }
+  // if (isTextCheck) {
+  //   checkValidText(input, fieldName);
+  // }
 
   return input;
 }
@@ -366,4 +413,18 @@ function checkString(strVal, varName) {
     };
 
   return strVal.toLowerCase();
+}
+
+function checkPasswordString(strVal, varName) {
+  if (!strVal) throw { status: 400, msg: `Error: Missing ${varName} input` };
+  if (typeof strVal !== "string")
+    throw { status: 400, msg: `Error: ${varName} must be a string!` };
+  strVal = strVal.trim();
+  if (strVal.length === 0)
+    throw {
+      status: 400,
+      msg: `Error: ${varName} cannot be an empty string or string with just spaces`,
+    };
+
+  return strVal;
 }

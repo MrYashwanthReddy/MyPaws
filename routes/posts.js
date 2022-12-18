@@ -1,23 +1,14 @@
 const express = require("express");
 const xss = require("xss");
-const { posts, likes, users } = require("../data");
-const { getUserById } = require("../data/users");
-const { validValue, checkImage } = require("../validation");
+const { posts } = require("../data");
+const { validValue, checkImage, checkString } = require("../validation");
 const router = express.Router();
-
 
 router.route("/post").get(async (req, res) => {
   res.render("home/post", {
     page: { title: "MyPaws" },
     cookie: req.session.user,
   });
-});
-router.route("/get-feed").get(async (req, res) => {
-  try {
-    res.send(result);
-  } catch (c) {
-    res.send([]);
-  }
 });
 
 router.route("/").get(async (req, res) => {
@@ -48,7 +39,9 @@ router
       let result = await posts.getAllPosts(queryDoc);
       result.posts.forEach((element) => {
         let binString = JSON.stringify(element.image);
-        element.image = "data:image/webp;base64," + JSON.parse(binString);
+        if (binString !== "null") {
+          element.image = "data:image/webp;base64," + JSON.parse(binString);
+        } else element.image = false;
 
         element.isLiked = false;
         if (userId) {
@@ -81,21 +74,20 @@ router
 
 router.route("/post").post(async (req, res) => {
   try {
-    let body = req.body;
+    let title = validValue(xss(req.body.title));
+    let content = validValue(xss(req.body.content));
 
-    let title = validValue(body.title);
-    let content = validValue(body.content);
+    title = checkString(title);
+    content = checkString(content);
 
     let image;
 
-    if (xss(req.files)) {
-      image = checkImage(xss(req.files.profileImage));
+    if (req.files) {
+      image = checkImage(xss(req.files.images) && req.files.images);
       image = image.data;
     }
 
-    image = image.data;
-
-    let userId = validValue(body.userId);
+    let userId = validValue(xss(req.body.userId));
 
     const result = await posts.createPost({ content, image, userId, title });
 
