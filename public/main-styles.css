@@ -85,7 +85,7 @@ h2 {
 }
 
 .error {
-  color: red;
+  color: rgb(195, 0, 0);
 }
 
 li {
@@ -467,7 +467,7 @@ li {
   align-items: center;
 }
 
-.single-comment{
+.single-comment {
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -7,7 +7,7 @@ function deleteComment(id, commentId) {
     },
     body: JSON.stringify({
       postId: id,
-      commentId:commentId,
+      commentId: commentId,
     }),
   })
     .then((response) => response.json())
@@ -45,8 +45,12 @@ function comment(id) {
       if (response.comment == true) {
         $(`.comment-list`, $(`[data-post="${id}"]`)).append(`
         <div class="single-comment" data-cid="${response.cid}">
-            <div><b>${response.username}:</b><br><span>${comment.val()}</span></div>
-            <div><span class="material-icons" onclick="deleteComment('${id}','${response.cid}')">delete</span></div>
+            <div><b>${
+              response.username
+            }:</b><br><span>${comment.val()}</span></div>
+            <div><span class="material-icons" onclick="deleteComment('${id}','${
+          response.cid
+        }')">delete</span></div>
           </div>
         `);
         comment.val("");
@@ -100,7 +104,6 @@ if (loginForm) {
       password = validValue(password, "PASSWORD");
 
       email = checkEmail(email);
-
       password = checkPassword(password);
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
@@ -248,10 +251,19 @@ if (lostpetForm) {
     let color = e.target.lostColor.value;
     let height = e.target.lostHeight.value;
     let gender = e.target.lostGender.value;
-    let hairType = e.target.lostHairType.value;
-    let earType = e.target.lostEarType.value;
-    let bodyType = e.target.lostBodyType.value;
-    let info = e.target.distinguishingInput.value;
+
+    let hairType;
+    let earType;
+
+    if (animal == "dog") {
+      hairType = e.target.dogHairTypeInput.value;
+      earType = e.target.dogEarTypeInput.value;
+    } else {
+      hairType = e.target.catHairTypeInput.value;
+      earType = e.target.catEarTypeInput.value;
+    }
+
+    let bodyType = e.target.bodyTypeInput.value;
 
     try {
       animal = validValue(animal, "ANIMAL", true);
@@ -262,7 +274,17 @@ if (lostpetForm) {
       hairType = validValue(hairType, "HAIR TYPE", true);
       earType = validValue(earType, "EAR TYPE", true);
       bodyType = validValue(bodyType, "BODY TYPE", true);
-      info = validValue(info, "DISTINGUISHING INFO", true);
+
+      animal = checkString(animal, "ANIMAL");
+      breed = checkString(breed, "BREED");
+      color = checkString(color, "COLOR");
+      height = checkString(height, "HEIGHT");
+      gender = checkString(gender, "GENDER");
+      hairType = checkString(hairType, "HAIR TYPE");
+      earType = checkString(earType, "EAR TYPE");
+      bodyType = checkString(bodyType, "BODY TYPE");
+
+      
     } catch (e) {
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
@@ -284,16 +306,16 @@ function validValue(input, fieldName, isTextCheck) {
   if (!input) throw { status: 400, msg: `Error: ${fieldName} is empty` };
 
   const field = fieldName.toLowerCase();
-  if(field == 'animal' && !['dog','cat'].includes(input.toLowerCase()))
+  if (field == "animal" && !["dog", "cat"].includes(input.toLowerCase()))
     throw { status: 400, msg: `Error: Invalid Pet type` };
 
-  if(field == 'gender' && !['male','female'].includes(input.toLowerCase()))
+  if (field == "gender" && !["male", "female"].includes(input.toLowerCase()))
     throw { status: 400, msg: `Error: Invalid Pet gender` };
 
-  if(field == 'height' && (typeof input != 'number' || input < 0 || input > 6)  )
+  if (field == "height" && (typeof input != "number" || input < 0 || input > 6))
     throw { status: 400, msg: `Error: Invalid Pet height` };
 
-  if(field == 'age' && (typeof input != 'number' || input < 8)  )
+  if (field == "age" && (typeof input != "number" || input < 8))
     throw { status: 400, msg: `Error: Invalid age` };
 
   if (isTextCheck) {
@@ -330,4 +352,18 @@ function checkEmail(email) {
     return email;
   }
   throw { msg: "Error: Invalid email format" };
+}
+
+function checkString(strVal, varName) {
+  if (!strVal) throw { status: 400, msg: `Error: Missing ${varName} input` };
+  if (typeof strVal !== "string")
+    throw { status: 400, msg: `Error: ${varName} must be a string!` };
+  strVal = strVal.trim();
+  if (strVal.length === 0)
+    throw {
+      status: 400,
+      msg: `Error: ${varName} cannot be an empty string or string with just spaces`,
+    };
+
+  return strVal.toLowerCase();
 }

@@ -25,7 +25,21 @@ app.use(
   })
 );
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+const handlebarsInstance = exphbs.create({
+  defaultLayout: "main",
+  // Specify helpers which are only registered on this instance.
+  helpers: {
+    asJSON: (obj, spacing) => {
+      if (typeof spacing === "number")
+        return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
+
+      return new Handlebars.SafeString(JSON.stringify(obj));
+    },
+  },
+  partialsDir: ["views/partials/"],
+});
+
+app.engine("handlebars", handlebarsInstance.engine);
 app.set("view engine", "handlebars");
 
 app.use(
@@ -40,7 +54,7 @@ app.use(
 
 var hbs = exphbs.create({});
 
-// register new function
+// register new handlebars function
 hbs.handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
   return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
