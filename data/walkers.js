@@ -34,24 +34,12 @@ const getPostsCount = async () => {
   }
 };
 
-const createPost = async (content, image, userId, title) => {
+const createPost = async (data) => {
   try {
     const walkersCollection = await walkers();
-    validValue(content, "Content");
-    validValue(userId, "User Id");
-    validValue(title, "Title");
-
-    checkString(content);
-    checkString(userId);
-    checkString(title);
-
-    checkId(userId);
 
     const newPost = {
-      content,
-      userId,
-      image,
-      title,
+      ...data,
       postDate: new Date(),
       comments: [],
     };

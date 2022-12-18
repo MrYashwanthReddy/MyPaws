@@ -5,14 +5,24 @@
       <div class="error">{{error}}</div>
     {{/if}}
 
-    <input type="file" name="images" accept="image/*" />
-    <input type="text" name="title" placeholder="Title" />
+    <input required type="file" name="images" accept="image/*" />
+    <input required type="text" name="walkerName" placeholder="Walker Name" />
+    <input required type="time" name="walkTime" placeholder="Walking Time" />
     <input
-      type="text"
-      name="content"
-      placeholder="What's on you mind, {{cookie.firstName}} ?"
+      required
+      type="number"
+      name="expMonth"
+      min="0"
+      placeholder="Experience's Month"
     />
-    <input hidden name="userId" value="{{cookie._id}}" />
+    <input
+      required
+      type="number"
+      name="expYear"
+      min="0"
+      placeholder="Experience's Year"
+    />
+    <input required type="number" name="phoneNum" placeholder="Phone Number" />
     <button type="submit">Post</button>
 
   </form>

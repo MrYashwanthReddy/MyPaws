@@ -53,14 +53,18 @@ router
     const body = xss(req.body);
     try {
 
-      const title = validValue(xss(req.body.title), "Title");
-      const content = validValue(xss(req.body.content), "Content");
-      const userId = validValue(xss(req.body.userId), "UserId");
+      validValue(xss(req.body.walkerName), "Name");
+      validValue(xss(req.body.walkTime), "Walking Time");
+      validValue(xss(req.body.expMonth), "Experience's Month");
+      validValue(xss(req.body.expYear), "Experience's Year");
+      validValue(xss(req.body.phoneNum), "Phone Number");
   
-      let image = checkImage(req.files.images);
-      image = image.data;
+      checkImage(req.files.images);
+
+      const image = req.files.images.data;
+      const userId = req.session.user._id;
   
-      await walkers.createPost(content, image, userId, title);
+      await walkers.createPost({ ...req.body, image, userId });
   
       res.redirect("/dog-walker");
   
