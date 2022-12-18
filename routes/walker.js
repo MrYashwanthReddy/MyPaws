@@ -3,7 +3,7 @@ const router = express.Router();
 const xss = require("xss");
 const { ObjectId } = require("mongodb");
 
-const { validValue, checkImage } = require("../validation");
+const { validValue, checkImage, checkString, checkNumbers } = require("../validation");
 const { walkers } = require("../data");
 
 router
@@ -76,7 +76,14 @@ router
       validValue(xss(req.body.expMonth), "Experience's Month");
       validValue(xss(req.body.phoneNum), "Phone Number");
 
-      checkImage(req.files.images);
+      checkString(xss(req.body.walkWeekStart), "Walking Time Start(Weekdays)");
+      checkString(xss(req.body.walkWeekEnd), "Walking Time End(Weekdays)");
+      checkString(xss(req.body.walkWeekendStart), "Walking Time Start(Weekend)");
+      checkString(xss(req.body.walkWeekendEnd), "Walking Time End(Weekend)");
+      checkNumbers(xss(req.body.expMonth), "Experience's Month");
+      checkNumbers(xss(req.body.phoneNum), "Phone Number");
+
+      checkImage(req.files?.images);
 
       const image = req.files.images.data;
       const userId = new ObjectId(req.session.user._id);
@@ -88,7 +95,7 @@ router
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
       res.status(error.status).render("walker/post", { 
-        ...body, 
+        ...req.body, 
         page: { title: "Hire a walker" },
         error: error.msg,
         cookie: sessionUser,

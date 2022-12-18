@@ -1,12 +1,12 @@
 {{#if cookie}}
-  <form action="/dog-walker/post" method="post" enctype="multipart/form-data">
+  <form action="/dog-walker/post" id="walker-form" method="post" enctype="multipart/form-data">
 
     {{#if error}}
       <div class="error">{{error}}</div>
     {{/if}}
 
     {{!-- {{#with data}} --}}
-      <input required type="file" name="images" accept="image/*" value="test" />
+      <input type="file" name="images" accept="image/*" value="test" required/>
       <label>from Monday to Friday(WeekDays)</label>
       <input required type="time" name="walkWeekStart" value={{{data.walkWeekStart}}} />
       <input required type="time" name="walkWeekEnd" value={{{data.walkWeekEnd}}} />
@@ -21,7 +21,7 @@
         placeholder="Experience's Month"
         value={{{data.expMonth}}}
       />
-      <input required type="number" name="phoneNum" placeholder="Phone Number" value={{{data.phoneNum}}} />
+      <input required type="number" name="phoneNum" maxlength="10" placeholder="Phone Number" value={{{data.phoneNum}}} />
     {{!-- {{/width}} --}}
     <button type="submit">Post</button>
 
