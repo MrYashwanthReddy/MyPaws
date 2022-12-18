@@ -43,6 +43,8 @@ router
     });
   })
   .post(async (req, res) => {
+    let body = xss(req.body);
+    
     try {
       let animal = validValue(xss(req.body.animalInput), "animal");
       let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
