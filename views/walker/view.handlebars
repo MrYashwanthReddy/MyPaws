@@ -8,15 +8,18 @@
     {{#each data}}
       <div class="post-card">
         <div>
-          <div class="text-part">
+          <div class="text-part" style="height: 23%;">
             <div class="main-text">
-              <h1>{{{title}}}</h1>
-              <p>{{{content}}}</p>
+              <h1>{{{walkerName}}}</h1>
+              <p>Walking Time: {{{walkTime}}}</p>
+              <p>{{{expYear}}} years of experience</p>
+              <p>{{{expMonth}}} months of experience</p>
+              <p>Contact: {{{phoneNum}}}</p>
             </div>
           </div>
           {{#if image}}
             <div class="img-container">
-              <img src={{{image}}}  alt={{{title}}} />
+              <img src={{{image}}}  alt={{{walkerName}}} />
             </div>
           {{/if}}
         </div>
