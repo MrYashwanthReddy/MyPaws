@@ -55,9 +55,9 @@ router
     try {
 
       validValue(xss(req.body.walkerName), "Name");
-      validValue(xss(req.body.walkTime), "Walking Time");
+      validValue(xss(req.body.walkTimeStart), "Walking Time Start");
+      validValue(xss(req.body.walkTimeEnd), "Walking Time End");
       validValue(xss(req.body.expMonth), "Experience's Month");
-      validValue(xss(req.body.expYear), "Experience's Year");
       validValue(xss(req.body.phoneNum), "Phone Number");
   
       checkImage(req.files.images);
