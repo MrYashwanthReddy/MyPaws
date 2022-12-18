@@ -32,9 +32,7 @@ router
       let email = validValue(xss(req.body.email), "EMAIL");
       let pass = validValue(xss(req.body.password), "PASSWORD");
 
-      email = checkString(email, "EMAIL");
       email = checkEmail(email);
-      pass = checkString(pass, "PASSWORD");
 
       const result = await users.userLogin(email, pass);
 
@@ -45,8 +43,10 @@ router
         };
       }
 
+
       res.redirect("/live");
     } catch (error) {
+      console.log(error);
       res.status(error.status).render("users/login", {
         ...body,
         error: error.msg,

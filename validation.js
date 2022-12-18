@@ -23,7 +23,7 @@ module.exports = {
     if (!/^[A-Za-z ]{1,}$/.test(strVal))
       throw {
         status: 400,
-        msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+        msg: `Error: Invalid text in ${varName}, Please Enter only Alphabets.`,
       };
     return strVal;
   },
