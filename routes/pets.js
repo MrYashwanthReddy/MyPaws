@@ -43,7 +43,6 @@ router
     });
   })
   .post(async (req, res) => {
-    let body = xss(req.body);
     
     try {
       let animal = validValue(xss(req.body.animalInput), "animal");
@@ -88,7 +87,7 @@ router
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
       res.status(error.status).render("pets/lost", {
-        ...body,
+        ...req.body,
         error: error.msg,
         page: { title: "PET LOST" },
         cookie: sessionUser,
@@ -165,7 +164,7 @@ router
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
       res.status(error.status).render("pets/found", {
-        ...body,
+        ...req.body,
         error: error.msg,
         page: { title: "PET FOUND" },
         cookie: sessionUser,

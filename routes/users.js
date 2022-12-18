@@ -53,6 +53,7 @@ router
 
       res.redirect("/live");
     } catch (error) {
+      console.log(error);
       res.status(error.status).render("users/login", {
         ...req.body,
         error: error.msg,
@@ -67,7 +68,6 @@ router
     res.render("users/register", { page: { title: "Registration" } });
   })
   .post(async (req, res) => {
-    let body = xss(req.body);
     try {
       let firstName = validValue(xss(req.body.firstName), "FIRST NAME");
       let lastName = validValue(xss(req.body.lastName), "LAST NAME");
@@ -113,7 +113,7 @@ router
       res.redirect("/auth/login");
     } catch (error) {
       res.status(error.status).render("users/register", {
-        ...body,
+        ...req.body,
         error: error.msg,
         page: { title: "Login" },
       });

@@ -28,22 +28,34 @@
 
 
       <div class="comment-sec" data-post="{{_id}}">
+        <h2>Comments</h2>
         <div class="comment-list">
+          {{#if comments}}
           {{#each comments}}
           <div class="single-comment" data-cid="{{ commentId }}">
-            <div><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
+            <div><b>{{ username }}</b><br><span>{{ comment }}</span></div>
             <div><span class="material-icons" onclick="deleteComment('{{../_id}}','{{ commentId }}')">delete</span></div>
           </div>
           {{/each}}
+
+          {{else}}
+          <p>Be the first one to comment</p>
+          {{/if}}
+          <div>
+          </div>
         </div>
+
         <div class="comment-send">
           <div style="width: 100%;">
             <div class="comSub flex">
-              <input type="text" class="comment-ip" style="flex: 1"/>
-              <input type="submit" value="Send" onclick="comment('{{ _id }}')" />
+              <input type="text" class="comment-ip" style="flex: 1" />
+              <button type="submit" value="Send" onclick="comment('{{ _id }}')" >
+                Comment
+              </button>
             </div>
           </div>
         </div>
+
 
       </div>
     </div>

@@ -1,7 +1,7 @@
-const {ObjectId} = require("mongodb");
+const { ObjectId } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
-const {validValue, checkString, checkId} = require("../validation");
-const {getUserById} = require("./users");
+const { validValue, checkString, checkId } = require("../validation");
+const { getUserById } = require("./users");
 const posts = mongoCollections.posts;
 
 const getAllPosts = async (queryDoc) => {
@@ -9,19 +9,19 @@ const getAllPosts = async (queryDoc) => {
   try {
     postsCollection = await posts();
   } catch (error) {
-    throw {status: 500, msg: "Error: Server Error"};
+    throw { status: 500, msg: "Error: Server Error" };
   }
   //const data = await liveFeedCollection.find({}).toArray();
   const data = await postsCollection
     .find({})
-    .sort({postDate: -1})
+    .sort({ postDate: -1 })
     .skip(queryDoc)
     .limit(10)
     .toArray();
 
   queryDoc = queryDoc + 10;
 
-  return {posts: data, queryDoc: queryDoc};
+  return { posts: data, queryDoc: queryDoc };
 };
 
 const getPostsCount = async () => {
@@ -29,7 +29,7 @@ const getPostsCount = async () => {
   try {
     postsCollection = await posts();
   } catch (error) {
-    throw {status: 500, msg: "Error: Server Error"};
+    throw { status: 500, msg: "Error: Server Error" };
   }
 
   const data = await postsCollection.count();
@@ -37,7 +37,7 @@ const getPostsCount = async () => {
   return data;
 };
 
-const createPost = async ({content, image, userId, title}) => {
+const createPost = async ({ content, image, userId, title }) => {
   try {
     const postsCollection = await posts();
 
@@ -51,23 +51,23 @@ const createPost = async ({content, image, userId, title}) => {
 
     userId = checkId(userId);
 
-  const newPost = {
-    content,
-    userId,
-    image,
-    title,
-    postDate: new Date(),
-    likes: [],
-    comments: [],
-  };
+    const newPost = {
+      content,
+      userId,
+      image,
+      title,
+      postDate: new Date(),
+      likes: [],
+      comments: [],
+    };
 
     const insertInfo = await postsCollection.insertOne(newPost);
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
-      throw {status: 400, msg: "Could not add feed"};
+      throw { status: 400, msg: "Could not add feed" };
 
-    return {status: 200, insertedPost: true};
+    return { status: 200, insertedPost: true };
   } catch (error) {
-    throw {status: 500, msg: "Error: Server Error"};
+    throw { status: 500, msg: "Error: Server Error" };
   }
 };
 
@@ -117,12 +117,17 @@ const commentPost = async (req, postId, userId, comment) => {
     post.comments = [];
   }
 
-  let cid = new ObjectId(); 
+  const user = await getUserById(userId);
+
+  const username = user.firstName + " " + user.lastName;
+
+  let cid = new ObjectId();
   post.comments.push({
     commentId: cid,
     comment: comment,
     commentDate: new Date(),
     userId: userId,
+    username: username,
   });
 
   const insertInfo = await postsCollection.updateOne(
@@ -134,7 +139,12 @@ const commentPost = async (req, postId, userId, comment) => {
     throw { status: 400, msg: "Could not add comment" };
   }
 
-  return { status: 200, comment: true, cid: cid, username: req.session.user._id };
+  return {
+    status: 200,
+    comment: true,
+    cid: cid,
+    username: username,
+  };
 };
 
 const commentDelete = async (req, postId, userId, commentId) => {
@@ -151,10 +161,10 @@ const commentDelete = async (req, postId, userId, commentId) => {
     post.comments = [];
   }
 
-  post.comments.forEach( (c, i) => {
-    if( c.commentId == commentId ){
-      if(c.userId == userId){
-        post.comments.splice(i,1);
+  post.comments.forEach((c, i) => {
+    if (c.commentId == commentId) {
+      if (c.userId == userId) {
+        post.comments.splice(i, 1);
       }
     }
   });
