@@ -27,7 +27,7 @@
         <div class="comment-sec" data-post="{{_id}}">
           <div class="comment-list">
             {{#each comments}}
-            <div class="single-comment"><b>{{ userId }}:</b><br><span>{{ comment }}</span></div>
+            <div class="single-comment"><b>{{ userInfo.firstName }}:</b><br><span>{{ comment }}</span></div>
             {{/each}}
           </div>
           <div class="comment-send">

@@ -9,16 +9,59 @@ const getAllPosts = async (queryDoc) => {
     const walkersCollection = await walkers();
     //const data = await liveFeedCollection.find({}).toArray();
     const data = await walkersCollection
-      .find()
-      .sort({ walkerDate: -1 })
-      .skip(queryDoc)
-      .limit(10)
+      .aggregate([
+        { 
+          $addFields: { 
+            comments: { $ifNull : [ "$comments", [] ] }    
+          } 
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "comments.userId",
+            foreignField: "_id",
+            as: "user",
+          },
+        },
+        { 
+          $addFields: {
+            comments: {
+              $map: {
+                input: "$comments",
+                in: {
+                  "$mergeObjects": [
+                    "$$this",
+                    { 
+                      "userInfo": {
+                        "$arrayElemAt": [
+                          "$user",
+                          { 
+                            "$indexOfArray": [
+                              "$user._id",
+                              "$$this.userId"
+                            ] 
+                          }
+                        ]
+                      } 
+                    }
+                  ]
+                }
+              }
+            }
+          } 
+        },
+        { $project: { user: 0 } }
+      ])
+      // .sort({ walkerDate: -1 })
+      // .skip(queryDoc)
+      // .limit(10)
       .toArray();
 
     queryDoc = queryDoc + 10;
 
     return { posts: data, queryDoc: queryDoc };
   } catch (error) {
+    console.log(error);
     throw { status: 500, msg: "Error: Server Error" };
   }
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const xss = require("xss");
+const { ObjectId } = require("mongodb");
 
 const { validValue, checkImage } = require("../validation");
 const { walkers } = require("../data");
@@ -85,7 +86,7 @@ router
     const body = xss(req.body);
     try {
       const comment = validValue(xss(req.body.comment), "Content");
-      const userId = req.session.user.firstName;
+      const userId = new ObjectId(req.session.user._id);
       const postId = req.params.postId;
       await walkers.commentPost(postId, userId, comment);
       res.redirect("/dog-walker");
