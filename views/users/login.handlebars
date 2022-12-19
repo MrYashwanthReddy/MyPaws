@@ -1,4 +1,6 @@
-<form id="loginForm" method="post" action="/auth/login">
+
+
+<form id="loginForm" method="post" action="/auth/login{{#if ref}}?ref={{ref}}{{/if}}">
   {{#if error}}
     <div class="error">{{error}}</div>
   {{/if}}

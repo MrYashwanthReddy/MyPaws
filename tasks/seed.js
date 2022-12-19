@@ -10,7 +10,6 @@ const pets = data.pets;
 const posts = data.posts;
 
 const fs = require("fs");
-const { foundpets } = require("../config/mongoCollections");
 
 const main = async () => {
   const db = await dbConnection();
@@ -204,6 +203,32 @@ const main = async () => {
       breedType: "german shepard",
       hairType: "wire",
       earType: "cocked",
+    });
+
+    const lostpet1 = await pets.createLostPet({
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "false",
+      height: "11",
+      bodyType: "serverelyunderweight",
+      breedType: "lab",
+      hairType: "curly",
+      earType: "button",
+      userId: uid2,
+    });
+
+    const lostpet2 = await pets.createLostPet({
+      animal: "dog",
+      color: "brown",
+      collar: "true",
+      height: "111",
+      gender: "M",
+      hairType: "curly",
+      earType: "folded",
+      bodyType: "serverelyunderweight",
+      breedType: "gernam shepard",
+      userId: uid1,
     });
     console.log("Done seeding database");
 

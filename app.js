@@ -9,6 +9,10 @@ const fileUpload = require("express-fileupload");
 const static = express.static(__dirname + "/public");
 
 const configRoutes = require("./routes");
+const { default: axios } = require("axios");
+
+const nodemailer = require("nodemailer");
+const { users } = require("./data");
 
 app.use("/public", static);
 
@@ -98,23 +102,15 @@ app.use("/auth/profile", (req, res, next) => {
   }
 });
 
+app.use("/pets/lost", (req, res, next) => {
+  if (!req.session.user) {
+    res.redirect("/auth/login?e=l&ref=lp");
+  } else {
+    next();
+  }
+});
+
 app.use("/pet-stores/review-post", (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.redirect("/auth/login?e=l");
-  }
-});
-
-app.use("/dog-walker", (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.redirect("/auth/login?e=l");
-  }
-});
-
-app.use("/adoption", (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
@@ -127,3 +123,35 @@ configRoutes(app);
 app.listen(3000, () => {
   console.log("Running MyPaws at http://localhost:3000");
 });
+
+setInterval(() => {
+  console.log("Request sent to match");
+  axios.post("http://localhost:3000/pets/match").then(async (res) => {
+    console.log(res.data);
+    if (res.data.match == true) {
+      const userId = res.data.lost.userId;
+      const user = await users.getUserById(userId);
+      const smtpTransport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "redfashion.in@gmail.com",
+          pass: "qsrhrhwvlroirosc",
+        },
+      });
+
+      let mailOptions = {
+        from: "redfashion.in@gmail.com",
+        to: user.email,
+        subject: "MyPaws" + " | MATCH FOUND !",
+        text: "contact:" + res.data.found.email + "for you pet information",
+      };
+      smtpTransport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(response);
+        }
+      });
+    }
+  });
+}, 60000 * 10);
