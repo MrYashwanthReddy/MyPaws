@@ -17,12 +17,6 @@ const { route } = require("./users");
 
 const router = express.Router();
 
-router.route("/match").post(async (req, res) => {
-  const result = await pets.makeMatch();
-
-  res.send(result);
-});
-
 router.route("/report").get(async (req, res) => {
   let error = xss(req.query.e);
   let errorMsg;
@@ -102,7 +96,7 @@ router
       const result = await pets.createLostPet(lostPet);
 
       if (result.insertedPet) {
-        res.redirect("/live");
+        res.redirect("/pets/thankyou");
       }
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
@@ -189,7 +183,7 @@ router
       const result = await pets.createFoundPet(foundPet);
 
       if (result.insertedPet) {
-        res.redirect("/live");
+        res.redirect("/pets/thankyou");
       }
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
@@ -201,5 +195,20 @@ router
       });
     }
   });
+
+router.route("/thankyou").get(async (req, res) => {
+  let sessionUser = xss(req.session.user) ? req.session.user : false;
+
+  res.status(200).render("pets/foundtq", {
+    page: { title: "THANKYOU" },
+    cookie: sessionUser,
+  });
+});
+
+router.route("/match").post(async (req, res) => {
+  const result = await pets.makeMatch();
+
+  res.json(result);
+});
 
 module.exports = router;
