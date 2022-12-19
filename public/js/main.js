@@ -342,10 +342,10 @@ if (lostpetForm) {
   });
 }
 
-let postForm = document.getElementById("post-form");
+let adoptionForm = document.getElementById("adoption-form");
 
-if (postForm) {
-  postForm.addEventListener("submit", (e) => {
+if (adoptionForm) {
+  adoptionForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let title = e.target.title.value;
     let content = e.target.content.value;
@@ -365,7 +365,7 @@ if (postForm) {
         let error = document.createElement("p");
         error.className = "error";
         error.innerHTML = e.msg;
-        postForm.append(error);
+        adoptionForm.append(error);
       } else {
         errorDiv[0].innerHTML = e.msg;
       }

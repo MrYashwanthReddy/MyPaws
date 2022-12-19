@@ -86,7 +86,7 @@ router
       let password = validValue(xss(req.body.password), "PASSWORD");
       let cpassword = validValue(xss(req.body.cpassword), "RETYPE PASSWORD");
       let profileImage;
-      if (req.files.profileImage) {
+      if (req.files?.profileImage) {
         profileImage = checkImage(
           xss(req.files.profileImage) && req.files.profileImage
         );
