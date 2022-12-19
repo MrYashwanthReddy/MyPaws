@@ -1,6 +1,6 @@
 <div id="dog-walker">
   <div>
-    <button onclick="window.location.href = '/dog-walker/post'">New Post</button>
+    <button onclick="window.location.href = '/dog-walker/post'">Be a Walker</button>
   </div>
 
   {{#if data}}
@@ -10,15 +10,15 @@
         <div>
           <div class="text-part" style="height: 23%;">
             <div class="main-text">
-              <h1>{{{walkerName}}}</h1>
-              <p>From Walking Time: {{{walkTimeStart}}}</p>
-              <p>To Walking Time: {{{walkTimeEnd}}}</p>
+              <h1>{{{userDetail.[0].firstName}}}</h1>
+              <p>from Monday to Friday: {{{walkWeekStart}}} ~ {{{walkWeekEnd}}}</p>
+              <p>from Saturday to Sunday: {{{walkWeekendStart}}} ~ {{{walkWeekendEnd}}}</p>
               <p>{{{expMonth}}} months of experience</p>
               <p>Contact: {{{phoneNum}}}</p>
             </div>
           </div>
           {{#if image}}
-            <div class="img-container">
+            <div class="img-container" style="width: 250; height: 350; margin: 10px;">
               <img src={{{image}}}  alt={{{walkerName}}} />
             </div>
           {{/if}}
