@@ -371,6 +371,7 @@ if (postForm) {
       }
       return;
     }
+    e.target.submit();
   });
 }
 
