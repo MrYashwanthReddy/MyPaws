@@ -3,7 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 const { users } = require("../data");
-const { validValue, checkString, checkImage } = require("../validation");
+const {
+  validValue,
+  checkString,
+  checkImage,
+  checkEmail,
+  checkPassword,
+  checkPasswordString,
+} = require("../validation");
 
 const bcrypt = require("bcrypt");
 const xss = require("xss");
@@ -28,12 +35,14 @@ router
   .post(async (req, res) => {
     try {
       let email = validValue(xss(req.body.email), "EMAIL");
-      let pass = validValue(xss(req.body.password), "PASSWORD");
+      let password = validValue(xss(req.body.password), "PASSWORD");
 
       email = checkString(email, "EMAIL");
-      pass = checkString(pass, "PASSWORD");
+      password = checkPasswordString(password, "PASSWORD");
 
-      const result = await users.userLogin(email, pass);
+      email = checkEmail(email);
+
+      const result = await users.userLogin({ email, password });
 
       if ((result.status = 200)) {
         req.session.user = {
@@ -44,8 +53,9 @@ router
 
       res.redirect("/live");
     } catch (error) {
+      console.log(error);
       res.status(error.status).render("users/login", {
-        ...body,
+        ...req.body,
         error: error.msg,
         page: { title: "Login" },
       });
@@ -58,7 +68,6 @@ router
     res.render("users/register", { page: { title: "Registration" } });
   })
   .post(async (req, res) => {
-    let body = xss(req.body);
     try {
       let firstName = validValue(xss(req.body.firstName), "FIRST NAME");
       let lastName = validValue(xss(req.body.lastName), "LAST NAME");
@@ -69,9 +78,13 @@ router
       let password = validValue(xss(req.body.password), "PASSWORD");
       let cpassword = validValue(xss(req.body.cpassword), "RETYPE PASSWORD");
       let profileImage;
-      if (xss(req.files)) {
-        profileImage = checkImage(xss(req.files.profileImage));
+      if (req.files.profileImage) {
+        profileImage = checkImage(
+          xss(req.files.profileImage) && req.files.profileImage
+        );
         profileImage = profileImage.data;
+      } else {
+        throw { staus: 400, msg: "Error: Profile image is missing" };
       }
 
       firstName = checkString(xss(req.body.firstName), "FIRST NAME");
@@ -79,9 +92,14 @@ router
       email = checkString(xss(req.body.email), "EMAIL");
       petName = checkString(xss(req.body.petName), "PET NAME");
       petBreed = checkString(xss(req.body.petBreed), "PET BREED");
-      password = checkString(xss(req.body.password), "PASSWORD");
-      cpassword = checkString(xss(req.body.cpassword), "RETYPE PASSWORD");
+      password = checkPasswordString(xss(req.body.password), "PASSWORD");
+      cpassword = checkPasswordString(
+        xss(req.body.cpassword),
+        "RETYPE PASSWORD"
+      );
 
+      email = checkEmail(email);
+      password = checkPassword(password);
       if (password !== cpassword)
         throw { status: 400, msg: "Error: PASSWORD does not match" };
 
@@ -90,19 +108,19 @@ router
       let hashpass = await bcrypt.hash(password, salt);
 
       const result = await users.createUser({
-        ...firstName,
-        ...lastName,
-        ...age,
-        ...email,
-        ...petName,
-        ...petBreed,
-        ...hashpass,
+        firstName,
+        lastName,
+        age,
+        email,
+        petName,
+        petBreed,
+        password: hashpass,
         profileImage: profileImage && profileImage,
       });
       res.redirect("/auth/login");
     } catch (error) {
       res.status(error.status).render("users/register", {
-        ...body,
+        ...req.body,
         error: error.msg,
         page: { title: "Login" },
       });

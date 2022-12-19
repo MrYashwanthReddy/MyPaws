@@ -70,6 +70,55 @@ const makeMatch = async () => {
   const lostData = await getLostpets();
   const foundData = await getFoundpets();
 
+  //DATA
+
+  //CAT
+  //HAIRTYPES
+  // 1. hairless
+  // 2. long
+  // 3. short
+  // 4. sparse
+  // 5. medium
+  // 6 .curledhair
+
+  //EARTYPES
+  // 1. staight
+  // 2. curledear
+  // 3. folded
+  // 4. loosely
+  // 5. floppy
+
+  //DOG
+  //HAIRTYPES
+  // 1. curly
+  // 2. double
+  // 3. hairless
+  // 4. long
+  // 5. medium
+  // 6. short
+  // 7. silky
+  // 8. wire
+
+  //EARTYPES
+  // 1. batt
+  // 2. blunt
+  // 3. button
+  // 4. flame
+  // 5. cocked
+  // 6. drop
+  // 7. filbert
+  // 8. folded
+  // 9. hoodded
+  // 10.prick
+  // 11.rose
+  // 12.v
+
+  //Weight
+  // 1. serverelyUnderWeight
+  // 2. underWeight
+  // 3. idealWeight
+  // 4. overWeight
+
   return { ...lostData, ...foundData };
 };
 

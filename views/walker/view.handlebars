@@ -1,0 +1,77 @@
+<div id="dog-walker">
+  <div>
+    <button onclick="window.location.href = '/dog-walker/post'">New Post</button>
+  </div>
+
+  {{#if data}}
+
+    {{#each data}}
+      <div class="post-card">
+        <div>
+          <div class="text-part" style="height: 23%;">
+            <div class="main-text">
+              <h1>{{{walkerName}}}</h1>
+              <p>From Walking Time: {{{walkTimeStart}}}</p>
+              <p>To Walking Time: {{{walkTimeEnd}}}</p>
+              <p>{{{expMonth}}} months of experience</p>
+              <p>Contact: {{{phoneNum}}}</p>
+            </div>
+          </div>
+          {{#if image}}
+            <div class="img-container">
+              <img src={{{image}}}  alt={{{walkerName}}} />
+            </div>
+          {{/if}}
+        </div>
+
+        <div class="comment-sec" data-post="{{_id}}">
+          <div class="comment-list">
+            {{#each comments}}
+            <div class="single-comment"><b>{{ userInfo.firstName }}:</b><br><span>{{ comment }}</span></div>
+            {{/each}}
+          </div>
+          <div class="comment-send">
+            <form style="width: 100%;" action="/dog-walker/{{_id}}/comment" method="post">
+              <div class="flex">
+                <input type="text" name="comment" style="flex: 1"/>
+                <input type="submit" value="Send" />
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+    {{/each}}
+
+    <div class="pagination">
+
+      {{#if next}}
+        <form action="/live" method="post">
+          <input hidden value="{{{next}}}" name="queryDoc" />
+          <button type="submit">Load More</button>
+        </form>
+      {{/if}}
+
+      {{#if prev}}
+        <form action="/live" method="post">
+          <input hidden value="{{{prev}}}" name="queryDoc" />
+          <button type="submit">Prev</button>
+        </form>
+      {{/if}}
+
+      {{#if prev}}
+        <form method="post">
+          <input hidden value="0" name="queryDoc" />
+          <button type="submit">Top</button>
+        </form>
+
+      {{/if}}
+
+    </div>
+
+  {{else}}
+    <p>No data</p>
+  {{/if}}
+
+</div>

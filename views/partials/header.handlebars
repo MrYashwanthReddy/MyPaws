@@ -1,0 +1,47 @@
+<header>
+  <div onclick="window.location.href = '/'" class="logo">
+    <h1>
+      MyPaws
+    </h1>
+
+    <i class="material-icons">pets</i>
+  </div>
+  <small>
+    We help reunite lost pets with their families</small>
+
+  <div class="header-right">
+    <a href="/pets/report">Report</a>
+
+    {{#if cookie}}
+
+      <i
+        onclick="window.location.href= '/post'"
+        class="material-icons"
+      >create</i>
+    {{/if}}
+
+    <div class="profile">
+      {{#if cookie}}
+        <i
+          onclick="window.location.href = '/auth/profile'"
+          class="material-icons"
+        >person</i>
+      {{else}}
+        <a href="/home">Home</a>
+
+        {{#ifEquals page.title "Login"}}
+          <i
+            onclick="window.location.href = '/auth/register'"
+            class="material-icons"
+          >person_add</i>
+        {{else}}
+          <i
+            onclick="window.location.href = '/auth/login'"
+            class="material-icons"
+          >login</i>
+        {{/ifEquals}}
+      {{/if}}
+    </div>
+  </div>
+
+</header>

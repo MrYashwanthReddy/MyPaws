@@ -28,13 +28,20 @@ header {
   z-index: 10;
 }
 
+footer h4 {
+  width: 300px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+}
+
 footer {
-  min-height: 60px;
+  min-height: 80px;
   background-color: black;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 footer a {
@@ -46,7 +53,7 @@ html {
 }
 
 main {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 120px);
   width: 100%;
   margin-top: 40px;
   display: flex;
@@ -85,7 +92,7 @@ h2 {
 }
 
 .error {
-  color: red;
+  color: rgb(195, 0, 0);
 }
 
 li {
@@ -201,7 +208,8 @@ li {
 
 .post-card {
   display: flex;
-  height: 500px;
+  max-height: 500px;
+  min-height: 200px;
   margin-bottom: 30px;
   border-radius: 10px;
   overflow: hidden;
@@ -210,18 +218,34 @@ li {
   color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
+.post-sec {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 300px;
+}
 .comment-sec {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   width: 350px;
   margin: 3px 8px 8px 8px;
-  padding: 0 8px;
   background-color: #fff;
   border-radius: 5px;
   color: #000;
   overflow: auto;
+}
+
+.comment-sec h2 {
+  background-color: #000;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.comment-list {
+  padding: 0 5px;
 }
 
 .comment-send {
@@ -241,10 +265,14 @@ li {
   padding: 0px 4px 0px 4px;
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.post-card .img-container {
+.post-card .post-sec .img-container {
   height: 75%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .post-card .bottom-part {
@@ -257,6 +285,7 @@ li {
 
 .post-card .img-container img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -467,7 +496,7 @@ li {
   align-items: center;
 }
 
-.single-comment{
+.single-comment {
   display: flex;
   flex-direction: row;
   align-items: center;
