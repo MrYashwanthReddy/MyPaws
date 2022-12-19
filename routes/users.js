@@ -78,9 +78,13 @@ router
       let password = validValue(xss(req.body.password), "PASSWORD");
       let cpassword = validValue(xss(req.body.cpassword), "RETYPE PASSWORD");
       let profileImage;
-      if (req.files) {
-        profileImage = checkImage(xss(req.files.profileImage));
+      if (req.files.profileImage) {
+        profileImage = checkImage(
+          xss(req.files.profileImage) && req.files.profileImage
+        );
         profileImage = profileImage.data;
+      } else {
+        throw { staus: 400, msg: "Error: Profile image is missing" };
       }
 
       firstName = checkString(xss(req.body.firstName), "FIRST NAME");

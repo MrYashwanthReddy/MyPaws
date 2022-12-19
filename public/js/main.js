@@ -20,7 +20,6 @@ function deleteComment(id, commentId) {
       }
     });
 }
-checkString;
 
 function comment(id) {
   console.log(id);
@@ -143,8 +142,6 @@ if (registerForm) {
     let password = e.target.password.value;
     let cpassword = e.target.cpassword.value;
 
-    let profileImage;
-
     try {
       firstName = validValue(firstName, "FIRST NAME");
       lastName = validValue(lastName, "LAST NAME");
@@ -157,7 +154,6 @@ if (registerForm) {
       firstName = checkString(firstName, "FIRST NAME");
       lastName = checkString(lastName, "LAST NAME");
       age = checkString(age, "AGE");
-
       email = checkString(email, "EMAIL");
       petName = checkString(petName, "PET NAME");
       petBreed = checkString(petBreed, "PET BREED");
@@ -165,7 +161,13 @@ if (registerForm) {
       password = checkPasswordString(password, "PASSWORD");
       cpassword = checkPasswordString(cpassword, "RETYPE PASSWORD");
 
+      firstName = checkAlphabets(firstName, "FIRST NAME");
+      lastName = checkAlphabets(lastName, "LAST NAME");
+      age = checkNumbers(age, "AGE");
       email = checkEmail(email);
+      petName = checkAlphabets(petName, "PET NAME");
+      petBreed = checkAlphabets(petBreed, "PET BREED");
+
       password = checkPassword(password);
 
       let files = e.target.profileImage.files;
@@ -200,51 +202,69 @@ if (foundpetForm) {
   foundpetForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    let name = e.target.foundName.value;
+    let firstName = e.target.firstName.value;
+    let lastName = e.target.lastName.value;
     let email = e.target.foundEmail.value;
 
     let animal = e.target.animalInput.value;
     let breed = e.target.foundBreed.value;
     let color = e.target.foundColor.value;
+    let collar = e.target.collarInput.value;
     let height = e.target.foundHeight.value;
     let gender = e.target.foundGender.value;
 
-    let hairType;
-    let earType;
-
-    if (animal == "dog") {
-      hairType = e.target.dogHairTypeInput.value;
-      earType = e.target.dogEarTypeInput.value;
-    } else {
-      hairType = e.target.catHairTypeInput.value;
-      earType = e.target.catEarTypeInput.value;
-    }
+    let hairType = e.target.hairTypeInput.value;
+    let earType = e.target.earTypeInput.value;
 
     let bodyType = e.target.bodyTypeInput.value;
 
     try {
-      name = validValue(name, "NAME", true);
+      firstName = validValue(firstName, "FIRST NAME");
+      lastName = validValue(lastName, "LAST NAME");
       email = validValue(email, "EMAIL");
-      animal = validValue(animal, "ANIMAL", true);
-      breed = validValue(breed, "BREED", true);
-      color = validValue(color, "COLOR", true);
+      animal = validValue(animal, "ANIMAL");
+      breed = validValue(breed, "BREED");
+      color = validValue(color, "COLOR");
+      collar = validValue(collar, "COLLAR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(hairType, "HAIR TYPE", true);
-      earType = validValue(earType, "EAR TYPE", true);
-      bodyType = validValue(bodyType, "BODY TYPE", true);
+      hairType = validValue(hairType, "HAIR TYPE");
+      earType = validValue(earType, "EAR TYPE");
+      bodyType = validValue(bodyType, "BODY TYPE");
 
+      firstName = checkString(firstName, "FIRST NAME");
+      lastName = checkString(lastName, "LAST NAME");
+      email = checkString(email, "EMAIL");
+      animal = checkString(animal, "ANIMAL");
+      breed = checkString(breed, "BREED");
+      color = checkString(color, "COLOR");
+      collar = checkString(collar, "COLLAR");
+      height = checkString(height, "HEIGHT");
+      gender = checkPasswordString(gender, "GENDER");
+      hairType = checkString(hairType, "HAIR TYPE");
+      earType = checkString(earType, "EAR TYPE");
+      bodyType = checkString(bodyType, "BODY TYPE");
+
+      firstName = checkAlphabets(firstName, "FIRST NAME");
+      lastName = checkAlphabets(lastName, "LAST NAME");
       email = checkEmail(email);
-
-      //Have to be removed later
-      return;
+      animal = checkAnimal(animal);
+      breed = checkAlphabetsWithSpaces(breed, "BREED");
+      color = checkAlphabets(color, "COLOR");
+      collar = checkBoolean(collar, "COLLAR");
+      height = checkNumbers(height, "HEIGHT");
+      gender = checkGender(gender);
+      hairType = checkAlphabets(hairType, "HAIR TYPE");
+      earType = checkAlphabets(earType, "EAR TYPE");
+      bodyType = checkAlphabets(bodyType, "BODY TYPE");
     } catch (e) {
+      console.log(e);
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
         let error = document.createElement("p");
         error.className = "error";
         error.innerHTML = e.msg;
-        registerForm.append(error);
+        foundpetForm.append(error);
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
@@ -262,51 +282,56 @@ if (lostpetForm) {
   lostpetForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    //Pending
-    let animal = e.target.lostAnimal.value;
-    let breed = e.target.lostBreed.value;
-    let color = e.target.lostColor.value;
-    let height = e.target.lostHeight.value;
-    let gender = e.target.lostGender.value;
+    let animal = e.target.animalInput.value;
+    let breed = e.target.breedInput.value;
+    let color = e.target.colorInput.value;
+    let collar = e.target.collarInput.value;
+    let height = e.target.heightInput.value;
+    let gender = e.target.genderInput.value;
 
-    let hairType;
-    let earType;
-
-    if (animal == "dog") {
-      hairType = e.target.dogHairTypeInput.value;
-      earType = e.target.dogEarTypeInput.value;
-    } else {
-      hairType = e.target.catHairTypeInput.value;
-      earType = e.target.catEarTypeInput.value;
-    }
+    let hairType = e.target.hairTypeInput.value;
+    let earType = e.target.earTypeInput.value;
 
     let bodyType = e.target.bodyTypeInput.value;
 
     try {
-      animal = validValue(animal, "ANIMAL", true);
-      breed = validValue(breed, "BREED", true);
-      color = validValue(color, "COLOR", true);
+      animal = validValue(animal, "ANIMAL");
+      breed = validValue(breed, "BREED");
+      color = validValue(color, "COLOR");
+      collar = validValue(collar, "COLLAR");
       height = validValue(height, "HEIGHT");
       gender = validValue(gender, "GENDER");
-      hairType = validValue(hairType, "HAIR TYPE", true);
-      earType = validValue(earType, "EAR TYPE", true);
-      bodyType = validValue(bodyType, "BODY TYPE", true);
+      hairType = validValue(hairType, "HAIR TYPE");
+      earType = validValue(earType, "EAR TYPE");
+      bodyType = validValue(bodyType, "BODY TYPE");
 
       animal = checkString(animal, "ANIMAL");
       breed = checkString(breed, "BREED");
       color = checkString(color, "COLOR");
+      collar = checkString(collar, "COLLAR");
       height = checkString(height, "HEIGHT");
-      gender = checkString(gender, "GENDER");
+      gender = checkPasswordString(gender, "GENDER");
       hairType = checkString(hairType, "HAIR TYPE");
       earType = checkString(earType, "EAR TYPE");
       bodyType = checkString(bodyType, "BODY TYPE");
+
+      animal = checkAnimal(animal);
+      breed = checkAlphabetsWithSpaces(breed, "BREED");
+      color = checkAlphabets(color, "COLOR");
+      collar = checkBoolean(collar, "COLLAR");
+      height = checkNumbers(height, "HEIGHT");
+      gender = checkGender(gender);
+      hairType = checkAlphabets(hairType, "HAIR TYPE");
+      earType = checkAlphabets(earType, "EAR TYPE");
+      bodyType = checkAlphabets(bodyType, "BODY TYPE");
     } catch (e) {
+      console.log(e);
       let errorDiv = document.getElementsByClassName("error");
       if (errorDiv.length == 0) {
         let error = document.createElement("p");
         error.className = "error";
         error.innerHTML = e.msg;
-        registerForm.append(error);
+        lostpetForm.append(error);
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
@@ -378,7 +403,29 @@ function checkValidText(input, fieldName) {
   }
   throw {
     status: 400,
+    msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets or Numbers.`,
+  };
+}
+
+function checkAlphabets(input, fieldName) {
+  let regex = /^[A-Za-z]+$/;
+  if (input.match(regex)) {
+    return input;
+  }
+  throw {
+    status: 400,
     msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+  };
+}
+
+function checkNumbers(input, fieldName) {
+  let regex = /^\d+$/;
+  if (input.match(regex)) {
+    return input;
+  }
+  throw {
+    status: 400,
+    msg: `Error: Invalid number in ${fieldName}, Please Enter only Numbers.`,
   };
 }
 
@@ -427,4 +474,32 @@ function checkPasswordString(strVal, varName) {
     };
 
   return strVal;
+}
+
+function checkAnimal(animal) {
+  if (animal == "dog" || animal == "cat") return animal;
+  throw { status: 400, msg: "Error: Dont play with dev tools, please!" };
+}
+
+function checkGender(gender) {
+  if (gender == "M" || gender == "F") return gender;
+  throw { status: 400, msg: "Error: Dont play with dev tools, please!" };
+}
+function checkAlphabetsWithSpaces(input, fieldName) {
+  let regex = /^[a-zA-Z ]*$/;
+  if (input.match(regex)) {
+    return input;
+  }
+  throw {
+    status: 400,
+    msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+  };
+}
+
+function checkBoolean(bool, fieldName) {
+  if (bool == "true" || bool == "false") return bool;
+  throw {
+    status: 400,
+    msg: `Error: Invalid input in ${fieldName}, Please Enter eithe true or false.`,
+  };
 }
