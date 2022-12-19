@@ -98,6 +98,14 @@ app.use("/auth/profile", (req, res, next) => {
   }
 });
 
+app.use("/pets/lost", (req, res, next) => {
+  if (!req.session.user) {
+    res.redirect("/auth/login?e=l&ref=lp");
+  } else {
+    next();
+  }
+});
+
 app.use("/pet-stores/review-post", (req, res, next) => {
   if (req.session.user) {
     next();

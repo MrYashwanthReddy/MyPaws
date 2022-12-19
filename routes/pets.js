@@ -38,166 +38,168 @@ router.route("/report").get(async (req, res) => {
   });
 });
 
-router.route("/lost/:animal").get(async (req, res) => {
-  let animal = xss(req.params.animal);
+router
+  .route("/lost/:animal")
+  .get(async (req, res) => {
+    let animal = xss(req.params.animal);
 
-  if (animal != "dog" && animal != "cat") {
-    res.redirect("/pets/report?e=p");
-  }
-
-  let sessionUser = xss(req.session.user) ? req.session.user : false;
-
-  res.render("pets/lost", {
-    page: { title: "PET LOST", animal: animal },
-    cookie: sessionUser,
-  });
-});
-
-router.route("/lost").post(async (req, res) => {
-  try {
-    let email = validValue(xss(req.body.email), "email");
-    let animal = validValue(xss(req.body.animalInput), "animal");
-    let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
-    let breedType = validValue(xss(req.body.breedInput), "breed type");
-    let color = validValue(xss(req.body.colorInput), "color");
-    let collar = validValue(xss(req.body.collarInput), "collar");
-    let earType = validValue(xss(req.body.earTypeInput), "ear type");
-    let gender = validValue(xss(req.body.genderInput), "gender");
-    let hairType = validValue(xss(req.body.hairTypeInput), "hair type");
-    let height = validValue(xss(req.body.heightInput), "height");
-
-    animal = checkString(animal, "animal");
-    bodyType = checkString(bodyType, "body type");
-    breedType = checkString(breedType, "breed type");
-    color = checkString(color, "color");
-    collar = checkString(collar, "collar");
-    earType = checkString(earType, "ear type");
-    gender = checkPasswordString(gender, "gender");
-    hairType = checkString(hairType, "hair type");
-    height = checkString(height, "height");
-
-    animal = checkAnimal(animal);
-    bodyType = checkAlphabets(bodyType, "body type");
-    breedType = checkAlphabetsWithSpaces(breedType, "breed type");
-    color = checkAlphabets(color, "color");
-    collar = checkBoolean(collar, "collar");
-    earType = checkAlphabets(earType, "ear type");
-    gender = checkGender(gender);
-    hairType = checkAlphabets(hairType, "hair type");
-    height = checkNumbers(height, "height");
-
-    const lostPet = {
-      animal: animal,
-      gender: gender,
-      color: color,
-      collar: collar,
-      height: height,
-      bodyType: bodyType,
-      breedType: breedType,
-      hairType: hairType,
-      earType: earType,
-    };
-
-    const result = await pets.createLostPet(lostPet);
-
-    if (result.insertedPet) {
-      res.redirect("/live");
+    if (animal != "dog" && animal != "cat") {
+      res.redirect("/pets/report?e=p");
     }
-  } catch (error) {
+
     let sessionUser = xss(req.session.user) ? req.session.user : false;
-    res.status(error.status).render("pets/lost", {
-      ...req.body,
-      error: error.msg,
-      page: { title: "PET LOST" },
+
+    res.render("pets/lost", {
+      page: { title: "PET LOST", animal: animal },
       cookie: sessionUser,
     });
-  }
-});
+  })
+  .post(async (req, res) => {
+    try {
+      let animal = validValue(xss(req.body.animalInput), "animal");
+      let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
+      let breedType = validValue(xss(req.body.breedInput), "breed type");
+      let color = validValue(xss(req.body.colorInput), "color");
+      let collar = validValue(xss(req.body.collarInput), "collar");
+      let earType = validValue(xss(req.body.earTypeInput), "ear type");
+      let gender = validValue(xss(req.body.genderInput), "gender");
+      let hairType = validValue(xss(req.body.hairTypeInput), "hair type");
+      let height = validValue(xss(req.body.heightInput), "height");
 
-router.route("/found/:animal").get(async (req, res) => {
-  let animal = xss(req.params.animal);
-  if (animal != "dog" && animal != "cat") {
-    res.redirect("pets/report?e=p");
-  }
+      animal = checkString(animal, "animal");
+      bodyType = checkString(bodyType, "body type");
+      breedType = checkString(breedType, "breed type");
+      color = checkString(color, "color");
+      collar = checkString(collar, "collar");
+      earType = checkString(earType, "ear type");
+      gender = checkPasswordString(gender, "gender");
+      hairType = checkString(hairType, "hair type");
+      height = checkString(height, "height");
 
-  let sessionUser = xss(req.session.user) ? req.session.user : false;
-  res.render("pets/found", {
-    page: { title: "PET FOUND", animal: animal },
-    cookie: sessionUser,
-  });
-});
+      animal = checkAnimal(animal);
+      bodyType = checkAlphabets(bodyType, "body type");
+      breedType = checkAlphabetsWithSpaces(breedType, "breed type");
+      color = checkAlphabets(color, "color");
+      collar = checkBoolean(collar, "collar");
+      earType = checkAlphabets(earType, "ear type");
+      gender = checkGender(gender);
+      hairType = checkAlphabets(hairType, "hair type");
+      height = checkNumbers(height, "height");
 
-router.route("/found").post(async (req, res) => {
-  try {
-    let firstName = validValue(xss(req.body.firstName), "name");
-    let lastName = validValue(xss(req.body.lastName), "name");
+      const lostPet = {
+        animal: animal,
+        gender: gender,
+        color: color,
+        collar: collar,
+        height: height,
+        bodyType: bodyType,
+        breedType: breedType,
+        hairType: hairType,
+        earType: earType,
+        userId: req.session.user._id,
+      };
 
-    let email = validValue(xss(req.body.email), "email");
-    let animal = validValue(xss(req.body.animalInput), "animal");
-    let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
-    let breedType = validValue(xss(req.body.breedInput), "breed type");
-    let color = validValue(xss(req.body.colorInput), "color");
-    let collar = validValue(xss(req.body.collarInput), "collar");
-    let earType = validValue(xss(req.body.earTypeInput), "ear type");
-    let gender = validValue(xss(req.body.genderInput), "gender");
-    let hairType = validValue(xss(req.body.hairTypeInput), "hair type");
-    let height = validValue(xss(req.body.heightInput), "height");
+      const result = await pets.createLostPet(lostPet);
 
-    firstName = checkString(firstName, "first name");
-    lastName = checkString(lastName, "last name");
-    email = checkString(email, "email");
-    animal = checkString(animal, "animal");
-    bodyType = checkString(bodyType, "body type");
-    breedType = checkString(breedType, "breed type");
-    color = checkString(color, "color");
-    collar = checkString(collar, "collar");
-    earType = checkString(earType, "ear type");
-    gender = checkPasswordString(gender, "gender");
-    hairType = checkString(hairType, "hair type");
-    height = checkString(height, "height");
-
-    firstName = checkAlphabets(firstName, "first name");
-    lastName = checkAlphabets(lastName, "last name");
-    email = checkEmail(email);
-    animal = checkAnimal(animal);
-    bodyType = checkAlphabets(bodyType, "body type");
-    breedType = checkAlphabetsWithSpaces(breedType, "breed type");
-    color = checkAlphabets(color, "color");
-    collar = checkBoolean(collar, "collar");
-    earType = checkAlphabets(earType, "ear type");
-    gender = checkGender(gender);
-    hairType = checkAlphabets(hairType, "hair type");
-    height = checkNumbers(height, "height");
-
-    const foundPet = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      animal: animal,
-      gender: gender,
-      color: color,
-      collar: collar,
-      height: height,
-      bodyType: bodyType,
-      breedType: breedType,
-      hairType: hairType,
-      earType: earType,
-    };
-
-    const result = await pets.createFoundPet(foundPet);
-
-    if (result.insertedPet) {
-      res.redirect("/live");
+      if (result.insertedPet) {
+        res.redirect("/live");
+      }
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("pets/lost", {
+        ...req.body,
+        error: error.msg,
+        page: { title: "PET LOST" },
+        cookie: sessionUser,
+      });
     }
-  } catch (error) {
+  });
+
+router
+  .route("/found/:animal")
+  .get(async (req, res) => {
+    let animal = xss(req.params.animal);
+    if (animal != "dog" && animal != "cat") {
+      res.redirect("pets/report?e=p");
+    }
+
     let sessionUser = xss(req.session.user) ? req.session.user : false;
-    res.status(error.status).render("pets/found", {
-      ...req.body,
-      error: error.msg,
-      page: { title: "PET FOUND" },
+    res.render("pets/found", {
+      page: { title: "PET FOUND", animal: animal },
       cookie: sessionUser,
     });
-  }
-});
+  })
+  .post(async (req, res) => {
+    try {
+      let firstName = validValue(xss(req.body.firstName), "name");
+      let lastName = validValue(xss(req.body.lastName), "name");
+
+      let email = validValue(xss(req.body.email), "email");
+      let animal = validValue(xss(req.body.animalInput), "animal");
+      let bodyType = validValue(xss(req.body.bodyTypeInput), "body type");
+      let breedType = validValue(xss(req.body.breedInput), "breed type");
+      let color = validValue(xss(req.body.colorInput), "color");
+      let collar = validValue(xss(req.body.collarInput), "collar");
+      let earType = validValue(xss(req.body.earTypeInput), "ear type");
+      let gender = validValue(xss(req.body.genderInput), "gender");
+      let hairType = validValue(xss(req.body.hairTypeInput), "hair type");
+      let height = validValue(xss(req.body.heightInput), "height");
+
+      firstName = checkString(firstName, "first name");
+      lastName = checkString(lastName, "last name");
+      email = checkString(email, "email");
+      animal = checkString(animal, "animal");
+      bodyType = checkString(bodyType, "body type");
+      breedType = checkString(breedType, "breed type");
+      color = checkString(color, "color");
+      collar = checkString(collar, "collar");
+      earType = checkString(earType, "ear type");
+      gender = checkPasswordString(gender, "gender");
+      hairType = checkString(hairType, "hair type");
+      height = checkString(height, "height");
+
+      firstName = checkAlphabets(firstName, "first name");
+      lastName = checkAlphabets(lastName, "last name");
+      email = checkEmail(email);
+      animal = checkAnimal(animal);
+      bodyType = checkAlphabets(bodyType, "body type");
+      breedType = checkAlphabetsWithSpaces(breedType, "breed type");
+      color = checkAlphabets(color, "color");
+      collar = checkBoolean(collar, "collar");
+      earType = checkAlphabets(earType, "ear type");
+      gender = checkGender(gender);
+      hairType = checkAlphabets(hairType, "hair type");
+      height = checkNumbers(height, "height");
+
+      const foundPet = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        animal: animal,
+        gender: gender,
+        color: color,
+        collar: collar,
+        height: height,
+        bodyType: bodyType,
+        breedType: breedType,
+        hairType: hairType,
+        earType: earType,
+      };
+
+      const result = await pets.createFoundPet(foundPet);
+
+      if (result.insertedPet) {
+        res.redirect("/live");
+      }
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("pets/found", {
+        ...req.body,
+        error: error.msg,
+        page: { title: "PET FOUND" },
+        cookie: sessionUser,
+      });
+    }
+  });
 
 module.exports = router;

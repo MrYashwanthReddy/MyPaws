@@ -205,6 +205,32 @@ const main = async () => {
       hairType: "wire",
       earType: "cocked",
     });
+
+    const lostpet1 = await pets.createLostPet({
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "false",
+      height: "11",
+      bodyType: "serverelyunderweight",
+      breedType: "lab",
+      hairType: "curly",
+      earType: "button",
+      user: uid2,
+    });
+
+    const lostpet2 = await pets.createLostPet({
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "false",
+      height: "11",
+      bodyType: "serverelyunderweight",
+      breedType: "lab",
+      hairType: "curly",
+      earType: "button",
+      user: uid1,
+    });
     console.log("Done seeding database");
 
     await closeConnection();

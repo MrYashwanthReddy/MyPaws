@@ -23,6 +23,7 @@ router
   .route("/login")
   .get((req, res) => {
     let error = xss(req.query.e);
+    let ref = xss(req.query.ref);
     let errorMsg;
     if (error == "l") {
       errorMsg = "Error: Login Required to Proceed";
@@ -30,9 +31,12 @@ router
     res.render("users/login", {
       page: { title: "Login" },
       error: error ? errorMsg : false,
+      ref: ref ? ref : false,
     });
   })
   .post(async (req, res) => {
+    let ref = xss(req.query.ref);
+
     try {
       let email = validValue(xss(req.body.email), "EMAIL");
       let password = validValue(xss(req.body.password), "PASSWORD");
@@ -51,7 +55,11 @@ router
         };
       }
 
-      res.redirect("/live");
+      if (ref !== "") {
+        if (ref == "lp") {
+          res.redirect("/pets/report");
+        }
+      } else res.redirect("/live");
     } catch (error) {
       console.log(error);
       res.status(error.status).render("users/login", {
