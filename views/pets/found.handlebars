@@ -8,16 +8,28 @@
   {{#if error}}
     <div class="error">{{error}}</div>
   {{/if}}
-  <label for="foundName">Your Name</label>
+  <label for="foundFirstName">Your First Name</label>
   <input
     type="text"
-    placeholder="Enter your name.."
-    id="foundName"
+    placeholder="Enter your first name.."
+    id="foundFirstName"
     pattern="[A-Za-z ]{1,}"
     title="Enter only Alphabets"
     required
     autofocus
-    name="nameInput"
+    name="firstName"
+  />
+
+    <label for="foundLastName">Your Last Name</label>
+  <input
+    type="text"
+    placeholder="Enter your last name.."
+    id="foundLastName"
+    pattern="[A-Za-z ]{1,}"
+    title="Enter only Alphabets"
+    required
+    autofocus
+    name="lastName"
   />
   <label for="foundEmail">Your Email</label>
   <input
@@ -73,9 +85,10 @@
   <input
     type="number"
     id="foundHeight"
-    placeholder="Enter pet height.. in ft"
+    placeholder="Enter pet height.. in CM"
     min="0"
     name="heightInput"
+    required
   />
   <label for="foundGender">Gender</label>
   <select id="foundGender" name="genderInput">

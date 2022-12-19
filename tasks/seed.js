@@ -10,6 +10,7 @@ const pets = data.pets;
 const posts = data.posts;
 
 const fs = require("fs");
+const { foundpets } = require("../config/mongoCollections");
 
 const main = async () => {
   const db = await dbConnection();
@@ -175,6 +176,35 @@ const main = async () => {
       image: binImg,
     });
 
+    const foundpet1 = await pets.createFoundPet({
+      firstName: "yashwanth",
+      lastName: "reddy",
+      email: "v.yashwanthreddy2@gmail.com",
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "false",
+      height: "1",
+      bodyType: "serverelyunderweight",
+      breedType: "lab",
+      hairType: "curly",
+      earType: "batt",
+    });
+
+    const foundpet2 = await pets.createFoundPet({
+      firstName: "yashwanth",
+      lastName: "reddy",
+      email: "v.yashwanthreddy2@gmail.com",
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "true",
+      height: "11",
+      bodyType: "serverelyunderweight",
+      breedType: "german shepard",
+      hairType: "wire",
+      earType: "cocked",
+    });
     console.log("Done seeding database");
 
     await closeConnection();

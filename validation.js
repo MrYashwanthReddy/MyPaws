@@ -85,7 +85,7 @@ module.exports = {
     if (!password.match(regex))
       throw {
         status: 400,
-        msg: "Password should contain atleast 1 uppercase character, 1 number,1 special character and minimum of 8 characters in length",
+        msg: "Error: Password should contain atleast 1 uppercase character, 1 number,1 special character and minimum of 8 characters in length",
       };
 
     return password;
@@ -97,5 +97,50 @@ module.exports = {
     }
 
     throw { status: 400, msg: "Error: Invalid email format" };
+  },
+  checkAnimal(animal) {
+    if (animal == "dog" || animal == "cat") return animal;
+    throw { status: 400, msg: "Error: Dont play with dev tools, please!" };
+  },
+  checkGender(gender) {
+    if (gender == "M" || gender == "F") return gender;
+    throw { status: 400, msg: "Error: Dont play with dev tools, please!" };
+  },
+  checkBoolean(bool, fieldName) {
+    if (bool == "true" || bool == "false") return bool;
+    throw {
+      status: 400,
+      msg: `Error: Invalid input in ${fieldName}, Please Enter eithe true or false.`,
+    };
+  },
+  checkNumbers(input, fieldName) {
+    let regex = /^\d+$/;
+    if (input.match(regex)) {
+      return input;
+    }
+    throw {
+      status: 400,
+      msg: `Error: Invalid number in ${fieldName}, Please Enter only Numbers.`,
+    };
+  },
+  checkAlphabets(input, fieldName) {
+    let regex = /^[A-Za-z]+$/;
+    if (input.match(regex)) {
+      return input;
+    }
+    throw {
+      status: 400,
+      msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+    };
+  },
+  checkAlphabetsWithSpaces(input, fieldName) {
+    let regex = /^[a-zA-Z ]*$/;
+    if (input.match(regex)) {
+      return input;
+    }
+    throw {
+      status: 400,
+      msg: `Error: Invalid text in ${fieldName}, Please Enter only Alphabets.`,
+    };
   },
 };

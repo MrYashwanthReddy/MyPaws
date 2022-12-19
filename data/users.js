@@ -1,4 +1,5 @@
 const mongoCollections = require("../config/mongoCollections");
+const fs = require("fs");
 const {
   validValue,
   checkString,
@@ -6,6 +7,7 @@ const {
   checkPasswordString,
   checkEmail,
   checkPassword,
+  checkImage,
 } = require("../validation");
 
 const users = mongoCollections.users;
@@ -62,6 +64,7 @@ const createUser = async ({
     password = checkPasswordString(password, "PET BREED");
 
     email = checkEmail(email);
+    profileImage = checkImage(profileImage);
 
     const userData = {
       firstName,
