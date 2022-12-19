@@ -9,6 +9,14 @@ const getAllPosts = async (queryDoc) => {
     //const data = await liveFeedCollection.find({}).toArray();
     const data = await walkersCollection
       .aggregate([
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "userDetail",
+          },
+        },
         { 
           $addFields: { 
             comments: { $ifNull : [ "$comments", [] ] }    
@@ -64,6 +72,17 @@ const getAllPosts = async (queryDoc) => {
     throw { status: 500, msg: "Error: Server Error" };
   }
 };
+
+const getPost = async (userId) => {
+  try {
+    const walkersCollection = await walkers();
+    const data = await walkersCollection.findOne({ userId: ObjectId(userId) });
+
+    return data;
+  } catch (error) {
+    throw { status: 500, msg: "Error: Server Error" };
+  }
+}
 
 const getPostsCount = async () => {
   try {
@@ -130,6 +149,7 @@ const commentPost = async (postId, userId, comment) => {
 
 module.exports = {
   getAllPosts,
+  getPost,
   getPostsCount,
   createPost,
   commentPost,

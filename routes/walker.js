@@ -26,7 +26,7 @@ router
         element.image = "data:image/webp;base64," + JSON.parse(binString);
       });
       res.render("walker/view", {
-        page: { title: "Dog Walker" },
+        page: { title: "Hire a walker" },
         cookie: req.session.user || false,
         data: result.posts || false,
         prev: result.queryDoc >= 20 ? result.queryDoc - 19 : false,
@@ -34,7 +34,12 @@ router
         queryDoc: result.queryDoc,
       });
     } catch (error) {
-      res.status(error.status).json({ error: error.msg });
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("walker/view", { 
+        page: { title: "Hire a walker" },
+        error: error.msg,
+        cookie: sessionUser,
+      });
     }
   })
   .post(async (req, res) => {
@@ -45,32 +50,46 @@ router
 router
   .route("/post")
   .get(async (req, res) => {
-    res.render("walker/post", {
-      page: { title: "Dog Walker Post" },
-      cookie: req.session.user || false,
-    });
+    try {
+      const data = await walkers.getPost(req.session.user._id);
+      res.render("walker/post", {
+        page: { title: "Be a walker" },
+        data,
+        cookie: req.session.user || false
+      }); 
+    } catch (error) {
+      let sessionUser = xss(req.session.user) ? req.session.user : false;
+      res.status(error.status).render("walker/view", { 
+        page: { title: "Hire a walker" },
+        error: error.msg,
+        cookie: sessionUser,
+      });
+    }
   })
   .post(async (req, res) => {
     try {
-      validValue(xss(req.body.walkerName), "Name");
-      validValue(xss(req.body.walkTimeStart), "Walking Time Start");
-      validValue(xss(req.body.walkTimeEnd), "Walking Time End");
+
+      validValue(xss(req.body.walkWeekStart), "Walking Time Start(Weekdays)");
+      validValue(xss(req.body.walkWeekEnd), "Walking Time End(Weekdays)");
+      validValue(xss(req.body.walkWeekendStart), "Walking Time Start(Weekend)");
+      validValue(xss(req.body.walkWeekendEnd), "Walking Time End(Weekend)");
       validValue(xss(req.body.expMonth), "Experience's Month");
       validValue(xss(req.body.phoneNum), "Phone Number");
 
       checkImage(req.files.images);
 
       const image = req.files.images.data;
-      const userId = req.session.user._id;
-
+      const userId = new ObjectId(req.session.user._id);
+  
       await walkers.createPost({ ...req.body, image, userId });
-
+  
       res.redirect("/dog-walker");
+  
     } catch (error) {
       let sessionUser = xss(req.session.user) ? req.session.user : false;
-      res.status(error.status).render("walker/post", {
-        ...req.body,
-        page: { title: "Dog Walker Post" },
+      res.status(error.status).render("walker/post", { 
+        ...body, 
+        page: { title: "Hire a walker" },
         error: error.msg,
         cookie: sessionUser,
       });
