@@ -369,8 +369,8 @@ if (postForm) {
       } else {
         errorDiv[0].innerHTML = e.msg;
       }
-      return;
     }
+    e.target.submit();
   });
 }
 
