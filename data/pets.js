@@ -268,6 +268,7 @@ const makeMatch = async () => {
     let lostBreedType = lostElement.breedType;
 
     for (let j = 0; j < foundData.length; j++) {
+      let percentage = 0;
       const element = foundData[j];
 
       let foundAnimal = element.animal;
