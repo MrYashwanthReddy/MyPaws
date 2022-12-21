@@ -106,6 +106,7 @@ const createLostPet = async ({
     earType,
     bodyType,
     userId,
+    breedType,
   };
 
   const insertInfo = await lostPetsCollection.insertOne(newPet);
@@ -116,7 +117,7 @@ const createLostPet = async ({
   return { insertedPet: true };
 };
 
-const createFoundPet = async (
+const createFoundPet = async ({
   firstName,
   lastName,
   email,
@@ -128,8 +129,8 @@ const createFoundPet = async (
   bodyType,
   breedType,
   hairType,
-  earType
-) => {
+  earType,
+}) => {
   let foundPetsCollection;
   try {
     foundPetsCollection = await foundpets();
@@ -175,8 +176,6 @@ const createFoundPet = async (
   hairType = checkAlphabets(hairType, "hair type");
   height = checkNumbers(height, "height");
 
-  userId = checkId(userId);
-
   const newPet = {
     firstName,
     lastName,
@@ -189,6 +188,7 @@ const createFoundPet = async (
     hairType,
     earType,
     bodyType,
+    breedType,
   };
 
   const insertInfo = await foundPetsCollection.insertOne(newPet);
@@ -252,7 +252,68 @@ const makeMatch = async () => {
   // 3. idealWeight
   // 4. overWeight
 
-  return { ...lostData, ...foundData };
+  const weightage = 100 / 9;
+
+  for (let i = 0; i < lostData.length; i++) {
+    const lostElement = lostData[i];
+    let lostAnimal = lostElement.animal;
+    let lostColor = lostElement.color;
+    let lostCollar = lostElement.collar;
+    let lostHeight = lostElement.height;
+    let lostGender = lostElement.gender;
+    let lostHairType = lostElement.hairType;
+    let lostEarType = lostElement.earType;
+    let lostBodyType = lostElement.bodyType;
+    let lostBreedType = lostElement.breedType;
+
+    for (let j = 0; j < foundData.length; j++) {
+      const element = foundData[j];
+
+      let foundAnimal = element.animal;
+      let foundColor = element.color;
+      let foundCollar = element.collar;
+      let foundHeight = element.height;
+      let foundGender = element.gender;
+      let foundHairType = element.hairType;
+      let foundEarType = element.earType;
+      let foundBodyType = element.bodyType;
+      let foundBreedType = element.breedType;
+
+      if (lostAnimal == foundAnimal) {
+        percentage = percentage + weightage;
+      } else break;
+      if (lostColor == foundColor) {
+        percentage = percentage + weightage;
+      }
+      if (lostCollar == foundCollar) {
+        percentage = percentage + weightage;
+      }
+      if (lostHeight == foundHeight) {
+        percentage = percentage + weightage;
+      }
+      if (lostGender == foundGender) {
+        percentage = percentage + weightage;
+      }
+      if (lostHairType == foundHairType) {
+        percentage = percentage + weightage;
+      }
+      if (lostEarType == foundEarType) {
+        percentage = percentage + weightage;
+      }
+      if (lostBodyType == foundBodyType) {
+        percentage = percentage + weightage;
+      }
+      if (lostBreedType == foundBreedType) {
+        percentage = percentage + weightage;
+      }
+
+      if (percentage > 60) {
+        return { match: true, lost: lostElement, found: element };
+      }
+    }
+  }
+
+  return { match: false };
 };
 
 module.exports = {

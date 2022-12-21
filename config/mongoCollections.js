@@ -18,7 +18,6 @@ module.exports = {
   foundpets: getCollectionFn("foundpets"),
   posts: getCollectionFn("posts"),
   reviews: getCollectionFn("reviews"),
-  walkers: getCollectionFn("walkers"),
-  adoptions: getCollectionFn("adoptions"),
+
   // likes: getCollectionFn("likes"),
 };

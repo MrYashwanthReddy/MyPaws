@@ -23,6 +23,16 @@ function deleteComment(id, commentId) {
 
 function comment(id) {
   console.log(id);
+  let commentVal = $("#comment-ip").val();
+
+  try {
+    commentVal = checkString(commentVal, "COMMENT");
+
+    commentVal = checkValidText(commentVal, "COMMENT");
+  } catch (error) {
+    alert(error.msg);
+    return;
+  }
 
   let comment = $(`.comment-ip`, $(`[data-post="${id}"]`));
 
@@ -170,6 +180,10 @@ if (registerForm) {
 
       password = checkPassword(password);
 
+      if (age < 13) {
+        throw { status: 400, msg: "Error: User must be atleast 13 years old" };
+      }
+
       let files = e.target.profileImage.files;
       if (files.length == 0) {
         throw { status: 400, msg: "Error: Image Upload Required" };
@@ -253,6 +267,7 @@ if (foundpetForm) {
       color = checkAlphabets(color, "COLOR");
       collar = checkBoolean(collar, "COLLAR");
       height = checkNumbers(height, "HEIGHT");
+      height = checkHeight(height);
       gender = checkGender(gender);
       hairType = checkAlphabets(hairType, "HAIR TYPE");
       earType = checkAlphabets(earType, "EAR TYPE");
@@ -320,6 +335,7 @@ if (lostpetForm) {
       color = checkAlphabets(color, "COLOR");
       collar = checkBoolean(collar, "COLLAR");
       height = checkNumbers(height, "HEIGHT");
+      height = checkHeight(height);
       gender = checkGender(gender);
       hairType = checkAlphabets(hairType, "HAIR TYPE");
       earType = checkAlphabets(earType, "EAR TYPE");
@@ -371,6 +387,7 @@ if (postForm) {
       }
       return;
     }
+    e.target.submit();
   });
 }
 
@@ -502,4 +519,11 @@ function checkBoolean(bool, fieldName) {
     status: 400,
     msg: `Error: Invalid input in ${fieldName}, Please Enter eithe true or false.`,
   };
+}
+
+function checkHeight(height) {
+  let maxHeight = 77;
+  if (height > 77) {
+    throw { status: 400, msg: "Error: Height cannot be more than 77 cms" };
+  }
 }
