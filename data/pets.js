@@ -107,6 +107,7 @@ const createLostPet = async ({
     bodyType,
     userId,
     breedType,
+    breedType,
   };
 
   const insertInfo = await lostPetsCollection.insertOne(newPet);
