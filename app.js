@@ -143,7 +143,7 @@ setInterval(() => {
         from: "redfashion.in@gmail.com",
         to: user.email,
         subject: "MyPaws" + " | MATCH FOUND !",
-        text: "contact:" + res.data.found.email + "for you pet information",
+        text: "contact:" + res.data.found.email + " for you pet information",
       };
       smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {

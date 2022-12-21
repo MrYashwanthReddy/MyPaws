@@ -29,7 +29,7 @@ const main = async () => {
       firstName: "Yash",
       lastName: "Reddy",
       age: "22",
-      email: "yash@gmail.com",
+      email: "v.yashwanthreddy2@gmail.com",
       petName: "jack",
       petBreed: "lab",
       password: "$2b$10$8IlIa2u/9Nzi/30Av7J.u.G5HQ7HKZEyOxtUWD2MM9L/rAxzrSTIW", //Password!1
@@ -189,6 +189,18 @@ const main = async () => {
       hairType: "curly",
       earType: "batt",
     });
+    const lostpet3 = await pets.createLostPet({
+      animal: "dog",
+      gender: "M",
+      color: "brown",
+      collar: "false",
+      height: "1",
+      bodyType: "serverelyunderweight",
+      breedType: "lab",
+      hairType: "curly",
+      earType: "batt",
+      userId: uid1,
+    });
 
     const foundpet2 = await pets.createFoundPet({
       firstName: "yashwanth",
@@ -230,6 +242,7 @@ const main = async () => {
       breedType: "gernam shepard",
       userId: uid1,
     });
+
     console.log("Done seeding database");
 
     await closeConnection();

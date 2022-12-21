@@ -107,6 +107,7 @@ const createLostPet = async ({
     bodyType,
     userId,
     breedType,
+    breedType,
   };
 
   const insertInfo = await lostPetsCollection.insertOne(newPet);
@@ -256,7 +257,6 @@ const makeMatch = async () => {
 
   for (let i = 0; i < lostData.length; i++) {
     const lostElement = lostData[i];
-    let percentage = 0;
     let lostAnimal = lostElement.animal;
     let lostColor = lostElement.color;
     let lostCollar = lostElement.collar;
@@ -267,9 +267,10 @@ const makeMatch = async () => {
     let lostBodyType = lostElement.bodyType;
     let lostBreedType = lostElement.breedType;
 
-    let la;
-    foundData.forEach((element) => {
-      la = element;
+    for (let j = 0; j < foundData.length; j++) {
+      let percentage = 0;
+      const element = foundData[j];
+
       let foundAnimal = element.animal;
       let foundColor = element.color;
       let foundCollar = element.collar;
@@ -282,7 +283,7 @@ const makeMatch = async () => {
 
       if (lostAnimal == foundAnimal) {
         percentage = percentage + weightage;
-      }
+      } else break;
       if (lostColor == foundColor) {
         percentage = percentage + weightage;
       }
@@ -307,10 +308,10 @@ const makeMatch = async () => {
       if (lostBreedType == foundBreedType) {
         percentage = percentage + weightage;
       }
-    });
 
-    if (percentage > 60) {
-      return { match: true, lost: lostElement, found: la };
+      if (percentage > 60) {
+        return { match: true, lost: lostElement, found: element };
+      }
     }
   }
 
