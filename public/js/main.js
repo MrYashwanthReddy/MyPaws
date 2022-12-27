@@ -504,3 +504,11 @@ function checkBoolean(bool, fieldName) {
     msg: `Error: Invalid input in ${fieldName}, Please Enter eithe true or false.`,
   };
 }
+
+let successDiv = document.getElementById("success");
+
+if (successDiv) {
+  setTimeout(() => {
+    successDiv.style.display = "none";
+  }, 5000);
+}
