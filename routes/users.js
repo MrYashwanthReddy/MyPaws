@@ -23,14 +23,20 @@ router
   .route("/login")
   .get((req, res) => {
     let error = xss(req.query.e);
+    let success = xss(req.query.s);
     let ref = xss(req.query.ref);
     let errorMsg;
+    let successMsg;
     if (error == "l") {
-      errorMsg = "Error: Login Required to Proceed";
+      errorMsg = "Login required to proceed to live page";
+    }
+    if (success == "l") {
+      successMsg = "User logged out successfully";
     }
     res.render("users/login", {
       page: { title: "Login" },
       error: error ? errorMsg : false,
+      success: success ? successMsg : false,
       ref: ref ? ref : false,
     });
   })
@@ -137,7 +143,7 @@ router
 
 router.route("/logout").get(async (req, res) => {
   req.session.destroy();
-  res.redirect("/live");
+  res.redirect("/auth/login?s=l");
 });
 
 router.route("/profile").get(async (req, res) => {

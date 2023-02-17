@@ -521,6 +521,14 @@ function checkBoolean(bool, fieldName) {
   };
 }
 
+let successDiv = document.getElementById("success");
+
+if (successDiv) {
+  setTimeout(() => {
+    successDiv.style.display = "none";
+  }, 5000);
+}
+
 function checkHeight(height) {
   let maxHeight = 77;
   if (height > 77) {

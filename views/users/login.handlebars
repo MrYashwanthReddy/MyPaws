@@ -2,7 +2,11 @@
 
 <form id="loginForm" method="post" action="/auth/login{{#if ref}}?ref={{ref}}{{/if}}">
   {{#if error}}
-    <div class="error">{{error}}</div>
+    <div id="error">{{error}}</div>
+  {{/if}}
+
+  {{#if success}}
+  <div id="success">{{success}}</div>
   {{/if}}
   <h2>Login</h2>
   <label>Email
@@ -13,3 +17,4 @@
   </label>
   <button type="submit">Login</button>
 </form>
+

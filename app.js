@@ -131,16 +131,18 @@ setInterval(() => {
     if (res.data.match == true) {
       const userId = res.data.lost.userId;
       const user = await users.getUserById(userId);
+      let email = process.env.EMAIL;
+      let pass = process.env.PASS;
       const smtpTransport = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "redfashion.in@gmail.com",
-          pass: "qsrhrhwvlroirosc",
+          user: email,
+          pass: pass,
         },
       });
 
       let mailOptions = {
-        from: "redfashion.in@gmail.com",
+        from: email,
         to: user.email,
         subject: "MyPaws" + " | MATCH FOUND !",
         text: "contact:" + res.data.found.email + " for you pet information",
